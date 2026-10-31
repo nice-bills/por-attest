@@ -9,5 +9,4 @@ crons = ["*/2 * * * *"]
 
 [[kv_namespaces]]
 binding = "POR_KV"
-# Replace with the deployed namespace id from the Cloudflare dashboard before `npm run deploy`.
-id = "00000000000000000000000000000000"
+id = "f7b6a1023fe7455ea64b1b148768ca59"

@@ -36,11 +36,26 @@ async function latestUsde(previous?: Report): Promise<Report | undefined> {
   return seed;
 }
 
+// Newer reports written to KV by the attestation job, laid over the bundled seed data.
+async function storedReports(env: Env): Promise<Record<string, Report>> {
+  const stored = await env.POR_KV.get<{ attestations: Record<string, Partial<Report>> }>("attestations", "json").catch(() => null);
+  const reports: Record<string, Report> = {};
+  for (const [asset, report] of Object.entries(stored?.attestations ?? {})) {
+    const seed = latestReport(asset);
+    if (seed && report.report_date && report.report_date >= seed.report_date) reports[asset] = { ...seed, ...report };
+  }
+  return reports;
+}
+
 export async function refreshSnapshot(env: Env): Promise<Snapshot> {
   const previous = await loadSnapshot(env);
-  const [reads, usde] = await Promise.all([readAssets([...FEEDS, ...ISSUERS], env.SOLANA_RPC_URL), latestUsde(previous?.reports.USDe)]);
+  const [reads, usde, reports] = await Promise.all([
+    readAssets([...FEEDS, ...ISSUERS], env.SOLANA_RPC_URL),
+    latestUsde(previous?.reports.USDe),
+    storedReports(env),
+  ]);
   refreshing = false;
-  const snapshot: Snapshot = { generated_at: new Date().toISOString(), reads, reports: usde ? { USDe: usde } : {} };
+  const snapshot: Snapshot = { generated_at: new Date().toISOString(), reads, reports: usde ? { ...reports, USDe: usde } : reports };
   await env.POR_KV.put(KEY, JSON.stringify(snapshot));
   cached = { at: Date.now(), snapshot };
   return snapshot;

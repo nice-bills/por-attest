@@ -4,7 +4,7 @@ import { buildAnswer } from "../src/answer";
 import { findAsset } from "../src/catalog";
 import worker, { app, type Env } from "../src/index";
 import { disagrees, readChain } from "../src/rpc";
-import { needsRefresh, readFor, resetSnapshotCache, type Snapshot } from "../src/snapshot";
+import { needsRefresh, readFor, refreshSnapshot, resetSnapshotCache, type Snapshot } from "../src/snapshot";
 
 const word = (n: bigint) => `0x${n.toString(16).padStart(64, "0")}` as Hex;
 const now = new Date("2026-10-31T12:00:00Z");
@@ -130,5 +130,22 @@ describe("pinned lookups", () => {
   it("refuses a malformed round id before any read", async () => {
     const res = await app.request("/reserve?asset=WBTC&round_id=abc", {}, env, ctx);
     expect(res.status).toBe(400);
+  });
+});
+
+describe("stored reports", () => {
+  const stored = (usdc: object) => ({
+    POR_KV: { get: async (key: string) => (key === "attestations" ? { attestations: { USDC: usdc } } : null), put: async () => {} },
+  }) as unknown as Env;
+
+  it("uses a newer report from KV and keeps the seed's stale limit", async () => {
+    mockRpc(() => new Error("down"));
+    const out = await refreshSnapshot(stored({ report_date: "2026-10-31", reserves: 80, supply_reported: 79 }));
+    expect(out.reports.USDC).toMatchObject({ reserves: 80, stale_after_days: 76 });
+  });
+  it("ignores an older one", async () => {
+    mockRpc(() => new Error("down"));
+    const out = await refreshSnapshot(stored({ report_date: "2020-01-01", reserves: 1 }));
+    expect(out.reports.USDC).toBeUndefined();
   });
 });

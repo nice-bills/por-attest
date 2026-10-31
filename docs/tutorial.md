@@ -195,8 +195,8 @@ There are three fixture modes:
 
 ## Limitations
 
-- Issuer reports are stored in `src/data/attestations.json` and are updated by hand when a new one
-  is published. A report past its limit makes the answer `unverified`. Only USDe refreshes itself.
+- Issuer reports come from the `attestations` KV key, written by a separate job, on top of the
+  seed data in `src/data/attestations.json`. A report past its limit makes the answer `unverified`.
 - Stored report figures were captured from the earlier deployed Worker and have not been checked
   again against the source PDFs.
 - `live_comparison` may be partial. USDC and USDT live on many more chains than we read, so a
