@@ -15,7 +15,7 @@ const MINER = process.env.POR_ATTEST_URL ?? "https://por-attest.alnicewilliams3.
 
 const args = process.argv.slice(2);
 const dryRun = args.includes("--dry-run");
-const assets = args.filter((a) => !a.startsWith("--"));
+const assets = args.filter((a: string) => !a.startsWith("--"));
 if (assets.length === 0) throw new Error("Usage: npm run buyer -- [--dry-run] <asset> [asset...]");
 
 const decoded = (value?: string) => (value ? JSON.parse(Buffer.from(value, "base64").toString()) : null);
