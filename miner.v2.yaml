@@ -1,0 +1,90 @@
+# por-attest miner config for Telegraph v2 (Anjoman).
+# Starting point only: fill in the TODOs, then validate at
+# POST https://integrate.telegraphprotocol.com/api/validate before registering.
+# The schema is closed: do not add keys that are not in the v2 docs.
+
+version: "1"
+kind: miner
+id: 0                      # TODO: pick an unused numeric id
+slug: por-attest           # TODO: confirm the slug is free (bound to your registering wallet)
+protocol: generic
+name: por-attest
+description: >
+  Proof-of-reserve checks for stablecoins and tokenized assets. Compares the latest
+  attested reserves (Chainlink Proof of Reserve or the issuer's attestation report)
+  with circulating supply read on-chain, and returns the ratio, report age, the source
+  of every figure, and a verdict.
+base_url: https://por-attest.alnicewilliams3.workers.dev
+
+rate_limit_per_sec: 10
+cache_ttl_sec: 60
+circuit_threshold: 5
+circuit_cooldown_seconds: 30
+
+endpoints:
+  - path: /reserve
+    external_path: /reserve
+    method: GET
+    description: >
+      Answers whether an asset's attested reserves back its circulating supply.
+      Returns reserves, supply, collateral ratio, report date and age, the source of each
+      figure (Chainlink feed round or issuer report), block numbers for on-chain reads,
+      and a verdict: fully_backed, under_backed or unverified.
+    intents: [ASSET_RESERVE_ATTESTATION_GENERAL]
+    params:
+      query:
+        required: []
+        optional:
+          - name: question
+            type: string
+            intents: ["*"]
+            description: "Natural-language question, e.g. 'Is USDC fully backed right now?'"
+          - name: asset
+            type: string
+            intents: ["*"]
+            description: "Asset symbol, upper case, e.g. USDC, USDT, WBTC, PAXG. See /assets for the list."
+
+  - path: /supply
+    external_path: /supply
+    method: GET
+    description: >
+      Verifies a token's circulating and total supply on-chain across the chains it lives on.
+      Returns supply per chain and in total, each with chain, block number and timestamp,
+      excluding bridged duplicates and known issuer treasury wallets.
+    intents: [TOKEN_TOTAL_SUPPLY_VERIFY_GENERAL]
+    params:
+      query:
+        required:
+          - name: asset
+            type: string
+            intents: ["*"]
+            description: "Asset symbol, upper case, e.g. USDC. See /assets for the list."
+        optional:
+          - name: chain
+            type: string
+            intents: ["*"]
+            description: "Optional single chain to read, e.g. ethereum, base, arbitrum. Omit for all chains."
+
+  - path: /health
+    external_path: /health
+    method: GET
+    description: Health check. Not intent-routed.
+
+semantics:
+  signal_mapping:
+    label_field: verdict        # TODO: match the actual field names in your response
+    confidence_field: confidence
+    reason_field: summary
+  supported_intents:
+    - ASSET_RESERVE_ATTESTATION_GENERAL
+    - TOKEN_TOTAL_SUPPLY_VERIFY_GENERAL
+
+limitations:
+  - code: stale_report
+    message: "Issuer attestations are monthly; reports older than the asset's stale window return 'unverified'."
+  - code: fixed_asset_list
+    message: "Only assets listed at /assets are supported."
+
+docs:
+  website: https://por-attest.alnicewilliams3.workers.dev
+  repository: TODO            # add the public repo URL
