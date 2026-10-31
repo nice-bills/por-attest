@@ -4,6 +4,8 @@ import type { Env } from "./index";
 import { readAssets, type AssetRead, type Reads } from "./reads";
 
 const KEY = "snapshot:v1";
+// A failed refresh keeps the last good read for this long; its block numbers show its age.
+const KEEP_GOOD_READ_MS = 1_800_000;
 const ISOLATE_CACHE_MS = 15_000;
 // Cron runs every 120s; past this it has missed a beat and a request may refresh instead.
 const REFRESH_AFTER_MS = 180_000;
@@ -47,6 +49,16 @@ async function storedReports(env: Env): Promise<Record<string, Report>> {
   return reports;
 }
 
+export function keepGoodReads(fresh: Reads, previous: Snapshot | null, now: Date): Reads {
+  const merged: Reads = { ...fresh };
+  for (const [key, read] of Object.entries(fresh)) {
+    const old = previous?.reads[key];
+    const at = old?.feed?.block_timestamp ?? old?.supply[0]?.block_timestamp;
+    if (read.unread.length && old && !old.unread.length && at && now.getTime() - Date.parse(at) < KEEP_GOOD_READ_MS) merged[key] = old;
+  }
+  return merged;
+}
+
 export async function refreshSnapshot(env: Env): Promise<Snapshot> {
   const previous = await loadSnapshot(env);
   const [reads, usde, reports] = await Promise.all([
@@ -55,7 +67,7 @@ export async function refreshSnapshot(env: Env): Promise<Snapshot> {
     storedReports(env),
   ]);
   refreshing = false;
-  const snapshot: Snapshot = { generated_at: new Date().toISOString(), reads, reports: usde ? { ...reports, USDe: usde } : reports };
+  const snapshot: Snapshot = { generated_at: new Date().toISOString(), reads: keepGoodReads(reads, previous, new Date()), reports: usde ? { ...reports, USDe: usde } : reports };
   await env.POR_KV.put(KEY, JSON.stringify(snapshot));
   cached = { at: Date.now(), snapshot };
   return snapshot;

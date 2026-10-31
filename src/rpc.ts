@@ -5,6 +5,8 @@ const multicallAbi = parseAbi([
   "struct Call3 { address target; bool allowFailure; bytes callData; }",
   "struct Result { bool success; bytes returnData; }",
   "function aggregate3(Call3[] calls) view returns (Result[])",
+  "function getBlockNumber() view returns (uint256)",
+  "function getCurrentBlockTimestamp() view returns (uint256)",
 ]);
 
 export interface Call {
@@ -39,10 +41,19 @@ export function disagrees(a: (Hex | null)[], b: (Hex | null)[]): boolean {
   });
 }
 
-// Reads from two RPCs: either alone will do, but if both answer they must agree.
+// Takes the first two RPCs that answer, moving down the list past rate limits. Either alone
+// will do, but if two answer they must agree.
 export async function readChain(urls: string[], calls: Call[], multicall: boolean): Promise<ChainRead> {
-  const [first, second] = await Promise.allSettled(urls.slice(0, 2).map((url) => readCalls(url, calls, multicall)));
-  const ok = [first, second].flatMap((r) => (r?.status === "fulfilled" ? [r.value] : []));
+  const ok: ChainRead[] = [];
+  for (const url of urls) {
+    if (ok.length === 2) break;
+    try {
+      const read = await readCalls(url, calls, multicall);
+      if (read.results.some(Boolean)) ok.push(read);
+    } catch (err) {
+      console.error("rpc read failed", url.slice(0, 32), String(err));
+    }
+  }
   const best = ok.sort((x, y) => y.results.filter(Boolean).length - x.results.filter(Boolean).length)[0];
   if (!best) return { block_number: 0, block_timestamp: "", results: calls.map(() => null), failure: "every RPC failed" };
   if (ok.length === 2 && disagrees(ok[0].results, ok[1].results)) return { ...best, failure: "RPCs disagree" };
@@ -63,29 +74,39 @@ export async function rpc(url: string, method: string, params: unknown[]): Promi
 }
 
 export async function readCalls(url: string, calls: Call[], multicall: boolean): Promise<ChainRead> {
-  const block = await rpc(url, "eth_getBlockByNumber", ["latest", false]);
-  const tag = block.number as string;
-  const results = multicall ? await viaMulticall(url, calls, tag) : await oneByOne(url, calls);
-  return {
-    block_number: Number(block.number),
-    block_timestamp: new Date(Number(block.timestamp) * 1000).toISOString(),
-    results,
-  };
+  return multicall ? viaMulticall(url, calls) : oneByOne(url, calls);
 }
 
-async function viaMulticall(url: string, calls: Call[], tag: string): Promise<(Hex | null)[]> {
+const multicallRead = (functionName: "getBlockNumber" | "getCurrentBlockTimestamp"): Call => ({
+  to: MULTICALL3,
+  data: encodeFunctionData({ abi: multicallAbi, functionName }),
+});
+
+// One HTTP request per chain, with block and timestamp from the same state as the reads.
+async function viaMulticall(url: string, calls: Call[]): Promise<ChainRead> {
+  const all = [multicallRead("getBlockNumber"), multicallRead("getCurrentBlockTimestamp"), ...calls];
   const data = encodeFunctionData({
     abi: multicallAbi,
     functionName: "aggregate3",
-    args: [calls.map((c) => ({ target: c.to as Hex, allowFailure: true, callData: c.data }))],
+    args: [all.map((c) => ({ target: c.to as Hex, allowFailure: true, callData: c.data }))],
   });
-  const raw = await rpc(url, "eth_call", [{ to: MULTICALL3, data }, tag]);
+  const raw = await rpc(url, "eth_call", [{ to: MULTICALL3, data }, "latest"]);
   const decoded = decodeFunctionResult({ abi: multicallAbi, functionName: "aggregate3", data: raw });
-  return decoded.map((r) => (r.success && r.returnData !== "0x" ? r.returnData : null));
+  const [number, timestamp, ...rest] = decoded.map((r) => (r.success && r.returnData !== "0x" ? r.returnData : null));
+  return {
+    block_number: Number(number),
+    block_timestamp: new Date(Number(timestamp) * 1000).toISOString(),
+    results: rest,
+  };
 }
 
-async function oneByOne(url: string, calls: Call[]): Promise<(Hex | null)[]> {
-  // Non-multicall chains (Tron) only answer eth_call at "latest", so tag is not used.
+// Non-multicall chains (Tron) only answer eth_call at "latest".
+async function oneByOne(url: string, calls: Call[]): Promise<ChainRead> {
+  const block = await rpc(url, "eth_getBlockByNumber", ["latest", false]);
   const out = await Promise.allSettled(calls.map((c) => rpc(url, "eth_call", [c, "latest"])));
-  return out.map((r) => (r.status === "fulfilled" && r.value !== "0x" ? (r.value as Hex) : null));
+  return {
+    block_number: Number(block.number),
+    block_timestamp: new Date(Number(block.timestamp) * 1000).toISOString(),
+    results: out.map((r) => (r.status === "fulfilled" && r.value !== "0x" ? (r.value as Hex) : null)),
+  };
 }

@@ -4,7 +4,7 @@ import { buildAnswer } from "../src/answer";
 import { findAsset } from "../src/catalog";
 import worker, { app, type Env } from "../src/index";
 import { disagrees, readChain } from "../src/rpc";
-import { needsRefresh, readFor, refreshSnapshot, resetSnapshotCache, type Snapshot } from "../src/snapshot";
+import { keepGoodReads, needsRefresh, readFor, refreshSnapshot, resetSnapshotCache, type Snapshot } from "../src/snapshot";
 
 const word = (n: bigint) => `0x${n.toString(16).padStart(64, "0")}` as Hex;
 const now = new Date("2026-10-31T12:00:00Z");
@@ -54,11 +54,29 @@ describe("readChain", () => {
     mockRpc((url, body) => (body.method === "eth_call" ? word(url === "a" ? 100n : 200n) : block));
     expect((await readChain(["a", "b"], [call], false)).failure).toBe("RPCs disagree");
   });
+  it("moves past a rate-limited RPC to the next", async () => {
+    mockRpc((url, body) => (url === "a" ? new Error("429") : body.method === "eth_call" ? word(9n) : block));
+    const out = await readChain(["a", "b", "c"], [call], false);
+    expect(out.failure).toBeUndefined();
+    expect(vi.mocked(fetch).mock.calls.some((c) => c[0] === "c")).toBe(true);
+  });
   it("reports total failure without throwing", async () => {
     mockRpc(() => new Error("down"));
     const out = await readChain(["a", "b"], [call], false);
     expect(out.failure).toBe("every RPC failed");
     expect(out.results).toEqual([null]);
+  });
+});
+
+describe("keepGoodReads", () => {
+  const good = { feed: { block_timestamp: "2026-10-31T11:50:00Z" } as any, supply: [], unread: [] };
+  const bad = { supply: [], unread: [{ chain: "ethereum", reason: "every RPC failed" }] };
+  const prior = (read: object): Snapshot => ({ generated_at: "x", reads: { A: read as any }, reports: {} });
+  it("keeps a recent good read over a failed one", () => {
+    expect(keepGoodReads({ A: bad }, prior(good), now).A).toBe(good);
+  });
+  it("lets an old read expire", () => {
+    expect(keepGoodReads({ A: bad }, prior(good), new Date("2026-10-31T13:00:00Z")).A).toBe(bad);
   });
 });
 
