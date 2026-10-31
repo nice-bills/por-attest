@@ -18,3 +18,8 @@ npm test
 
 Layout: `src/` is the Worker, `src/data/` the asset and report data, `fixtures/` the mission cases,
 `buyer/` our labelled buyer app, `e2e/` tests against a running Worker.
+
+## Register (testnet)
+
+`.env` is gitignored and holds separate throwaway miner and buyer wallets. Fund the miner address
+with Sepolia ETH, deploy, then run `scripts/register.sh`.

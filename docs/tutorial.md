@@ -190,7 +190,7 @@ There are three fixture modes:
 - Calling the miner directly is free.
 - A routed Telegraph call cost $0.01 in test USDC in the challenge we observed. The real price is the
   amount in each 402 challenge: the miner's floor times a demand multiplier.
-- Our floor price is set at registration and is not set yet.
+- `scripts/register.sh` sets our floor to $0.01, the protocol minimum.
 - Our running cost is one Cloudflare Worker, one KV namespace and any Solana RPC plan.
 
 ## Limitations
