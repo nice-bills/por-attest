@@ -38,7 +38,7 @@ async function latestUsde(previous?: Report): Promise<Report | undefined> {
 
 export async function refreshSnapshot(env: Env): Promise<Snapshot> {
   const previous = await loadSnapshot(env);
-  const [reads, usde] = await Promise.all([readAssets([...FEEDS, ...ISSUERS]), latestUsde(previous?.reports.USDe)]);
+  const [reads, usde] = await Promise.all([readAssets([...FEEDS, ...ISSUERS], env.SOLANA_RPC_URL), latestUsde(previous?.reports.USDe)]);
   refreshing = false;
   const snapshot: Snapshot = { generated_at: new Date().toISOString(), reads, reports: usde ? { USDe: usde } : {} };
   await env.POR_KV.put(KEY, JSON.stringify(snapshot));

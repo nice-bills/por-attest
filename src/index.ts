@@ -10,6 +10,7 @@ import { buildSupply } from "./supply";
 
 export interface Env {
   POR_KV: KVNamespace;
+  SOLANA_RPC_URL?: string;
 }
 
 export const app = new Hono<{ Bindings: Env }>();

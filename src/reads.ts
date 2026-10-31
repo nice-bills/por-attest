@@ -2,6 +2,7 @@ import { decodeFunctionResult, encodeFunctionData, formatUnits, parseAbi, parseU
 import { CHAINS } from "./chains";
 import { BRIDGED, type Asset, type TokenRef } from "./catalog";
 import { readChain, type Call, type ChainRead } from "./rpc";
+import { readSolana, type SolanaJob } from "./solana";
 
 const abi = parseAbi([
   "function latestRoundData() view returns (uint80 roundId, int256 answer, uint256 startedAt, uint256 updatedAt, uint80 answeredInRound)",
@@ -61,9 +62,10 @@ const encode = (fn: "latestRoundData" | "decimals" | "totalSupply", to: string):
   data: encodeFunctionData({ abi, functionName: fn }),
 });
 
-export async function readAssets(assets: Asset[]): Promise<Reads> {
+export async function readAssets(assets: Asset[], solanaUrl?: string): Promise<Reads> {
   const byChain = new Map<string, { call: Call; apply: (hex: Hex | null, at: ChainRead) => void }[]>();
   const reads: Reads = {};
+  const solana: SolanaJob[] = [];
   const add = (chain: string, call: Call, apply: (hex: Hex | null, at: ChainRead) => void) => {
     byChain.set(chain, [...(byChain.get(chain) ?? []), { call, apply }]);
   };
@@ -73,6 +75,10 @@ export async function readAssets(assets: Asset[]): Promise<Reads> {
     reads[asset.key] = read;
     if (asset.kind === "feed") addFeed(asset.feed, asset.chain, read, add);
     for (const token of asset.tokens) {
+      if (token.chain === "solana") {
+        solana.push({ mint: token.token, read });
+        continue;
+      }
       if (!CHAINS[token.chain]) {
         read.unread.push({ chain: token.chain, reason: "no reader for this chain" });
         continue;
@@ -81,12 +87,13 @@ export async function readAssets(assets: Asset[]): Promise<Reads> {
     }
   }
 
-  await Promise.all(
-    [...byChain].map(async ([chain, jobs]) => {
+  await Promise.all([
+    readSolana(solana, solanaUrl),
+    ...[...byChain].map(async ([chain, jobs]) => {
       const at = await readChain(CHAINS[chain].rpcs, jobs.map((j) => j.call), CHAINS[chain].multicall);
       jobs.forEach((job, i) => job.apply(at.failure ? null : at.results[i], at));
     }),
-  );
+  ]);
   return reads;
 }
 
