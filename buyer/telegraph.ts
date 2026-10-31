@@ -1,8 +1,13 @@
 // Calls Telegraph over x402 on Ethereum Sepolia (testnet USDC). Needs BUYER_PRIVATE_KEY.
 import { readFileSync } from "node:fs";
+import { ExactEvmScheme } from "@x402/evm";
+import { wrapFetchWithPaymentFromConfig } from "@x402/fetch";
+import { privateKeyToAccount } from "viem/accounts";
+
+const SEPOLIA = "eip155:11155111";
 
 export const NODE = process.env.TELEGRAPH_NODE ?? "https://devnode.telegraphprotocol.com";
-const MINER_ID = readFileSync("miner.yaml", "utf8").match(/^id: (\d+)/m)?.[1];
+export const MINER_ID = readFileSync("miner.yaml", "utf8").match(/^id: (\d+)/m)?.[1];
 
 export interface Reply {
   status: number;
@@ -13,7 +18,8 @@ export interface Reply {
 async function payingFetch(): Promise<typeof fetch> {
   const key = process.env.BUYER_PRIVATE_KEY;
   if (!key) throw new Error("BUYER_PRIVATE_KEY is not set");
-  throw new Error("x402 client not wired yet");
+  const account = privateKeyToAccount(key as `0x${string}`);
+  return wrapFetchWithPaymentFromConfig(fetch, { schemes: [{ network: SEPOLIA, client: new ExactEvmScheme(account) }] });
 }
 
 async function post(url: string, payload: unknown, pay: typeof fetch): Promise<Reply> {
