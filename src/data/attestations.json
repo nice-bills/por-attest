@@ -1,0 +1,80 @@
+{
+ "USDC": [
+  {
+   "kind": "independent_attestation",
+   "attestor": "Independent accountants' examination (Big Four firm per Circle; AICPA attestation standards)",
+   "report_date": "2026-09-30",
+   "cadence": "monthly",
+   "stale_after_days": 76,
+   "report_url": "https://6778953.fs1.hubspotusercontent-na1.net/hubfs/6778953/USDCAttestationReports/2026/2026%20USDC_Examination%20Report%20September%2026.pdf",
+   "page_url": "https://www.circle.com/transparency",
+   "reserves": 73956687701.0,
+   "supply_reported": 73878861314.0
+  }
+ ],
+ "USDT": [
+  {
+   "kind": "independent_attestation",
+   "attestor": "BDO (ISAE 3000R assurance opinion, quarterly)",
+   "report_date": "2026-09-30",
+   "cadence": "quarterly",
+   "stale_after_days": 167,
+   "report_url": "https://assets.ctfassets.net/vyse88cgwfbl/7nQYtcoP9GxIUFSyro2dGK/8d0521470b9e99c8c0831019cabea4ee/ISAE_3000R_-_Opinion_Tether_International_Financial_Figure_30-09-2026.pdf",
+   "page_url": "https://tether.to/en/transparency/",
+   "reserves": 191451091374.0,
+   "supply_reported": 183496460904.0
+  }
+ ],
+ "XAUT": [
+  {
+   "kind": "independent_attestation",
+   "attestor": "BDO (ISAE 3000R assurance opinion, quarterly)",
+   "report_date": "2026-06-30",
+   "cadence": "quarterly",
+   "stale_after_days": 167,
+   "report_url": "https://gold.tether.to/docs/reports/attestations/ISAE_3000R_-_Opinion_TGRR_30.06.2026_RC187322026DV0170.pdf",
+   "page_url": "https://gold.tether.to/",
+   "reserves": 707747.139,
+   "supply_reported": 707747.09
+  }
+ ],
+ "PAXG": [
+  {
+   "kind": "independent_attestation",
+   "attestor": "KPMG LLP (monthly examination, AICPA criteria)",
+   "report_date": "2026-09-30",
+   "cadence": "monthly",
+   "stale_after_days": 76,
+   "report_url": "https://framerusercontent.com/assets/uwWybrLRlgkC4vexP3yLyrQVeV0.pdf",
+   "page_url": "https://www.paxos.com/paxg-transparency",
+   "reserves": 435306.0,
+   "supply_reported": 435306.0
+  }
+ ],
+ "PYUSD": [
+  {
+   "kind": "independent_attestation",
+   "attestor": "KPMG LLP (monthly examination, AICPA criteria)",
+   "report_date": "2026-09-30",
+   "cadence": "monthly",
+   "stale_after_days": 76,
+   "report_url": "https://framerusercontent.com/assets/UZ8Eke3FvB5npXyceLEmiLRV6k.pdf",
+   "page_url": "https://www.paxos.com/pyusd-transparency",
+   "reserves": 2754709360.0,
+   "supply_reported": 2747625868.0
+  }
+ ],
+ "USDe": [
+  {
+   "kind": "issuer_disclosure",
+   "attestor": null,
+   "report_date": "2026-10-31",
+   "cadence": "daily",
+   "stale_after_days": 3,
+   "report_url": "https://ethena.fi/api/positions/current/collateral?latest=true",
+   "page_url": "https://app.ethena.fi/dashboards/transparency",
+   "reserves": 5251729790.75,
+   "supply_reported": null
+  }
+ ]
+}

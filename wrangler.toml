@@ -1,0 +1,10 @@
+name = "por-attest"
+main = "src/index.ts"
+compatibility_date = "2026-10-01"
+
+rules = [{ type = "Text", globs = ["**/*.yaml", "**/*.html"], fallthrough = true }]
+
+[[kv_namespaces]]
+binding = "POR_KV"
+# Replace with the deployed namespace id from the Cloudflare dashboard before `npm run deploy`.
+id = "00000000000000000000000000000000"

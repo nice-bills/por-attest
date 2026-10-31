@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>por-attest: reserve assay for stablecoins and tokenised assets</title>
+<meta name="description" content="Ask whether a stablecoin, wrapped asset or tokenised gold is fully backed. Reads Chainlink Proof of Reserve feeds and issuer attestations against live on-chain supply.">
+<meta name="theme-color" content="#f1ebdd">
+<link rel="preload" href="/fonts/Newsreader-normal-400_600.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fonts/fonts.css">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header class="masthead">
+  <div class="wrap">
+    <a class="mark" href="/">por-attest<small>Reserve assay office</small></a>
+    <nav aria-label="Main">
+      <a href="#register">Register</a>
+      <a href="#method">Method</a>
+      <a href="/assets">API</a>
+    </nav>
+  </div>
+</header>
+<div class="subhead">
+  <div class="wrap"><span>A Telegraph miner for ASSET_RESERVE_ATTESTATION</span><span id="clock">Readings are live, nothing is cached for more than five minutes</span></div>
+</div>
+
+<main>
+  <section class="enquiry">
+    <div class="wrap enquiry-grid">
+      <div>
+        <span class="label">Enquiry desk</span>
+        <h1>Is it fully backed, <em>right now?</em></h1>
+        <p class="lede">Name a stablecoin, wrapped coin or tokenised gold. The office reads its latest reserve report and the supply on-chain at this moment, weighs one against the other and issues a certificate.</p>
+        <form class="ask" id="ask" autocomplete="off">
+          <label class="label" for="q">Your question</label>
+          <div class="ask-row">
+            <input id="q" name="q" type="text" maxlength="300" placeholder="Is USDC fully backed?" required>
+            <button type="submit" id="ask-btn">Assay</button>
+          </div>
+        </form>
+        <div class="examples">
+          <span class="label">Or try one of these</span>
+          <ul>
+            <li><button type="button" data-q="Do the attested reserves behind USDC cover its circulating supply as of the latest proof-of-reserves report?">Do the attested reserves behind USDC cover its circulating supply?</button></li>
+            <li><button type="button" data-q="Is WBTC fully backed right now?">Is WBTC fully backed right now?</button></li>
+            <li><button type="button" data-q="Is Tether Gold backed by vaulted gold?">Is Tether Gold backed by vaulted gold?</button></li>
+            <li><button type="button" data-q="Is cbBTC on Base fully backed?">Is cbBTC on Base fully backed?</button></li>
+          </ul>
+        </div>
+      </div>
+      <div class="certificate" id="certificate" aria-live="polite" aria-busy="false">
+        <div class="cert-head"><span class="label">Certificate of assay</span><span class="label" id="cert-no">Not yet issued</span></div>
+        <div class="cert-blank">
+          <div class="beam beam-rest" id="beam-rest" aria-hidden="true"></div>
+          <p>Ask a question and the scales are loaded: the reserve figure on one pan, today's circulating supply on the other. The certificate records the ratio, the report's age and every source read.</p>
+          <p>A report too old, or a supply that cannot be compared, is certified <em>unverified</em> rather than guessed.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="register">
+    <div class="wrap">
+      <div class="block-head">
+        <div><span class="label">The register</span><h2>Every asset on file</h2></div>
+        <p>Each entry is weighed live when this page opens: the reserve figure against today's circulating supply. Select an asset to issue its full certificate.</p>
+      </div>
+      <div class="register-group">
+        <h3><span>Issuer attestations</span><span id="count-issuer"></span></h3>
+        <table class="register" id="reg-issuer">
+          <thead><tr><th>Asset</th><th>Reserve report</th><th class="r">Ratio</th><th class="r">Report age</th><th class="verdict">Verdict</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="register-group">
+        <h3><span>Chainlink Proof of Reserve</span><span id="count-chainlink"></span></h3>
+        <table class="register" id="reg-chainlink">
+          <thead><tr><th>Asset</th><th>Feed</th><th class="r">Ratio</th><th class="r">Report age</th><th class="verdict">Verdict</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <details class="more" id="more">
+        <summary>Feeds read without a supply comparison</summary>
+        <p id="more-list"></p>
+      </details>
+    </div>
+  </section>
+
+  <section class="block" id="method">
+    <div class="wrap">
+      <div class="block-head">
+        <div><span class="label">Method</span><h2>How a certificate is made</h2></div>
+        <p>Plain arithmetic on public records. Nothing is estimated, and every figure links back to where it was read.</p>
+      </div>
+      <ol class="method">
+        <li><h3>Read the reserve figure</h3><p>For wrapped and bridged assets, the Chainlink Proof of Reserve feed on-chain (its latest round and timestamp). For USDC, USDT, PAXG, PYUSD, XAUT and USDe, the issuer's latest accountant's report or reserve dashboard.</p></li>
+        <li><h3>Read the supply, live</h3><p>The token's total supply on every chain where it is issued, read at the moment you ask, net of balances the issuer discloses as unissued treasury stock.</p></li>
+        <li><h3>Weigh and date-stamp</h3><p>Reserves divided by supply gives the ratio. A feed past its heartbeat or a report past its publishing cycle is marked unverified, and growth in supply since the report date is called out.</p></li>
+      </ol>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>por-attest answers <span class="mono">GET /reserve?question=</span> for the Telegraph network. Not financial advice.</span>
+    <nav aria-label="Legal and API">
+      <a href="/terms">Terms of Service</a>
+      <a href="/privacy">Privacy Policy</a>
+      <a href="/health">Health</a>
+      <a href="/assets">Assets JSON</a>
+    </nav>
+  </div>
+</footer>
+<script src="/app.js" defer></script>
+</body>
+</html>

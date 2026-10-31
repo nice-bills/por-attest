@@ -1,0 +1,22 @@
+{
+  "name": "por-attest",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev --test-scheduled",
+    "deploy": "wrangler deploy",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "hono": "^4.13.14",
+    "viem": "^2.57.13"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20261031.1",
+    "typescript": "^5.9.0",
+    "vitest": "^5.0.5",
+    "wrangler": "^4.156.0"
+  }
+}

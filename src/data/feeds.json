@@ -1,0 +1,1304 @@
+[
+ {
+  "asset": "FBTC",
+  "name": "FBTC Proof of Reserves",
+  "chain": "arbitrum",
+  "feed": "0xfb010c715Ff2B85DB9c896f0C030bF9329638905",
+  "heartbeat_seconds": 86400,
+  "comparable": false,
+  "unit": "BTC",
+  "tokens": [
+   {
+    "chain": "ethereum",
+    "token": "0xC96dE26018A54D51c097160568752c4E3BD6C364",
+    "decimals": 8
+   },
+   {
+    "chain": "base",
+    "token": "0xC96dE26018A54D51c097160568752c4E3BD6C364",
+    "decimals": 8
+   },
+   {
+    "chain": "arbitrum",
+    "token": "0xC96dE26018A54D51c097160568752c4E3BD6C364",
+    "decimals": 8
+   },
+   {
+    "chain": "bsc",
+    "token": "0xC96dE26018A54D51c097160568752c4E3BD6C364",
+    "decimals": 8
+   },
+   {
+    "chain": "mantle",
+    "token": "0xC96dE26018A54D51c097160568752c4E3BD6C364",
+    "decimals": 8
+   },
+   {
+    "chain": "mantle",
+    "token": "0xC96dE26018A54D51c097160568752c4E3BD6C364",
+    "decimals": 8
+   }
+  ]
+ },
+ {
+  "asset": "iBTC",
+  "name": "iBTC Proof of Reserves",
+  "chain": "arbitrum",
+  "feed": "0x0543Bb6b5A57E3e7569237b67321eAB773e41401",
+  "heartbeat_seconds": 86400,
+  "comparable": true,
+  "unit": "BTC",
+  "tokens": [
+   {
+    "chain": "arbitrum",
+    "token": "0x050C24dBf1eEc17babE5fc585F06116A259CC77A",
+    "decimals": 8
+   }
+  ]
+ },
+ {
+  "asset": "AAVE.e",
+  "name": "AAVE.e Proof of Reserves",
+  "chain": "avalanche",
+  "feed": "0x14C4c668E34c09E1FBA823aD5DB47F60aeBDD4F7",
+  "heartbeat_seconds": 86400,
+  "comparable": true,
+  "unit": "AAVE",
+  "tokens": [
+   {
+    "chain": "avalanche",
+    "token": "0x63a72806098Bd3D9520cC43356dD78afe5D386D9",
+    "decimals": 18
+   }
+  ]
+ },
+ {
+  "asset": "DAI.e",
+  "name": "DAI.e Proof of Reserves",
+  "chain": "avalanche",
+  "feed": "0x976D7fAc81A49FA71EF20694a3C56B9eFB93c30B",
+  "heartbeat_seconds": 86400,
+  "comparable": true,
+  "unit": "DAI",
+  "tokens": [
+   {
+    "chain": "avalanche",
+    "token": "0xd586E7F844cEa2F87f50152665BCbc2C279D8d70",
+    "decimals": 18
+   }
+  ]
+ },
+ {
+  "asset": "LINK.e",
+  "name": "LINK.e Proof of Reserves",
+  "chain": "avalanche",
+  "feed": "0x943cEF1B112Ca9FD7EDaDC9A46477d3812a382b6",
+  "heartbeat_seconds": 86400,
+  "comparable": true,
+  "unit": "LINK",
+  "tokens": [
+   {
+    "chain": "avalanche",
+    "token": "0x5947BB275c521040051D82396192181b413227A3",
+    "decimals": 18
+   }
+  ]
+ },
+ {
+  "asset": "BTC.b",
+  "name": "Lombard BTC.b Reserves",
+  "chain": "avalanche",
+  "feed": "0xaaac35A8E89aB5708B7310aBEe44796e09A9e104",
+  "heartbeat_seconds": 86400,
+  "comparable": true,
+  "unit": "BTC",
+  "tokens": [
+   {
+    "chain": "avalanche",
+    "token": "0x152b9d0FdC40C096757F570A51E494bd4b943E50",
+    "decimals": 8
+   }
+  ]
+ },
+ {
+  "asset": "USDC.e",
+  "name": "USDC.e Proof of Reserves",
+  "chain": "avalanche",
+  "feed": "0x63769951E4cfDbDC653dD9BBde63D2Ce0746e5F2",
+  "heartbeat_seconds": 86400,
+  "comparable": true,
+  "unit": "USDC",
+  "tokens": [
+   {
+    "chain": "avalanche",
+    "token": "0xA7D7079b0FEaD91F3e65f86E8915Cb59c1a4C664",
+    "decimals": 6
+   }
+  ]
+ },
+ {
+  "asset": "USDT.e",
+  "name": "USDT.e Proof of Reserves",
+  "chain": "avalanche",
+  "feed": "0x94D8c2548018C27F1aa078A23C4158206bE1CC72",
+  "heartbeat_seconds": 86400,
+  "comparable": true,
+  "unit": "USDT",
+  "tokens": [
+   {
+    "chain": "avalanche",
+    "token": "0xc7198437980c041c805A1EDcbA50c1Ce5db95118",
+    "decimals": 6
+   }
+  ]
+ },
+ {
+  "asset": "WBTC.e",
+  "name": "WBTC.e Proof of Reserves",
+  "chain": "avalanche",
+  "feed": "0xebEfEAA58636DF9B20a4fAd78Fad8759e6A20e87",
+  "heartbeat_seconds": 86400,
+  "comparable": true,
+  "unit": "BTC",
+  "tokens": [
+   {
+    "chain": "avalanche",
+    "token": "0x50b7545627a5162F82A992c33b87aDc75187B218",
+    "decimals": 8
+   }
+  ]
+ },
+ {
+  "asset": "WETH.e",
+  "name": "WETH.e Proof of Reserves",
+  "chain": "avalanche",
+  "feed": "0xDDaf9290D057BfA12d7576e6dADC109421F31948",
+  "heartbeat_seconds": 86400,
+  "comparable": true,
+  "unit": "ETH",
+  "tokens": [
+   {
+    "chain": "avalanche",
+    "token": "0x49D5c2BdFfac6CE2BFdB6640F4F80f226bc10bAB",
+    "decimals": 18
+   }
+  ]
+ },
+ {
+  "asset": "cbBTC",
+  "name": "cbBTC Reserves",
+  "chain": "base",
+  "feed": "0x0F8E057D1D7b282EF968D26E9cB432617dF52519",
+  "heartbeat_seconds": 86400,
+  "comparable": true,
+  "unit": "BTC",
+  "tokens": [
+   {
+    "chain": "ethereum",
+    "token": "0xcbB7C0000aB88B473b1f5aFd9ef808440eed33Bf",
+    "decimals": 8
+   },
+   {
+    "chain": "base",
+    "token": "0xcbB7C0000aB88B473b1f5aFd9ef808440eed33Bf",
+    "decimals": 8
+   },
+   {
+    "chain": "arbitrum",
+    "token": "0xcbB7C0000aB88B473b1f5aFd9ef808440eed33Bf",
+    "decimals": 8
+   }
+  ]
+ },
+ {
+  "asset": "FRNT",
+  "name": "FRNT Proof of Reserves",
+  "chain": "base",
+  "feed": "0xB93901c344325f89630C56458eD1dD27a76a2FCd",
+  "heartbeat_seconds": 86400,
+  "comparable": true,
+  "unit": "USD",
+  "tokens": [
+   {
+    "chain": "ethereum",
+    "token": "0x5E817F2AbCCB9095585D26c2a3ce234a440574Fc",
+    "decimals": 6
+   },
+   {
+    "chain": "base",
+    "token": "0x5E817F2AbCCB9095585D26c2a3ce234a440574Fc",
+    "decimals": 6
+   },
+   {
+    "chain": "arbitrum",
+    "token": "0x5E817F2AbCCB9095585D26c2a3ce234a440574Fc",
+    "decimals": 6
+   },
+   {
+    "chain": "optimism",
+    "token": "0x5E817F2AbCCB9095585D26c2a3ce234a440574Fc",
+    "decimals": 6
+   },
+   {
+    "chain": "polygon",
+    "token": "0x5E817F2AbCCB9095585D26c2a3ce234a440574Fc",
+    "decimals": 6
+   },
+   {
+    "chain": "avalanche",
+    "token": "0x5E817F2AbCCB9095585D26c2a3ce234a440574Fc",
+    "decimals": 6
+   }
+  ]
+ },
+ {
+  "asset": "GLDY",
+  "name": "GLDY Reserves",
+  "chain": "base",
+  "feed": "0xf488FA1B4Ac8210bf0b2d212176ca28c48F86708",
+  "heartbeat_seconds": 86400,
+  "comparable": true,
+  "unit": null,
+  "tokens": [
+   {
+    "chain": "base",
+    "token": "0x632db1aAaCe73401a5dc8cDE6e9062B8eC0FD819",
+    "decimals": 18
+   }
+  ]
+ },
+ {
+  "asset": "iBTC",
+  "name": "iBTC Proof of Reserves",
+  "chain": "base",
+  "feed": "0x7FCED5198e43ec93Ef2179DFC70a8dcf494DcB80",
+  "heartbeat_seconds": 86400,
+  "comparable": false,
+  "unit": "BTC",
+  "tokens": [
+   {
+    "chain": "base",
+    "token": "0x12418783e860997eb99e8aCf682DF952F721cF62",
+    "decimals": 8
+   }
+  ]
+ },
+ {
+  "asset": "USDO",
+  "name": "USDO Reserves",
+  "chain": "base",
+  "feed": "0x5218Ebeb96bD2bAFe21F9b143f5672552629ba79",
+  "heartbeat_seconds": 86400,
+  "comparable": true,
+  "unit": "U.S. Treasury Bills",
+  "tokens": [
+   {
+    "chain": "ethereum",
+    "token": "0x8238884Ec9668Ef77B90C6dfF4D1a9F4F4823BFe",
+    "decimals": 18
+   },
+   {
+    "chain": "base",
+    "token": "0xaD55aebc9b8c03FC43cd9f62260391c13c23e7c0",
+    "decimals": 18
+   },
+   {
+    "chain": "bsc",
+    "token": "0x302e52AFf9815B9D1682473DBFB9C74F9B750AA8",
+    "decimals": 18
+   }
+  ]
+ },
+ {
+  "asset": "enzoBTC",
+  "name": "enzoBTC Proof of Reserves",
+  "chain": "bsc",
+  "feed": "0xEC5BF47f443d92b1BedF9058A472d91461e4F9b3",
+  "heartbeat_seconds": 86400,
+  "comparable": true,
+  "unit": "BTC",
+  "tokens": [
+   {
+    "chain": "bsc",
+    "token": "0x6A9A65B84843F5fD4aC9a0471C4fc11AFfFBce4a",
+    "decimals": 8
+   }
+  ]
+ },
+ {
+  "asset": "SolvBTC",
+  "name": "Solv Proof of Reserves",
+  "chain": "bsc",
+  "feed": "0x81ca991cEf14e7bFB3fa8cc70303a2DEaEb09A42",
+  "heartbeat_seconds": 86400,
+  "comparable": false,
+  "unit": "BTC",
+  "tokens": [
+   {
+    "chain": "bsc",
+    "token": "0x4aae823a6a0b376De6A78e74eCC5b079d38cBCf7",
+    "decimals": 18
+   }
+  ]
+ },
+ {
+  "asset": "SolvBTC",
+  "name": "SolvBTC Proof of Reserves",
+  "chain": "bsc",
+  "feed": "0x657b128a4936542A48a40C320BFfa3F44043583a",
+  "heartbeat_seconds": 86400,
+  "comparable": false,
+  "unit": null,
+  "tokens": []
+ },
+ {
+  "asset": "U (United Stables)",
+  "name": "United Stables U Reserves",
+  "chain": "bsc",
+  "feed": "0xFa8e834DD2200923C706e6438d9030dB029B0c18",
+  "heartbeat_seconds": 86400,
+  "comparable": true,
+  "unit": "USD",
+  "tokens": [
+   {
+    "chain": "bsc",
+    "token": "0xcE24439F2D9C6a2289F741120FE202248B666666",
+    "decimals": 18
+   },
+   {
+    "chain": "ethereum",
+    "token": "0xcE24439F2D9C6a2289F741120FE202248B666666",
+    "decimals": 18
+   }
+  ]
+ },
+ {
+  "asset": "USDu",
+  "name": "USDu Reserves",
+  "chain": "bsc",
+  "feed": "0x2577638066F86C235E2c93bcdE24D5BC849f337E",
+  "heartbeat_seconds": 86400,
+  "comparable": true,
+  "unit": null,
+  "tokens": [
+   {
+    "chain": "bsc",
+    "token": "0xeA953eA6634d55dAC6697C436B1e81A679Db5882",
+    "decimals": 18
+   }
+  ]
+ },
+ {
+  "asset": "BGBTC",
+  "name": "BGBTC Proof of Reserves",
+  "chain": "ethereum",
+  "feed": "0xADcc914F882965Ef1B2f1043522b3B81ED081491",
+  "heartbeat_seconds": 86400,
+  "comparable": true,
+  "unit": "BTC",
+  "tokens": [
+   {
+    "chain": "ethereum",
+    "token": "0x0520930F21b14Cafac7a27b102487beE7138a017",
+    "decimals": 8
+   }
+  ]
+ },
+ {
+  "asset": "C1USD",
+  "name": "C1USD Reserves",
+  "chain": "ethereum",
+  "feed": "0xAFa801e508613be7CA88D2d0fDB3F84f4c1B0384",
+  "heartbeat_seconds": 86400,
+  "comparable": true,
+  "unit": "USD",
+  "tokens": [
+   {
+    "chain": "ethereum",
+    "token": "0x40CAA7912437002ee2c8415D43E7f575c733674C",
+    "decimals": 18
+   }
+  ]
+ },
+ {
+  "asset": "cbBTC",
+  "name": "cbBTC Reserves",
+  "chain": "ethereum",
+  "feed": "0xcBe87Dc0Cf9d807848a3E703B01A90B28eCFb2a7",
+  "heartbeat_seconds": 86400,
+  "comparable": true,
+  "unit": "BTC",
+  "tokens": [
+   {
+    "chain": "ethereum",
+    "token": "0xcbB7C0000aB88B473b1f5aFd9ef808440eed33Bf",
+    "decimals": 8
+   },
+   {
+    "chain": "base",
+    "token": "0xcbB7C0000aB88B473b1f5aFd9ef808440eed33Bf",
+    "decimals": 8
+   },
+   {
+    "chain": "arbitrum",
+    "token": "0xcbB7C0000aB88B473b1f5aFd9ef808440eed33Bf",
+    "decimals": 8
+   }
+  ]
+ },
+ {
+  "asset": "eETH",
+  "name": "eETH Proof of Reserves",
+  "chain": "ethereum",
+  "feed": "0xC8cd82067eA907EA4af81b625d2bB653E21b5156",
+  "heartbeat_seconds": 86400,
+  "comparable": true,
+  "unit": "ETH",
+  "tokens": [
+   {
+    "chain": "ethereum",
+    "token": "0x35fA164735182de50811E8e2E824cFb9B6118ac2",
+    "decimals": 18
+   }
+  ]
+ },
+ {
+  "asset": "FBTC",
+  "name": "FBTC Proof of Reserves",
+  "chain": "ethereum",
+  "feed": "0x75A0d3264a949C2C920d7F25Df174af1FaF73399",
+  "heartbeat_seconds": 86400,
+  "comparable": false,
+  "unit": "BTC",
+  "tokens": [
+   {
+    "chain": "ethereum",
+    "token": "0xC96dE26018A54D51c097160568752c4E3BD6C364",
+    "decimals": 8
+   },
+   {
+    "chain": "base",
+    "token": "0xC96dE26018A54D51c097160568752c4E3BD6C364",
+    "decimals": 8
+   },
+   {
+    "chain": "arbitrum",
+    "token": "0xC96dE26018A54D51c097160568752c4E3BD6C364",
+    "decimals": 8
+   },
+   {
+    "chain": "bsc",
+    "token": "0xC96dE26018A54D51c097160568752c4E3BD6C364",
+    "decimals": 8
+   },
+   {
+    "chain": "mantle",
+    "token": "0xC96dE26018A54D51c097160568752c4E3BD6C364",
+    "decimals": 8
+   },
+   {
+    "chain": "mantle",
+    "token": "0xC96dE26018A54D51c097160568752c4E3BD6C364",
+    "decimals": 8
+   }
+  ]
+ },
+ {
+  "asset": "HBTC",
+  "name": "HBTC Proof of Reserves",
+  "chain": "ethereum",
+  "feed": "0x0A8cD0115B1EE87EbA5b8E06A9a15ED93e230f7a",
+  "heartbeat_seconds": 259200,
+  "comparable": true,
+  "unit": "BTC",
+  "tokens": [
+   {
+    "chain": "ethereum",
+    "token": "0x0316EB71485b0Ab14103307bf65a021042c6d380",
+    "decimals": 18
+   }
+  ]
+ },
+ {
+  "asset": "KAG",
+  "name": "KAG Reserves",
+  "chain": "ethereum",
+  "feed": "0x3F0543aA057BcAeA152Fe9462Cb3ffaB305a6F8D",
+  "heartbeat_seconds": 86400,
+  "comparable": false,
+  "unit": "ozt",
+  "tokens": [
+   {
+    "chain": "ethereum",
+    "token": "0x56Ba8B58B7d1f6d384A1C4dD553F39ebc8741B8e",
+    "decimals": 18
+   }
+  ]
+ },
+ {
+  "asset": "KAU",
+  "name": "KAU Reserves",
+  "chain": "ethereum",
+  "feed": "0xaB5Dd7DD7669072a1Ef27c0ba241120A27A1aeC3",
+  "heartbeat_seconds": 86400,
+  "comparable": true,
+  "unit": "g",
+  "tokens": [
+   {
+    "chain": "ethereum",
+    "token": "0x14DAB79fD7B7B3f748d434812Fd6a9Aac460EA52",
+    "decimals": 18
+   }
+  ]
+ },
+ {
+  "asset": "LBTC",
+  "name": "Lombard Proof of Reserves",
+  "chain": "ethereum",
+  "feed": "0x70c158c7731Da2C14BC84aEBa39A4FF703DDc7d2",
+  "heartbeat_seconds": 86400,
+  "comparable": true,
+  "unit": "BTC",
+  "tokens": [
+   {
+    "chain": "ethereum",
+    "token": "0x8236a87084f8B84306f72007F36F2618A5634494",
+    "decimals": 8
+   },
+   {
+    "chain": "base",
+    "token": "0xecAc9C5F704e954931349Da37F60E39f515c11c1",
+    "decimals": 8
+   },
+   {
+    "chain": "bsc",
+    "token": "0xecAc9C5F704e954931349Da37F60E39f515c11c1",
+    "decimals": 8
+   }
+  ]
+ },
+ {
+  "asset": "SolvBTC",
+  "name": "SolvBTC Proof of Reserves",
+  "chain": "ethereum",
+  "feed": "0xda9258AFc797Cd64d1b6FC651051224cdAB1B25E",
+  "heartbeat_seconds": 86400,
+  "comparable": true,
+  "unit": "BTC",
+  "tokens": [
+   {
+    "chain": "ethereum",
+    "token": "0x7A56E1C57C7475CCf742a1832B028F0456652F97",
+    "decimals": 18
+   },
+   {
+    "chain": "base",
+    "token": "0x3B86Ad95859b6AB773f55f8d94B4b9d443EE931f",
+    "decimals": 18
+   },
+   {
+    "chain": "arbitrum",
+    "token": "0x3647c54c4c2C65bC7a2D63c0Da2809B399DBBDC0",
+    "decimals": 18
+   },
+   {
+    "chain": "bsc",
+    "token": "0x4aae823a6a0b376De6A78e74eCC5b079d38cBCf7",
+    "decimals": 18
+   },
+   {
+    "chain": "avalanche",
+    "token": "0xbc78D84Ba0c46dFe32cf2895a19939c86b81a777",
+    "decimals": 18
+   }
+  ]
+ },
+ {
+  "asset": "stETH",
+  "name": "stETH Proof of Reserves",
+  "chain": "ethereum",
+  "feed": "0xAd410E655C0fE4741F573152592eeb766e686CE7",
+  "heartbeat_seconds": 21600,
+  "comparable": true,
+  "unit": "ETH",
+  "tokens": [
+   {
+    "chain": "ethereum",
+    "token": "0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84",
+    "decimals": 18
+   }
+  ]
+ },
+ {
+  "asset": "swETH",
+  "name": "Swell ETH Proof of Reserves",
+  "chain": "ethereum",
+  "feed": "0x60cbE8D88EF519cF3C62414D76f50818D211fea1",
+  "heartbeat_seconds": 86400,
+  "comparable": true,
+  "unit": "ETH",
+  "tokens": [
+   {
+    "chain": "ethereum",
+    "token": "0xf951E335afb289353dc249e82926178EaC7DEd78",
+    "decimals": 18
+   }
+  ]
+ },
+ {
+  "asset": "rswETH",
+  "name": "Swell Restaked ETH Proof of Reserves",
+  "chain": "ethereum",
+  "feed": "0x0c89c488e763AC2d69cB058CCAC7A8B283EE3DbA",
+  "heartbeat_seconds": 86400,
+  "comparable": false,
+  "unit": "ETH",
+  "tokens": [
+   {
+    "chain": "ethereum",
+    "token": "0xFAe103DC9cf190eD75350761e95403b7b8aFa6c0",
+    "decimals": 18
+   }
+  ]
+ },
+ {
+  "asset": "TUSD",
+  "name": "TUSD Reserves",
+  "chain": "ethereum",
+  "feed": "0xBE456fd14720C3aCCc30A2013Bffd782c9Cb75D5",
+  "heartbeat_seconds": 86400,
+  "comparable": true,
+  "unit": "USD",
+  "tokens": [
+   {
+    "chain": "ethereum",
+    "token": "0x0000000000085d4780B73119b644AE5ecd22b376",
+    "decimals": 18
+   },
+   {
+    "chain": "bsc",
+    "token": "0x40af3827F39D0EAcBF4A168f8D4ee67c121D11c9",
+    "decimals": 18
+   },
+   {
+    "chain": "avalanche",
+    "token": "0x1C20E891Bab6b1727d14Da358FAe2984Ed9B59EB",
+    "decimals": 18
+   }
+  ]
+ },
+ {
+  "asset": "uniBTC",
+  "name": "uniBTC Proof of Reserves",
+  "chain": "ethereum",
+  "feed": "0xc590D9fb8eE78a0909dFF341ccf717000b7b7fF2",
+  "heartbeat_seconds": 86400,
+  "comparable": true,
+  "unit": "BTC",
+  "tokens": [
+   {
+    "chain": "ethereum",
+    "token": "0x004E9C3EF86bc1ca1f0bB5C7662861Ee93350568",
+    "decimals": 8
+   },
+   {
+    "chain": "base",
+    "token": "0x93919784C523f39CACaa98Ee0a9d96c3F32b593e",
+    "decimals": 8
+   },
+   {
+    "chain": "arbitrum",
+    "token": "0x6B2a01A5f79dEb4c2f3c0eDa7b01DF456FbD726a",
+    "decimals": 8
+   },
+   {
+    "chain": "optimism",
+    "token": "0x93919784C523f39CACaa98Ee0a9d96c3F32b593e",
+    "decimals": 8
+   },
+   {
+    "chain": "bsc",
+    "token": "0x6B2a01A5f79dEb4c2f3c0eDa7b01DF456FbD726a",
+    "decimals": 8
+   }
+  ]
+ },
+ {
+  "asset": "WBTC",
+  "name": "WBTC Proof of Reserves",
+  "chain": "ethereum",
+  "feed": "0xa81FE04086865e63E12dD3776978E49DEEa2ea4e",
+  "heartbeat_seconds": 86400,
+  "comparable": true,
+  "unit": "BTC",
+  "tokens": [
+   {
+    "chain": "ethereum",
+    "token": "0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599",
+    "decimals": 8
+   }
+  ]
+ },
+ {
+  "asset": "xSolvBTC",
+  "name": "xSolvBTC Proof of Reserves",
+  "chain": "ethereum",
+  "feed": "0x461790bDAF5aeD3df6a88cB97Dec42DD0EFA73c0",
+  "heartbeat_seconds": 86400,
+  "comparable": true,
+  "unit": "BTC",
+  "tokens": [
+   {
+    "chain": "ethereum",
+    "token": "0xd9D920AA40f578ab794426F5C90F6C731D159DEf",
+    "decimals": 18
+   },
+   {
+    "chain": "base",
+    "token": "0xC26C9099BD3789107888c35bb41178079B282561",
+    "decimals": 18
+   },
+   {
+    "chain": "arbitrum",
+    "token": "0x346c574C56e1A4aAa8dc88Cda8F7EB12b39947aB",
+    "decimals": 18
+   },
+   {
+    "chain": "bsc",
+    "token": "0x1346b618dC92810EC74163e4c27004c921D446a5",
+    "decimals": 18
+   },
+   {
+    "chain": "avalanche",
+    "token": "0xCC0966D8418d412c599A6421b760a847eB169A8c",
+    "decimals": 18
+   }
+  ]
+ },
+ {
+  "asset": "USDx (Axis)",
+  "name": "Axis USDx Reserves",
+  "chain": "plasma",
+  "feed": "0x513952573a6d54140B21bbBe9edE7088340F9d8B",
+  "heartbeat_seconds": 86400,
+  "comparable": true,
+  "unit": "USD",
+  "tokens": [
+   {
+    "chain": "ethereum",
+    "token": "0xa1fA7777974312f7d801A8880714a218F76233f8",
+    "decimals": 18
+   }
+  ]
+ },
+ {
+  "asset": "bC3M",
+  "name": "bC3M Reserves",
+  "chain": "polygon",
+  "feed": "0x648E0fF6A36D58F6FCE5927cB77601b73cAdc2Af",
+  "heartbeat_seconds": 86400,
+  "comparable": false,
+  "unit": "C3M",
+  "tokens": [
+   {
+    "chain": "ethereum",
+    "token": "0x2F123cF3F37CE3328CC9B5b8415f9EC5109b45e7",
+    "decimals": 18
+   },
+   {
+    "chain": "base",
+    "token": "0x2F123cF3F37CE3328CC9B5b8415f9EC5109b45e7",
+    "decimals": 18
+   },
+   {
+    "chain": "arbitrum",
+    "token": "0x2F123cF3F37CE3328CC9B5b8415f9EC5109b45e7",
+    "decimals": 18
+   },
+   {
+    "chain": "polygon",
+    "token": "0x2F123cF3F37CE3328CC9B5b8415f9EC5109b45e7",
+    "decimals": 18
+   },
+   {
+    "chain": "bsc",
+    "token": "0x2F123cF3F37CE3328CC9B5b8415f9EC5109b45e7",
+    "decimals": 18
+   },
+   {
+    "chain": "avalanche",
+    "token": "0x2F123cF3F37CE3328CC9B5b8415f9EC5109b45e7",
+    "decimals": 18
+   }
+  ]
+ },
+ {
+  "asset": "bCSPX",
+  "name": "bCSPX Reserves",
+  "chain": "polygon",
+  "feed": "0x55e75d35c44A9EE1A5b05416640965EbcA4a8D33",
+  "heartbeat_seconds": 86400,
+  "comparable": false,
+  "unit": "CSPX",
+  "tokens": [
+   {
+    "chain": "ethereum",
+    "token": "0x1e2C4fb7eDE391d116E6B41cD0608260e8801D59",
+    "decimals": 18
+   },
+   {
+    "chain": "base",
+    "token": "0xC3cE78B037DDA1B966D31EC7979d3f3a38571A8E",
+    "decimals": 18
+   },
+   {
+    "chain": "arbitrum",
+    "token": "0x1e2C4fb7eDE391d116E6B41cD0608260e8801D59",
+    "decimals": 18
+   },
+   {
+    "chain": "polygon",
+    "token": "0x1e2C4fb7eDE391d116E6B41cD0608260e8801D59",
+    "decimals": 18
+   },
+   {
+    "chain": "bsc",
+    "token": "0x1e2C4fb7eDE391d116E6B41cD0608260e8801D59",
+    "decimals": 18
+   },
+   {
+    "chain": "avalanche",
+    "token": "0x1e2C4fb7eDE391d116E6B41cD0608260e8801D59",
+    "decimals": 18
+   }
+  ]
+ },
+ {
+  "asset": "bIB01",
+  "name": "bIB01 Reserves",
+  "chain": "polygon",
+  "feed": "0xad4395fc414Fc1575A7a38C20B0Bfdbdb09ee41A",
+  "heartbeat_seconds": 86400,
+  "comparable": false,
+  "unit": "IB01",
+  "tokens": [
+   {
+    "chain": "ethereum",
+    "token": "0xCA30c93B02514f86d5C86a6e375E3A330B435Fb5",
+    "decimals": 18
+   },
+   {
+    "chain": "base",
+    "token": "0xCA30c93B02514f86d5C86a6e375E3A330B435Fb5",
+    "decimals": 18
+   },
+   {
+    "chain": "arbitrum",
+    "token": "0xCA30c93B02514f86d5C86a6e375E3A330B435Fb5",
+    "decimals": 18
+   },
+   {
+    "chain": "polygon",
+    "token": "0xCA30c93B02514f86d5C86a6e375E3A330B435Fb5",
+    "decimals": 18
+   },
+   {
+    "chain": "bsc",
+    "token": "0xCA30c93B02514f86d5C86a6e375E3A330B435Fb5",
+    "decimals": 18
+   },
+   {
+    "chain": "avalanche",
+    "token": "0xCA30c93B02514f86d5C86a6e375E3A330B435Fb5",
+    "decimals": 18
+   }
+  ]
+ },
+ {
+  "asset": "bIBTA",
+  "name": "bIBTA Reserves",
+  "chain": "polygon",
+  "feed": "0x4517002fCD31062Ea38680dF9Ee37f29528C2707",
+  "heartbeat_seconds": 86400,
+  "comparable": false,
+  "unit": "IBTA",
+  "tokens": [
+   {
+    "chain": "ethereum",
+    "token": "0x52d134c6DB5889FaD3542A09eAf7Aa90C0fdf9E4",
+    "decimals": 18
+   },
+   {
+    "chain": "base",
+    "token": "0x52d134c6DB5889FaD3542A09eAf7Aa90C0fdf9E4",
+    "decimals": 18
+   },
+   {
+    "chain": "arbitrum",
+    "token": "0x52d134c6DB5889FaD3542A09eAf7Aa90C0fdf9E4",
+    "decimals": 18
+   },
+   {
+    "chain": "polygon",
+    "token": "0x52d134c6DB5889FaD3542A09eAf7Aa90C0fdf9E4",
+    "decimals": 18
+   },
+   {
+    "chain": "bsc",
+    "token": "0x52d134c6DB5889FaD3542A09eAf7Aa90C0fdf9E4",
+    "decimals": 18
+   },
+   {
+    "chain": "avalanche",
+    "token": "0x52d134c6DB5889FaD3542A09eAf7Aa90C0fdf9E4",
+    "decimals": 18
+   }
+  ]
+ },
+ {
+  "asset": "bNVDA",
+  "name": "bNVDA Reserves / Proof of Reserves",
+  "chain": "polygon",
+  "feed": "0x0fB2beD999da86Cb1Fdd97E746600A96141EeA09",
+  "heartbeat_seconds": 86400,
+  "comparable": false,
+  "unit": "NVDA",
+  "tokens": [
+   {
+    "chain": "ethereum",
+    "token": "0xA34C5e0AbE843E10461E2C9586Ea03E55Dbcc495",
+    "decimals": 18
+   },
+   {
+    "chain": "base",
+    "token": "0xA34C5e0AbE843E10461E2C9586Ea03E55Dbcc495",
+    "decimals": 18
+   },
+   {
+    "chain": "arbitrum",
+    "token": "0xA34C5e0AbE843E10461E2C9586Ea03E55Dbcc495",
+    "decimals": 18
+   },
+   {
+    "chain": "polygon",
+    "token": "0xA34C5e0AbE843E10461E2C9586Ea03E55Dbcc495",
+    "decimals": 18
+   },
+   {
+    "chain": "avalanche",
+    "token": "0xA34C5e0AbE843E10461E2C9586Ea03E55Dbcc495",
+    "decimals": 18
+   }
+  ]
+ },
+ {
+  "asset": "AoABT",
+  "name": "AoABT Reserves",
+  "chain": "arbitrum",
+  "feed": "0x496DC5AAbf2f118D78816B7358e69dC784D3De65",
+  "heartbeat_seconds": 86400,
+  "comparable": false,
+  "unit": null,
+  "tokens": []
+ },
+ {
+  "asset": "dlcBTC",
+  "name": "dlcBTC Proof of Reserves",
+  "chain": "arbitrum",
+  "feed": "0x47A2fBEb46553F01E7133686Fb1b5349d4823a0C",
+  "heartbeat_seconds": 86400,
+  "comparable": false,
+  "unit": null,
+  "tokens": []
+ },
+ {
+  "asset": "RYT",
+  "name": "RYT Arbitrum / Proof of Reserves",
+  "chain": "arbitrum",
+  "feed": "0xb966F82183E41208f594586BBF04bb6163571C48",
+  "heartbeat_seconds": 86400,
+  "comparable": false,
+  "unit": "RYT",
+  "tokens": []
+ },
+ {
+  "asset": "EmCH",
+  "name": "EmCH Reserves",
+  "chain": "avalanche",
+  "feed": "0x0d2807dc7FA52d3B38be564B64a2b37753C49AdD",
+  "heartbeat_seconds": 86400,
+  "comparable": false,
+  "unit": "ESU",
+  "tokens": []
+ },
+ {
+  "asset": "Re",
+  "name": "Re Offchain Reserves",
+  "chain": "avalanche",
+  "feed": "0xc79a363a3f849d8b3F6A1932f748eA9d4fB2f607",
+  "heartbeat_seconds": 86400,
+  "comparable": false,
+  "unit": null,
+  "tokens": []
+ },
+ {
+  "asset": "ARK_21Shares_BTC_ETF",
+  "name": "ARKB Reserves",
+  "chain": "base",
+  "feed": "0xB366E8Efb9661323ff477CedF70f55F897D6cFeA",
+  "heartbeat_seconds": 86400,
+  "comparable": false,
+  "unit": "BTC",
+  "tokens": []
+ },
+ {
+  "asset": "ARSx",
+  "name": "ARSx Proof of Reserves",
+  "chain": "base",
+  "feed": "0x4F2fe331C8EB0fb8A84A4d893C87Cf28A36Ab093",
+  "heartbeat_seconds": 86400,
+  "comparable": false,
+  "unit": "ARS",
+  "tokens": []
+ },
+ {
+  "asset": "USPC",
+  "name": "Coinshift USPC Reserves",
+  "chain": "base",
+  "feed": "0xE1F1011D0043392174bF95F0725130E870AbACaa",
+  "heartbeat_seconds": 86400,
+  "comparable": false,
+  "unit": null,
+  "tokens": []
+ },
+ {
+  "asset": "dlcBTC",
+  "name": "dlcBTC Proof of Reserves",
+  "chain": "base",
+  "feed": "0x30A76F4E688Cf52f4A06D7AAd987A7037f3Ae6f7",
+  "heartbeat_seconds": 86400,
+  "comparable": false,
+  "unit": null,
+  "tokens": []
+ },
+ {
+  "asset": "Tenbin Aggregated Off-Chain Reserves",
+  "name": "Tenbin Aggregated Off-Chain Reserves",
+  "chain": "base",
+  "feed": "0x7b1C8C60c05913aF3Aa21BaE3B32A02Ab4f39Bd3",
+  "heartbeat_seconds": 86400,
+  "comparable": false,
+  "unit": null,
+  "tokens": []
+ },
+ {
+  "asset": "21Shares_Ethereum_ETF",
+  "name": "TETH Reserves",
+  "chain": "base",
+  "feed": "0x0b68ac37a1668DAaab1882543368E076C38C40e9",
+  "heartbeat_seconds": 86400,
+  "comparable": false,
+  "unit": "ETH",
+  "tokens": []
+ },
+ {
+  "asset": "ION",
+  "name": "ION Digital Total Reserve Proof of Reserves",
+  "chain": "ethereum",
+  "feed": "0x016E9B9FEF398Da65eF33346cD2E3d717185A8B2",
+  "heartbeat_seconds": 86400,
+  "comparable": false,
+  "unit": null,
+  "tokens": []
+ },
+ {
+  "asset": "NXMTY",
+  "name": "Nexus wETH Reserves",
+  "chain": "ethereum",
+  "feed": "0xCc72039A141c6e34a779eF93AEF5eB4C82A893c7",
+  "heartbeat_seconds": 86400,
+  "comparable": false,
+  "unit": "ETH",
+  "tokens": []
+ },
+ {
+  "asset": "USDW",
+  "name": "USDW Reserves",
+  "chain": "ethereum",
+  "feed": "0xe2c4E28D938aA42A5c5EDD5193f7BD2a972Bf7Bf",
+  "heartbeat_seconds": 43200,
+  "comparable": false,
+  "unit": "USD",
+  "tokens": []
+ },
+ {
+  "asset": "rwaUSD",
+  "name": "Multipli rwaUSD Reserves",
+  "chain": "ink",
+  "feed": "0x4fB590Ab28D9aD7603775c8a85d2f18b796a6583",
+  "heartbeat_seconds": 86400,
+  "comparable": false,
+  "unit": null,
+  "tokens": []
+ },
+ {
+  "asset": "ARB",
+  "name": "Virtune Arbitrum ETP / Proof of Reserves",
+  "chain": "optimism",
+  "feed": "0x9651C988e590E571b28561c05aF5598d3e73cA31",
+  "heartbeat_seconds": 86400,
+  "comparable": false,
+  "unit": "ARB",
+  "tokens": []
+ },
+ {
+  "asset": "AVAX",
+  "name": "Virtune Avalanche ETP / Proof of Reserves",
+  "chain": "optimism",
+  "feed": "0xa9d0B1F1D7b5C4129b27EcE9a4562B32dB33343C",
+  "heartbeat_seconds": 86400,
+  "comparable": false,
+  "unit": "AVAX",
+  "tokens": []
+ },
+ {
+  "asset": "BTC",
+  "name": "Virtune Bitcoin ETP / Proof of Reserves",
+  "chain": "optimism",
+  "feed": "0x640349aa5A2A37ad628F9c934Dd78A3Dd45F7933",
+  "heartbeat_seconds": 86400,
+  "comparable": false,
+  "unit": "BTC",
+  "tokens": []
+ },
+ {
+  "asset": "BTC",
+  "name": "Virtune Bitcoin Prime ETP / Proof of Reserves",
+  "chain": "optimism",
+  "feed": "0x6C7f319E76456749Ee291EdB8bD0027e5E5d3298",
+  "heartbeat_seconds": 86400,
+  "comparable": false,
+  "unit": null,
+  "tokens": []
+ },
+ {
+  "asset": "ETH",
+  "name": "Virtune Chainlink ETP / Proof of Reserves",
+  "chain": "optimism",
+  "feed": "0x8Ef4207CBC405085B6740fc931114cAFCD1d9158",
+  "heartbeat_seconds": 86400,
+  "comparable": false,
+  "unit": "LINK",
+  "tokens": []
+ },
+ {
+  "asset": "LTC",
+  "name": "Virtune Litecoin ETP Proof of Reserves",
+  "chain": "optimism",
+  "feed": "0x1e40d659b382B7e3504F6b218267eb7405F4AaA7",
+  "heartbeat_seconds": 86400,
+  "comparable": false,
+  "unit": "LTC",
+  "tokens": []
+ },
+ {
+  "asset": "POL",
+  "name": "Virtune Polygon ETP / Proof of Reserves",
+  "chain": "optimism",
+  "feed": "0x4C92f5b4f8AE43D5DB11f4b87e6D9156e064F4F0",
+  "heartbeat_seconds": 86400,
+  "comparable": false,
+  "unit": "POL",
+  "tokens": []
+ },
+ {
+  "asset": "ADA",
+  "name": "Virtune Staked Cardano ETP Proof of Reserves",
+  "chain": "optimism",
+  "feed": "0xaC6eCc82b5c30Cc6EC9FE97B0627B29863a36fcf",
+  "heartbeat_seconds": 86400,
+  "comparable": false,
+  "unit": "ADA",
+  "tokens": []
+ },
+ {
+  "asset": "ETH",
+  "name": "Virtune Staked Ethereum ETP / Proof of Reserves",
+  "chain": "optimism",
+  "feed": "0x675aF77D9266BF28042b0965C11e223153C51aFd",
+  "heartbeat_seconds": 86400,
+  "comparable": false,
+  "unit": null,
+  "tokens": []
+ },
+ {
+  "asset": "DOT",
+  "name": "Virtune Staked Polkadot ETP / Proof of Reserves",
+  "chain": "optimism",
+  "feed": "0x8d8bEC17703Ac4BbdB42d3e4741C933a0d9a7331",
+  "heartbeat_seconds": 86400,
+  "comparable": false,
+  "unit": "DOT",
+  "tokens": []
+ },
+ {
+  "asset": "SOL",
+  "name": "Virtune Staked Solana ETP / Proof of Reserves",
+  "chain": "optimism",
+  "feed": "0x895eAD698bc4C34ad2863a20932f0d5E7896F11c",
+  "heartbeat_seconds": 86400,
+  "comparable": false,
+  "unit": "SOL",
+  "tokens": []
+ },
+ {
+  "asset": "XLM",
+  "name": "Virtune Stellar ETP / Proof of Reserves",
+  "chain": "optimism",
+  "feed": "0xebE1590Be4700994b9b373c860BabeA57b681296",
+  "heartbeat_seconds": 86400,
+  "comparable": false,
+  "unit": "XLM",
+  "tokens": []
+ },
+ {
+  "asset": "XRP",
+  "name": "Virtune XRP ETP / Proof of Reserves",
+  "chain": "optimism",
+  "feed": "0xa29660E9B69da3399141cBDDFb819451b1d530Ae",
+  "heartbeat_seconds": 86400,
+  "comparable": false,
+  "unit": "XRP",
+  "tokens": []
+ },
+ {
+  "asset": "CGT",
+  "name": "CGT Proof of Reserves (ETH)",
+  "chain": "polygon",
+  "feed": "0x4e9fc7480c16F3FE5d956C0759eE6b4808d1F5D7",
+  "heartbeat_seconds": 86400,
+  "comparable": false,
+  "unit": "XAU",
+  "tokens": []
+ },
+ {
+  "asset": "COPW",
+  "name": "COPW Reserves",
+  "chain": "polygon",
+  "feed": "0x1d22c334621364F16f050076eE15Acd5eb8225Ce",
+  "heartbeat_seconds": 86400,
+  "comparable": false,
+  "unit": "Col$",
+  "tokens": []
+ },
+ {
+  "asset": "RYT",
+  "name": "RYT Polygon Proof of Reserves",
+  "chain": "polygon",
+  "feed": "0x6b20c92A1D73A9232383DEcD698Ff559eFa0c31A",
+  "heartbeat_seconds": 86400,
+  "comparable": false,
+  "unit": "RYT",
+  "tokens": []
+ }
+]

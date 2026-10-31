@@ -1,0 +1,147 @@
+[
+ {
+  "asset": "USDC",
+  "name": "USD Coin",
+  "issuer": "Circle",
+  "unit": "USD",
+  "cadence": "monthly",
+  "transparency_page": "https://www.circle.com/transparency",
+  "tokens": [
+   {
+    "chain": "ethereum",
+    "token": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+    "decimals": 6
+   },
+   {
+    "chain": "base",
+    "token": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+    "decimals": 6
+   },
+   {
+    "chain": "arbitrum",
+    "token": "0xaf88d065e77c8cC2239327C5EDb3A432268e5831",
+    "decimals": 6
+   },
+   {
+    "chain": "polygon",
+    "token": "0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359",
+    "decimals": 6
+   },
+   {
+    "chain": "avalanche",
+    "token": "0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E",
+    "decimals": 6
+   },
+   {
+    "chain": "optimism",
+    "token": "0x0b2C639c533813f4Aa9D7837CAf62653d097Ff85",
+    "decimals": 6
+   },
+   {
+    "chain": "solana",
+    "token": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "decimals": 6
+   }
+  ]
+ },
+ {
+  "asset": "USDT",
+  "name": "Tether USD",
+  "issuer": "Tether",
+  "unit": "USD",
+  "cadence": "quarterly",
+  "transparency_page": "https://tether.to/en/transparency/",
+  "tokens": [
+   {
+    "chain": "tron",
+    "token": "0xa614f803b6fd780986a42c78ec9c7f77e6ded13c",
+    "decimals": 6
+   },
+   {
+    "chain": "avalanche",
+    "token": "0x9702230A8Ea53601f5cD2dc00fDBc13d4dF4A8c7",
+    "decimals": 6
+   },
+   {
+    "chain": "ethereum",
+    "token": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+    "decimals": 6
+   },
+   {
+    "chain": "solana",
+    "token": "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
+    "decimals": 6
+   }
+  ]
+ },
+ {
+  "asset": "XAUT",
+  "name": "Tether Gold",
+  "issuer": "Tether (TG Commodities)",
+  "unit": "XAU_oz",
+  "cadence": "quarterly",
+  "transparency_page": "https://gold.tether.to/",
+  "tokens": [
+   {
+    "chain": "ethereum",
+    "token": "0x68749665FF8D2d112Fa859AA293F07A622782F38",
+    "decimals": 6
+   }
+  ]
+ },
+ {
+  "asset": "PAXG",
+  "name": "Pax Gold",
+  "issuer": "Paxos",
+  "unit": "XAU_oz",
+  "cadence": "monthly",
+  "transparency_page": "https://www.paxos.com/paxg-transparency",
+  "tokens": [
+   {
+    "chain": "ethereum",
+    "token": "0x45804880De22913dAFE09f4980848ECE6EcbAf78",
+    "decimals": 18
+   }
+  ]
+ },
+ {
+  "asset": "PYUSD",
+  "name": "PayPal USD",
+  "issuer": "Paxos (for PayPal)",
+  "unit": "USD",
+  "cadence": "monthly",
+  "transparency_page": "https://www.paxos.com/pyusd-transparency",
+  "tokens": [
+   {
+    "chain": "ethereum",
+    "token": "0x6c3ea9036406852006290770BEdFcAbA0e23A0e8",
+    "decimals": 6
+   },
+   {
+    "chain": "arbitrum",
+    "token": "0x46850aD61C2B7d64d08c9C754F45254596696984",
+    "decimals": 6
+   },
+   {
+    "chain": "solana",
+    "token": "2b1kV6DkPAnxd5ixfnxCpjxmKwqjjaYmCZfHsFu24GXo",
+    "decimals": 6
+   }
+  ]
+ },
+ {
+  "asset": "USDe",
+  "name": "Ethena USDe",
+  "issuer": "Ethena",
+  "unit": "USD",
+  "cadence": "daily",
+  "transparency_page": "https://app.ethena.fi/dashboards/transparency",
+  "tokens": [
+   {
+    "chain": "ethereum",
+    "token": "0x4c9EDD5852cd905f086C759E8383e09bff1E68B3",
+    "decimals": 18
+   }
+  ]
+ }
+]
