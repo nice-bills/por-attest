@@ -5,16 +5,19 @@
 // accepts or refuses. Settles in test USDC on Ethereum Sepolia (testnet).
 //
 // Usage: BUYER_PRIVATE_KEY=0x... npm run buyer -- USDC WBTC
+//        npm run buyer -- --direct USDC      (names our miner instead of using ranked routing)
 //        npm run buyer -- --dry-run USDC     (no key, no payment: records the 402 challenge)
 import { mkdirSync, writeFileSync } from "node:fs";
 import { decide } from "./decide";
-import { MINER_ID, askRouted, type Reply } from "./telegraph";
+import { MINER_ID, askRouted, askTelegraphDirect, type Reply } from "./telegraph";
 
 const LABEL = "por-attest solvency-check: our own app, labelled as ours; not independent adoption. Testnet (Ethereum Sepolia).";
+const REGISTRATION_ID = "4858";
 const MINER = process.env.POR_ATTEST_URL ?? "https://por-attest.alnicewilliams3.workers.dev";
 
 const args = process.argv.slice(2);
 const dryRun = args.includes("--dry-run");
+const direct = args.includes("--direct");
 const assets = args.filter((a: string) => !a.startsWith("--"));
 if (assets.length === 0) throw new Error("Usage: npm run buyer -- [--dry-run] <asset> [asset...]");
 
@@ -34,7 +37,7 @@ async function supplyOf(asset: string) {
 }
 
 async function paidCheck(asset: string) {
-  const reply: Reply = await askRouted(asset);
+  const reply: Reply = await (direct ? askTelegraphDirect("/reserve", { asset }) : askRouted(asset));
   if (reply.status !== 200) {
     console.log(`${asset}: REFUSE, Telegraph answered ${reply.status}`);
     return save(asset, { asset, status: reply.status, body: reply.body, decision: { accept: false, why: `HTTP ${reply.status}` } });
@@ -45,8 +48,9 @@ async function paidCheck(asset: string) {
   return save(asset, {
     asset,
     date_utc: new Date().toISOString().slice(0, 10),
+    path: direct ? "direct" : "ranked routing",
     routed_to_miner: reply.body.miner_id,
-    por_attest_was_paid: String(receipt?.miner) === MINER_ID,
+    por_attest_was_paid: [String(reply.body.miner_id), String(receipt?.miner)].some((id) => id === MINER_ID || id === REGISTRATION_ID),
     signal_hash: reply.body.signal_hash,
     cost_usd: reply.body.cost_usd,
     receipt,

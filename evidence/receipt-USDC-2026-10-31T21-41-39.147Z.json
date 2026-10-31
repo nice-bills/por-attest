@@ -1,0 +1,142 @@
+{
+  "label": "por-attest solvency-check: our own app, labelled as ours; not independent adoption. Testnet (Ethereum Sepolia).",
+  "asset": "USDC",
+  "date_utc": "2026-10-31",
+  "path": "direct",
+  "routed_to_miner": "27741",
+  "por_attest_was_paid": true,
+  "signal_hash": "0x4f3ca9ff8c90552429827c195d724eeeafe461fc9518122836f53c2e8ebe02fc",
+  "cost_usd": 0.01,
+  "receipt": {
+    "receipt_hash": "0xa6b443219e8b8f8408458f6d1291123abc311ff5dca27bf5f2dd799d7431a668",
+    "rail": "x402",
+    "payer": "0xc3F13706116e628A6284b04AD3F9BB0bC955128f",
+    "miner": "4858",
+    "intent": "ASSET_RESERVE_ATTESTATION_GENERAL",
+    "amount_uusdc": "10000",
+    "epoch_id": 1948,
+    "settlement": "onchain",
+    "chain": "eip155:11155111",
+    "tx_hash": "0x361048b6b48c31685f278fac6fc370b9f38d48d0600d1aab364ef2898644fad3",
+    "timestamp": 1793482898
+  },
+  "payment_response": "eyJzdWNjZXNzIjp0cnVlLCJwYXllciI6IjB4YzNGMTM3MDYxMTZlNjI4QTYyODRiMDRBRDNGOUJCMGJDOTU1MTI4ZiIsInRyYW5zYWN0aW9uIjoiMHgzNjEwNDhiNmI0OGMzMTY4NWYyNzhmYWM2ZmMzNzBiOWYzOGQ0OGQwNjAwZDFhYWIzNjRlZjI4OTg2NDRmYWQzIiwibmV0d29yayI6ImVpcDE1NToxMTE1NTExMSJ9",
+  "result_shape": "raw",
+  "result": {
+    "as_of": "2026-10-31T21:41:38.296Z",
+    "asset": "USDC",
+    "confidence": 0.8,
+    "fully_backed": true,
+    "headline": {
+      "as_of": "2026-09-30",
+      "block": "2026-09-30",
+      "ratio": 1.001053432411055,
+      "reserves": 73956687701,
+      "source": "Independent accountants' examination (Big Four firm per Circle; AICPA attestation standards) report for Circle",
+      "supply": 73878861314,
+      "unit": "USD"
+    },
+    "intent": "ASSET_RESERVE_ATTESTATION_GENERAL",
+    "live_comparison": {
+      "chains": [
+        {
+          "block_number": 99074377,
+          "block_timestamp": "2026-10-31T21:40:34.000Z",
+          "chain": "avalanche",
+          "circulating": 347854405.175403,
+          "decimals": 6,
+          "token": "0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E",
+          "total_supply": 347854405.175403,
+          "treasury_balance": 0
+        },
+        {
+          "block_number": 158942029,
+          "block_timestamp": "2026-10-31T21:40:35.000Z",
+          "chain": "optimism",
+          "circulating": 142349577.370866,
+          "decimals": 6,
+          "token": "0x0b2C639c533813f4Aa9D7837CAf62653d097Ff85",
+          "total_supply": 142349577.370866,
+          "treasury_balance": 0
+        },
+        {
+          "block_number": 53346744,
+          "block_timestamp": "2026-10-31T21:40:35.000Z",
+          "chain": "base",
+          "circulating": 4301161621.319759,
+          "decimals": 6,
+          "token": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+          "total_supply": 4301161621.319759,
+          "treasury_balance": 0
+        },
+        {
+          "block_number": 96518253,
+          "block_timestamp": "2026-10-31T21:40:36.000Z",
+          "chain": "polygon",
+          "circulating": 605050991.391029,
+          "decimals": 6,
+          "token": "0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359",
+          "total_supply": 605050991.391029,
+          "treasury_balance": 0
+        },
+        {
+          "block_number": 26315492,
+          "block_timestamp": "2026-10-31T21:40:35.000Z",
+          "chain": "arbitrum",
+          "circulating": 2547383827.388199,
+          "decimals": 6,
+          "token": "0xaf88d065e77c8cC2239327C5EDb3A432268e5831",
+          "total_supply": 2547383827.388199,
+          "treasury_balance": 0
+        },
+        {
+          "block_number": 26315492,
+          "block_timestamp": "2026-10-31T21:40:23.000Z",
+          "chain": "ethereum",
+          "circulating": 47772001330.90387,
+          "decimals": 6,
+          "token": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+          "total_supply": 47772001330.90387,
+          "treasury_balance": 0
+        }
+      ],
+      "complete": false,
+      "ratio": 1.3273916083651964,
+      "supply": 55715801753.549126,
+      "unread": [
+        {
+          "chain": "solana",
+          "reason": "getTokenSupply failed"
+        }
+      ]
+    },
+    "question": null,
+    "reason": "Reserves and supply are both from the report dated 2026-09-30 (https://6778953.fs1.hubspotusercontent-na1.net/hubfs/6778953/USDCAttestationReports/2026/2026%20USDC_Examination%20Report%20September%2026.pdf). live_comparison is our own on-chain read and does not change the headline.",
+    "report": {
+      "age_days": 31,
+      "asset": "USDC",
+      "attestor": "Independent accountants' examination (Big Four firm per Circle; AICPA attestation standards)",
+      "cadence": "monthly",
+      "kind": "independent_attestation",
+      "method": "pdf",
+      "page_url": "https://www.circle.com/transparency",
+      "report_date": "2026-09-30",
+      "report_url": "https://6778953.fs1.hubspotusercontent-na1.net/hubfs/6778953/USDCAttestationReports/2026/2026%20USDC_Examination%20Report%20September%2026.pdf",
+      "reserves": 73956687701,
+      "retrieved_at": "2026-10-31T09:02:30.947Z",
+      "stale_after_days": 76,
+      "supply_reported": 73878861314,
+      "unit": "USD"
+    },
+    "snapshot_at": "2026-10-31T21:40:36.730Z",
+    "source_type": "issuer_attestation",
+    "stale": false,
+    "summary": "USDC is fully backed: ratio 1.0011 as of 2026-09-30, from the Independent accountants' examination (Big Four firm per Circle; AICPA attestation standards) report for Circle.",
+    "verdict": "fully_backed",
+    "verdict_type": "reserve_backing"
+  },
+  "decision": {
+    "accept": true,
+    "why": "USDC is fully backed: ratio 1.0011 as of 2026-09-30, from the Independent accountants' examination (Big Four firm per Circle; AICPA attestation standards) report for Circle."
+  }
+}

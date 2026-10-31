@@ -43,8 +43,8 @@ curl 'https://por-attest.alnicewilliams3.workers.dev/supply?asset=USDC'
 
 ## Call it through Telegraph
 
-This works once the miner is registered. Telegraph picks a miner by leaderboard rank, so a routed
-call may not reach por-attest. The second form below names our miner directly.
+Our miner is registered as id 27741 (registrationId 4858). Telegraph picks a miner by leaderboard rank, so a routed
+call may not reach por-attest. New miners get little routing during the 7-day grace period. The second form below names our miner directly.
 
 ```bash
 curl -X POST https://devnode.telegraphprotocol.com/engine/v1/ask \

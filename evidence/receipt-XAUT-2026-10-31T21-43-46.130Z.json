@@ -1,0 +1,10 @@
+{
+  "label": "por-attest solvency-check: our own app, labelled as ours; not independent adoption. Testnet (Ethereum Sepolia).",
+  "asset": "XAUT",
+  "status": 504,
+  "body": null,
+  "decision": {
+    "accept": false,
+    "why": "HTTP 504"
+  }
+}

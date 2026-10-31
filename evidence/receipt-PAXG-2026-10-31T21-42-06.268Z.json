@@ -1,0 +1,87 @@
+{
+  "label": "por-attest solvency-check: our own app, labelled as ours; not independent adoption. Testnet (Ethereum Sepolia).",
+  "asset": "PAXG",
+  "date_utc": "2026-10-31",
+  "path": "direct",
+  "routed_to_miner": "27741",
+  "por_attest_was_paid": true,
+  "signal_hash": "0x58bd8f9d58d23d9a32eaa20ff8749a4a9a5e225fcf4e8195492e9ff3cffc3329",
+  "cost_usd": 0.01,
+  "receipt": {
+    "receipt_hash": "0x5249cf900c53bba1846e0aa6a30ab783416a6225a359d55ac9d89effe8ea2af8",
+    "rail": "x402",
+    "payer": "0xc3F13706116e628A6284b04AD3F9BB0bC955128f",
+    "miner": "4858",
+    "intent": "ASSET_RESERVE_ATTESTATION_GENERAL",
+    "amount_uusdc": "10000",
+    "epoch_id": 1948,
+    "settlement": "onchain",
+    "chain": "eip155:11155111",
+    "tx_hash": "0xe8524884c754b03988b50305d444fde04ed57ac285654bfcca3bb3d98a75c597",
+    "timestamp": 1793482925
+  },
+  "payment_response": "eyJzdWNjZXNzIjp0cnVlLCJwYXllciI6IjB4YzNGMTM3MDYxMTZlNjI4QTYyODRiMDRBRDNGOUJCMGJDOTU1MTI4ZiIsInRyYW5zYWN0aW9uIjoiMHhlODUyNDg4NGM3NTRiMDM5ODhiNTAzMDVkNDQ0ZmRlMDRlZDU3YWMyODU2NTRiZmNjYTNiYjNkOThhNzVjNTk3IiwibmV0d29yayI6ImVpcDE1NToxMTE1NTExMSJ9",
+  "result_shape": "raw",
+  "result": {
+    "as_of": "2026-10-31T21:42:05.353Z",
+    "asset": "PAXG",
+    "confidence": 0.8,
+    "fully_backed": true,
+    "headline": {
+      "as_of": "2026-09-30",
+      "block": "2026-09-30",
+      "ratio": 1,
+      "reserves": 435306,
+      "source": "KPMG LLP (monthly examination, AICPA criteria) report for Paxos",
+      "supply": 435306,
+      "unit": "troy oz"
+    },
+    "intent": "ASSET_RESERVE_ATTESTATION_GENERAL",
+    "live_comparison": {
+      "chains": [
+        {
+          "block_number": 26315492,
+          "block_timestamp": "2026-10-31T21:40:23.000Z",
+          "chain": "ethereum",
+          "circulating": 442885.899659,
+          "decimals": 18,
+          "token": "0x45804880De22913dAFE09f4980848ECE6EcbAf78",
+          "total_supply": 442885.899659,
+          "treasury_balance": 0
+        }
+      ],
+      "complete": true,
+      "ratio": 0.9828852088882574,
+      "supply": 442885.899659,
+      "unread": []
+    },
+    "question": null,
+    "reason": "Reserves and supply are both from the report dated 2026-09-30 (https://framerusercontent.com/assets/uwWybrLRlgkC4vexP3yLyrQVeV0.pdf). live_comparison is our own on-chain read and does not change the headline.",
+    "report": {
+      "age_days": 31,
+      "asset": "PAXG",
+      "attestor": "KPMG LLP (monthly examination, AICPA criteria)",
+      "cadence": "monthly",
+      "kind": "independent_attestation",
+      "method": "pdf",
+      "page_url": "https://www.paxos.com/paxg-transparency",
+      "report_date": "2026-09-30",
+      "report_url": "https://framerusercontent.com/assets/uwWybrLRlgkC4vexP3yLyrQVeV0.pdf",
+      "reserves": 435306,
+      "retrieved_at": "2026-10-31T09:02:52.207Z",
+      "stale_after_days": 76,
+      "supply_reported": 435306,
+      "unit": "XAU_oz"
+    },
+    "snapshot_at": "2026-10-31T21:40:36.730Z",
+    "source_type": "issuer_attestation",
+    "stale": false,
+    "summary": "PAXG is fully backed: ratio 1.0000 as of 2026-09-30, from the KPMG LLP (monthly examination, AICPA criteria) report for Paxos.",
+    "verdict": "fully_backed",
+    "verdict_type": "reserve_backing"
+  },
+  "decision": {
+    "accept": true,
+    "why": "PAXG is fully backed: ratio 1.0000 as of 2026-09-30, from the KPMG LLP (monthly examination, AICPA criteria) report for Paxos."
+  }
+}

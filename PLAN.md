@@ -9,7 +9,7 @@ Work top to bottom. Each task lists what "done" means.
   Done: git tag `pre-hackathon` on the current commit, pushed.
 
 - [ ] **2. Rewrite miner.yaml for v2**
-  Status 31 Oct: `miner.yaml` written. Open: the hosted validator returned 404, so it has not passed.
+  Status 31 Oct: `miner.yaml` is active on the node, which ran its own schema check. The hosted validator returned 404.
   Use `miner.v2.yaml` in this kit as the starting point. Fill in `id`, `slug`, `base_url`.
   Done: `POST https://integrate.telegraphprotocol.com/api/validate` returns no errors and no
   warnings about missing params.
@@ -44,8 +44,8 @@ Work top to bottom. Each task lists what "done" means.
 ## Phase 2 — Register (1 to 3 Nov)
 
 - [x] **8. Get test funds**: Sepolia ETH for gas; MACHINA (bond) and test USDC from the Anjoman faucet.
-- [ ] **9. Register**
-  Status 31 Oct: registrationId 4858 on-chain; the node has not activated it yet.
+- [x] **9. Register**
+  registrationId 4858, `activation_status: active`.
   through integrate.telegraphprotocol.com with intents
   `ASSET_RESERVE_ATTESTATION_GENERAL` and `TOKEN_TOTAL_SUPPLY_VERIFY_GENERAL`.
   Done: record the registrationId; `/api/miners/<registrationId>` shows `activation_status: active`.
@@ -55,7 +55,7 @@ Work top to bottom. Each task lists what "done" means.
 
 - [x] **11. Mission test fixtures** (see "Fixtures" below) for Stablecoin, Exchange, Asset Management.
 - [ ] **12. Small buyer app (ours, labelled as ours)**
-  Status 31 Oct: Built; dry run only. Open: paid runs on two UTC dates. Routing may pick another miner.
+  Status 31 Oct: Paid on 31 Oct. Direct calls paid por-attest; routed calls went elsewhere. Open: second UTC date.
   A script-level "solvency check" agent: before accepting a token, it buys a reserve verdict through
   Telegraph's ranked routing and accepts or refuses. Run it with different assets on at least two UTC dates.
   Done: request and payment receipts saved, showing por-attest was the miner paid.
