@@ -14,6 +14,7 @@ async function tokenSupply(urls: string[], mint: string) {
     try {
       return await rpc(url, "getTokenSupply", [mint, { commitment: "finalized" }]);
     } catch (err) {
+      console.error("solana rpc failed", url === PUBLIC_RPC ? "public" : "keyed", String(err).slice(0, 100).replaceAll(url, "<url>"));
       last = err;
     }
   }
