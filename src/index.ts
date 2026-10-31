@@ -5,7 +5,7 @@ import miner from "../miner.yaml";
 import home from "./pages/home.html";
 import privacy from "./pages/privacy.html";
 import terms from "./pages/terms.html";
-import { readAssets } from "./reads";
+import { loadSnapshot, needsRefresh, readFor, refreshSnapshot, type Snapshot } from "./snapshot";
 import { buildSupply } from "./supply";
 
 export interface Env {
@@ -14,15 +14,23 @@ export interface Env {
 
 export const app = new Hono<{ Bindings: Env }>();
 
+// Stale-while-revalidate: answer from what we have, refresh behind the response.
+async function snapshotFor(c: { env: Env; executionCtx: { waitUntil(p: Promise<unknown>): void } }): Promise<Snapshot | null> {
+  const snapshot = await loadSnapshot(c.env);
+  if (needsRefresh(snapshot, new Date())) c.executionCtx.waitUntil(refreshSnapshot(c.env).catch(console.error));
+  return snapshot;
+}
+
 app.get("/", (c) => c.html(home));
 app.get("/terms", (c) => c.html(terms));
 app.get("/privacy", (c) => c.html(privacy));
 
 app.get("/miner.yaml", (c) => c.text(miner, 200, { "content-type": "text/yaml; charset=utf-8" }));
 
-app.get("/health", (c) =>
-  c.json({ status: "ok", feeds: FEEDS.length, issuers: ISSUERS.length, time: new Date().toISOString() }),
-);
+app.get("/health", async (c) => {
+  const snapshot = await loadSnapshot(c.env);
+  return c.json({ status: "ok", feeds: FEEDS.length, issuers: ISSUERS.length, snapshot_at: snapshot?.generated_at ?? null, time: new Date().toISOString() });
+});
 
 app.get("/assets", (c) =>
   c.json({
@@ -53,18 +61,30 @@ app.get("/reserve", async (c) => {
   const { asset, chain, question } = c.req.query();
   const resolved = resolveAsset({ asset, chain, question });
   if ("error" in resolved) return c.json({ error: resolved.error, asset: resolved.name, verdict: "unverified" }, resolved.status);
-  const reads = await readAssets([resolved.asset]);
-  return c.json(buildAnswer(resolved.asset, reads[resolved.asset.key], new Date(), question ?? null));
+  const snapshot = await snapshotFor(c);
+  const freshness = { snapshot_at: snapshot?.generated_at ?? null, report: snapshot?.reports[resolved.asset.key] };
+  return c.json(buildAnswer(resolved.asset, readFor(snapshot, resolved.asset), new Date(), question ?? null, freshness));
 });
 
 app.get("/supply", async (c) => {
   const { asset, chain } = c.req.query();
   const resolved = resolveAsset({ asset, chain });
   if ("error" in resolved) return c.json({ error: resolved.error, asset: resolved.name, verdict: "unverified" }, resolved.status);
-  const reads = await readAssets([resolved.asset]);
-  return c.json(buildSupply(resolved.asset, reads[resolved.asset.key], new Date(), chain));
+  const snapshot = await snapshotFor(c);
+  return c.json(buildSupply(resolved.asset, readFor(snapshot, resolved.asset), new Date(), chain, snapshot?.generated_at ?? null));
 });
 
 app.notFound((c) => c.json({ error: { code: "NOT_FOUND", message: "See GET /assets." } }, 404));
 
-export default app;
+// Intent endpoints never 5xx: anything unexpected is an unverified answer with a reason.
+app.onError((err, c) => {
+  console.error(err);
+  return c.json({ verdict: "unverified", confidence: 0, reason: "Internal read failed; no figures are asserted.", summary: "The answer is unverified because an internal read failed." });
+});
+
+export default {
+  fetch: app.fetch,
+  async scheduled(_event: ScheduledController, env: Env, ctx: ExecutionContext) {
+    ctx.waitUntil(refreshSnapshot(env));
+  },
+};

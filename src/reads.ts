@@ -1,7 +1,7 @@
 import { decodeFunctionResult, encodeFunctionData, formatUnits, parseAbi, parseUnits, type Hex } from "viem";
 import { CHAINS } from "./chains";
 import { BRIDGED, type Asset, type TokenRef } from "./catalog";
-import { readCalls, type Call, type ChainRead } from "./rpc";
+import { readChain, type Call, type ChainRead } from "./rpc";
 
 const abi = parseAbi([
   "function latestRoundData() view returns (uint80 roundId, int256 answer, uint256 startedAt, uint256 updatedAt, uint80 answeredInRound)",
@@ -83,8 +83,8 @@ export async function readAssets(assets: Asset[]): Promise<Reads> {
 
   await Promise.all(
     [...byChain].map(async ([chain, jobs]) => {
-      const at = await readCalls(CHAINS[chain].rpcs[0], jobs.map((j) => j.call), CHAINS[chain].multicall);
-      jobs.forEach((job, i) => job.apply(at.results[i], at));
+      const at = await readChain(CHAINS[chain].rpcs, jobs.map((j) => j.call), CHAINS[chain].multicall);
+      jobs.forEach((job, i) => job.apply(at.failure ? null : at.results[i], at));
     }),
   );
   return reads;
@@ -99,7 +99,7 @@ function addFeed(address: string, chain: string, read: AssetRead, add: Add) {
   });
   add(chain, encode("latestRoundData", address), (hex, at) => {
     if (!hex || decimals === undefined) {
-      read.unread.push({ chain, reason: "feed read failed" });
+      read.unread.push({ chain, reason: at.failure ?? "feed read failed" });
       return;
     }
     const [roundId, answer, , updatedAt] = decodeFunctionResult({ abi, functionName: "latestRoundData", data: hex });
@@ -125,7 +125,7 @@ function addToken(token: TokenRef, read: AssetRead, add: Add) {
   // Jobs apply in order, so the balances above are in by the time this runs.
   add(token.chain, encode("totalSupply", token.token), (hex, at) => {
     if (!hex) {
-      read.unread.push({ chain: token.chain, reason: "totalSupply read failed" });
+      read.unread.push({ chain: token.chain, reason: at.failure ?? "totalSupply read failed" });
       return;
     }
     const total = decodeFunctionResult({ abi, functionName: "totalSupply", data: hex });

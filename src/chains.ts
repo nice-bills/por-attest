@@ -14,5 +14,6 @@ export const CHAINS: Record<string, Chain> = {
   avalanche: { rpcs: ["https://avalanche-c-chain-rpc.publicnode.com", "https://avalanche.drpc.org"], multicall: true },
   ink: { rpcs: ["https://rpc-gel.inkonchain.com", "https://ink.drpc.org"], multicall: true },
   plasma: { rpcs: ["https://rpc.plasma.to", "https://plasma.drpc.org"], multicall: true },
-  tron: { rpcs: ["https://api.trongrid.io/jsonrpc", "https://tron.drpc.org"], multicall: false },
+  mantle: { rpcs: ["https://mantle-rpc.publicnode.com", "https://rpc.mantle.xyz"], multicall: true },
+  tron: { rpcs: ["https://api.trongrid.io/jsonrpc", "https://tron-evm-rpc.publicnode.com"], multicall: false },
 };

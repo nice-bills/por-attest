@@ -16,12 +16,44 @@ export interface ChainRead {
   block_number: number;
   block_timestamp: string;
   results: (Hex | null)[];
+  // Set when no answer from this chain should be used; says why.
+  failure?: string;
+}
+
+const TIMEOUT_MS = 4_000;
+// Two RPCs read a moment apart can differ by a block; beyond this they disagree on the value.
+const DISAGREE_TOLERANCE = 0.005;
+
+const words = (hex: Hex | null) => (hex ?? "0x").slice(2).match(/.{64}/g)?.map((w) => BigInt(`0x${w}`)) ?? [];
+
+export function disagrees(a: (Hex | null)[], b: (Hex | null)[]): boolean {
+  return a.some((hex, i) => {
+    if (!hex || !b[i]) return false;
+    const other = words(b[i]);
+    return words(hex).some((x, j) => {
+      const y = other[j] ?? 0n;
+      const gap = x > y ? x - y : y - x;
+      const top = x > y ? x : y;
+      return top > 0n && Number((gap * 1_000_000n) / top) / 1_000_000 > DISAGREE_TOLERANCE;
+    });
+  });
+}
+
+// Reads from two RPCs: either alone will do, but if both answer they must agree.
+export async function readChain(urls: string[], calls: Call[], multicall: boolean): Promise<ChainRead> {
+  const [first, second] = await Promise.allSettled(urls.slice(0, 2).map((url) => readCalls(url, calls, multicall)));
+  const ok = [first, second].flatMap((r) => (r?.status === "fulfilled" ? [r.value] : []));
+  const best = ok.sort((x, y) => y.results.filter(Boolean).length - x.results.filter(Boolean).length)[0];
+  if (!best) return { block_number: 0, block_timestamp: "", results: calls.map(() => null), failure: "every RPC failed" };
+  if (ok.length === 2 && disagrees(ok[0].results, ok[1].results)) return { ...best, failure: "RPCs disagree" };
+  return best;
 }
 
 export async function rpc(url: string, method: string, params: unknown[]): Promise<any> {
   const res = await fetch(url, {
     method: "POST",
     headers: { "content-type": "application/json" },
+    signal: AbortSignal.timeout(TIMEOUT_MS),
     body: JSON.stringify({ jsonrpc: "2.0", id: 1, method, params }),
   });
   if (!res.ok) throw new Error(`${method} HTTP ${res.status}`);

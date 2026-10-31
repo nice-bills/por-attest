@@ -13,6 +13,11 @@ export function latestReport(asset: string): Report | undefined {
   return reports[reports.length - 1];
 }
 
+export interface Freshness {
+  snapshot_at: string | null;
+  report?: Report;
+}
+
 function liveComparison(read: AssetRead, reserves: number | null) {
   const chains = counted(read.supply);
   const supply = sumCirculating(chains);
@@ -40,7 +45,7 @@ function feedAnswer(asset: FeedAsset, read: AssetRead, now: Date, question: stri
 
   let verdict: Verdict = "unverified";
   let why = "";
-  if (!feed) why = "the feed could not be read";
+  if (!feed) why = `the feed could not be read (${read.unread[0]?.reason ?? "no snapshot"})`;
   else if (stale) why = `the feed last updated ${ageSeconds}s ago, past its ${asset.heartbeat_seconds}s heartbeat`;
   else if (!asset.comparable) why = "the feed's reserves are not comparable with an on-chain token supply";
   else if (!live.complete || live.ratio === null) why = "supply could not be read on every chain";
@@ -136,9 +141,9 @@ function issuerAnswer(asset: IssuerAsset, report: Report, read: AssetRead, now: 
   };
 }
 
-export function buildAnswer(asset: Asset, read: AssetRead, now: Date, question: string | null) {
-  if (asset.kind === "feed") return feedAnswer(asset, read, now, question);
-  const report = latestReport(asset.asset);
+export function buildAnswer(asset: Asset, read: AssetRead, now: Date, question: string | null, freshness: Freshness = { snapshot_at: null }) {
+  if (asset.kind === "feed") return { ...feedAnswer(asset, read, now, question), snapshot_at: freshness.snapshot_at };
+  const report = freshness.report ?? latestReport(asset.asset);
   if (!report) throw new Error(`no report for ${asset.asset}`);
-  return issuerAnswer(asset, report, read, now, question);
+  return { ...issuerAnswer(asset, report, read, now, question), snapshot_at: freshness.snapshot_at };
 }
