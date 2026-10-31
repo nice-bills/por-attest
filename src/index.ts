@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import { buildAnswer } from "./answer";
 import { FEEDS, ISSUERS, findAsset, findInQuestion, type Asset } from "./catalog";
+import miner from "../miner.yaml";
 import home from "./pages/home.html";
 import privacy from "./pages/privacy.html";
 import terms from "./pages/terms.html";
@@ -15,6 +16,8 @@ export const app = new Hono<{ Bindings: Env }>();
 app.get("/", (c) => c.html(home));
 app.get("/terms", (c) => c.html(terms));
 app.get("/privacy", (c) => c.html(privacy));
+
+app.get("/miner.yaml", (c) => c.text(miner, 200, { "content-type": "text/yaml; charset=utf-8" }));
 
 app.get("/health", (c) =>
   c.json({ status: "ok", feeds: FEEDS.length, issuers: ISSUERS.length, time: new Date().toISOString() }),
