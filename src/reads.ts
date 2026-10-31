@@ -1,10 +1,11 @@
 import { decodeFunctionResult, encodeFunctionData, formatUnits, parseAbi, parseUnits, type Hex } from "viem";
 import { CHAINS } from "./chains";
-import { BRIDGED, type Asset, type TokenRef } from "./catalog";
+import { BRIDGED, type Asset, type FeedAsset, type TokenRef } from "./catalog";
 import { readChain, type Call, type ChainRead } from "./rpc";
 import { readSolana, type SolanaJob } from "./solana";
 
 const abi = parseAbi([
+  "function getRoundData(uint80) view returns (uint80 roundId, int256 answer, uint256 startedAt, uint256 updatedAt, uint80 answeredInRound)",
   "function latestRoundData() view returns (uint80 roundId, int256 answer, uint256 startedAt, uint256 updatedAt, uint80 answeredInRound)",
   "function decimals() view returns (uint8)",
   "function totalSupply() view returns (uint256)",
@@ -95,6 +96,30 @@ export async function readAssets(assets: Asset[], solanaUrl?: string): Promise<R
     }),
   ]);
   return reads;
+}
+
+// Audit read for one past round. Rounds never change, so this needs no archive node.
+export async function readRound(asset: FeedAsset, roundId: string): Promise<AssetRead> {
+  const calls = [
+    encode("decimals", asset.feed),
+    { to: asset.feed, data: encodeFunctionData({ abi, functionName: "getRoundData", args: [BigInt(roundId)] }) },
+  ];
+  const at = await readChain(CHAINS[asset.chain].rpcs, calls, CHAINS[asset.chain].multicall);
+  const [decimals, round] = at.results;
+  if (at.failure || !decimals || !round) return { supply: [], unread: [{ chain: asset.chain, reason: at.failure ?? "round not found" }] };
+  const [id, answer, , updatedAt] = decodeFunctionResult({ abi, functionName: "getRoundData", data: round });
+  return {
+    feed: {
+      answer_raw: answer.toString(),
+      round_id: id.toString(),
+      decimals: Number(decodeFunctionResult({ abi, functionName: "decimals", data: decimals })),
+      updated_at_unix: Number(updatedAt),
+      block_number: at.block_number,
+      block_timestamp: at.block_timestamp,
+    },
+    supply: [],
+    unread: [],
+  };
 }
 
 type Add = (chain: string, call: Call, apply: (hex: Hex | null, at: ChainRead) => void) => void;

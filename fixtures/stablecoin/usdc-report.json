@@ -1,0 +1,17 @@
+{
+  "mission": "Stablecoin",
+  "example_build": "Treasury agents choosing on evidence",
+  "intent": "ASSET_RESERVE_ATTESTATION_GENERAL",
+  "mode": "pinned",
+  "input": {
+    "path": "/reserve",
+    "asset": "USDC",
+    "report_date": "2026-09-30"
+  },
+  "expected": {
+    "headline.reserves": 73956687701,
+    "headline.supply": 73878861314,
+    "headline.unit": "USD",
+    "verdict": "fully_backed"
+  }
+}

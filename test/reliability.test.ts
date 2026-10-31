@@ -114,3 +114,21 @@ describe("request path", () => {
     await waitUntil.mock.calls[0][0];
   });
 });
+
+describe("pinned lookups", () => {
+  const env = { POR_KV: kv(null) } as Env;
+  it("answers a past report with its exact figures, judged as of its date", async () => {
+    const res = await app.request("/reserve?asset=PAXG&report_date=2026-09-30", {}, env, ctx);
+    const body = (await res.json()) as any;
+    expect(body).toMatchObject({ pinned: true, verdict: "fully_backed", stale: false });
+    expect(body.headline.reserves).toBe(435306);
+  });
+  it("refuses a report date we do not hold", async () => {
+    const res = await app.request("/reserve?asset=PAXG&report_date=2001-01-01", {}, env, ctx);
+    expect(res.status).toBe(404);
+  });
+  it("refuses a malformed round id before any read", async () => {
+    const res = await app.request("/reserve?asset=WBTC&round_id=abc", {}, env, ctx);
+    expect(res.status).toBe(400);
+  });
+});

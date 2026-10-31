@@ -1,0 +1,14 @@
+{
+  "mission": "Stablecoin",
+  "example_build": "Treasury agents choosing on evidence",
+  "intent": "ASSET_RESERVE_ATTESTATION_GENERAL",
+  "mode": "live",
+  "input": {
+    "path": "/reserve",
+    "question": "is it safe?"
+  },
+  "expected": {
+    "status": 400,
+    "error.code": "ASSET_REQUIRED"
+  }
+}

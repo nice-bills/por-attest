@@ -1,0 +1,16 @@
+{
+  "mission": "Asset Management",
+  "example_build": "daily holdings proof / supply checks",
+  "intent": "TOKEN_TOTAL_SUPPLY_VERIFY_GENERAL",
+  "mode": "live",
+  "input": {
+    "path": "/supply",
+    "asset": "USDT"
+  },
+  "expected": {
+    "rules": [
+      "supply_provenance",
+      "under_5s"
+    ]
+  }
+}

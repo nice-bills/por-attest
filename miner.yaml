@@ -53,6 +53,14 @@ endpoints:
             type: string
             intents: ["*"]
             description: "Chain whose Proof of Reserve feed to prefer when an asset has several: ethereum, base, arbitrum, optimism, polygon, bsc, avalanche, ink or plasma."
+          - name: round_id
+            type: string
+            intents: ["*"]
+            description: "Audit use: a past Chainlink round id, in decimal, for an exact historical figure. Omit for the latest answer."
+          - name: report_date
+            type: string
+            intents: ["*"]
+            description: "Audit use: an issuer report date as YYYY-MM-DD, for that report's exact figures. Omit for the latest answer."
 
   - path: /supply
     external_path: /supply

@@ -1,0 +1,18 @@
+{
+  "mission": "Exchange",
+  "example_build": "Solvency handshake",
+  "intent": "ASSET_RESERVE_ATTESTATION_GENERAL",
+  "mode": "simulated",
+  "input": {
+    "asset": "USDC",
+    "now": "2027-06-01T00:00:00Z",
+    "read": {
+      "supply": [],
+      "unread": []
+    }
+  },
+  "expected": {
+    "verdict": "unverified",
+    "stale": true
+  }
+}

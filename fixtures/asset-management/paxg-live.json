@@ -1,0 +1,18 @@
+{
+  "mission": "Asset Management",
+  "example_build": "daily holdings proof / supply checks",
+  "intent": "ASSET_RESERVE_ATTESTATION_GENERAL",
+  "mode": "live",
+  "input": {
+    "path": "/reserve",
+    "asset": "PAXG"
+  },
+  "expected": {
+    "rules": [
+      "ratio_matches",
+      "provenance",
+      "verdict_consistent",
+      "under_5s"
+    ]
+  }
+}

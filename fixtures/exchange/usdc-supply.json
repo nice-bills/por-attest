@@ -1,0 +1,16 @@
+{
+  "mission": "Exchange",
+  "example_build": "Solvency handshake",
+  "intent": "TOKEN_TOTAL_SUPPLY_VERIFY_GENERAL",
+  "mode": "live",
+  "input": {
+    "path": "/supply",
+    "asset": "USDC"
+  },
+  "expected": {
+    "rules": [
+      "supply_provenance",
+      "under_5s"
+    ]
+  }
+}

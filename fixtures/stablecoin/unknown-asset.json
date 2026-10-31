@@ -1,0 +1,15 @@
+{
+  "mission": "Stablecoin",
+  "example_build": "Treasury agents choosing on evidence",
+  "intent": "ASSET_RESERVE_ATTESTATION_GENERAL",
+  "mode": "live",
+  "input": {
+    "path": "/reserve",
+    "asset": "FAKECOIN"
+  },
+  "expected": {
+    "status": 404,
+    "error.code": "NO_POR_FEED",
+    "verdict": "unverified"
+  }
+}

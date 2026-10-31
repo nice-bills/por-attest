@@ -1,10 +1,11 @@
 import { Hono } from "hono";
 import { buildAnswer } from "./answer";
-import { FEEDS, ISSUERS, findAsset, findInQuestion, type Asset } from "./catalog";
+import { FEEDS, ISSUERS, REPORTS, findAsset, findInQuestion, type Asset } from "./catalog";
 import miner from "../miner.yaml";
 import home from "./pages/home.html";
 import privacy from "./pages/privacy.html";
 import terms from "./pages/terms.html";
+import { readRound } from "./reads";
 import { loadSnapshot, needsRefresh, readFor, refreshSnapshot, type Snapshot } from "./snapshot";
 import { buildSupply } from "./supply";
 
@@ -59,9 +60,21 @@ export function resolveAsset(query: { asset?: string; chain?: string; question?:
 }
 
 app.get("/reserve", async (c) => {
-  const { asset, chain, question } = c.req.query();
+  const { asset, chain, question, round_id, report_date } = c.req.query();
   const resolved = resolveAsset({ asset, chain, question });
   if ("error" in resolved) return c.json({ error: resolved.error, asset: resolved.name, verdict: "unverified" }, resolved.status);
+  if (round_id && resolved.asset.kind === "feed") {
+    if (!/^\d+$/.test(round_id)) return c.json({ error: { code: "BAD_ROUND_ID", message: "round_id must be a decimal integer." } }, 400);
+    const read = await readRound(resolved.asset, round_id);
+    return c.json({ ...buildAnswer(resolved.asset, read, new Date(), question ?? null), pinned: true });
+  }
+  if (report_date) {
+    const report = REPORTS[resolved.asset.key]?.find((r) => r.report_date === report_date);
+    if (!report) return c.json({ error: { code: "NO_REPORT", message: `No report dated ${report_date} is held for ${resolved.asset.asset}.` } }, 404);
+    // Judged as of its own date, so this answer never drifts.
+    const answer = buildAnswer(resolved.asset, { supply: [], unread: [] }, new Date(report_date), question ?? null, { snapshot_at: null, report });
+    return c.json({ ...answer, pinned: true });
+  }
   const snapshot = await snapshotFor(c);
   const freshness = { snapshot_at: snapshot?.generated_at ?? null, report: snapshot?.reports[resolved.asset.key] };
   return c.json(buildAnswer(resolved.asset, readFor(snapshot, resolved.asset), new Date(), question ?? null, freshness));

@@ -1,0 +1,17 @@
+{
+  "mission": "Asset Management",
+  "example_build": "daily holdings proof / supply checks",
+  "intent": "ASSET_RESERVE_ATTESTATION_GENERAL",
+  "mode": "pinned",
+  "input": {
+    "path": "/reserve",
+    "asset": "stETH",
+    "round_id": "18446744073709554689"
+  },
+  "expected": {
+    "verdict": "unverified",
+    "headline.reserves": 9687011.318590214,
+    "chainlink.round_id": "18446744073709554689",
+    "stale": true
+  }
+}

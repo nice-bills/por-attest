@@ -1,0 +1,23 @@
+{
+  "mission": "Asset Management",
+  "example_build": "daily holdings proof / supply checks",
+  "intent": "ASSET_RESERVE_ATTESTATION_GENERAL",
+  "mode": "simulated",
+  "input": {
+    "asset": "WBTC",
+    "now": "2026-10-31T12:00:00Z",
+    "read": {
+      "supply": [],
+      "unread": [
+        {
+          "chain": "ethereum",
+          "reason": "RPCs disagree"
+        }
+      ]
+    }
+  },
+  "expected": {
+    "verdict": "unverified",
+    "headline.reserves": null
+  }
+}

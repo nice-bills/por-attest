@@ -1,0 +1,18 @@
+{
+  "mission": "Stablecoin",
+  "example_build": "Treasury agents choosing on evidence",
+  "intent": "ASSET_RESERVE_ATTESTATION_GENERAL",
+  "mode": "live",
+  "input": {
+    "path": "/reserve",
+    "question": "Is PYUSD fully backed right now?"
+  },
+  "expected": {
+    "rules": [
+      "ratio_matches",
+      "provenance",
+      "verdict_consistent",
+      "under_5s"
+    ]
+  }
+}

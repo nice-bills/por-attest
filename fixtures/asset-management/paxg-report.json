@@ -1,0 +1,18 @@
+{
+  "mission": "Asset Management",
+  "example_build": "daily holdings proof / supply checks",
+  "intent": "ASSET_RESERVE_ATTESTATION_GENERAL",
+  "mode": "pinned",
+  "input": {
+    "path": "/reserve",
+    "asset": "PAXG",
+    "report_date": "2026-09-30"
+  },
+  "expected": {
+    "headline.reserves": 435306,
+    "headline.supply": 435306,
+    "headline.ratio": 1,
+    "headline.unit": "troy oz",
+    "verdict": "fully_backed"
+  }
+}
