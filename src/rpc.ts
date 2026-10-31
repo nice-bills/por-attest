@@ -33,7 +33,7 @@ export async function rpc(url: string, method: string, params: unknown[]): Promi
 export async function readCalls(url: string, calls: Call[], multicall: boolean): Promise<ChainRead> {
   const block = await rpc(url, "eth_getBlockByNumber", ["latest", false]);
   const tag = block.number as string;
-  const results = multicall ? await viaMulticall(url, calls, tag) : await oneByOne(url, calls, tag);
+  const results = multicall ? await viaMulticall(url, calls, tag) : await oneByOne(url, calls);
   return {
     block_number: Number(block.number),
     block_timestamp: new Date(Number(block.timestamp) * 1000).toISOString(),
@@ -52,7 +52,8 @@ async function viaMulticall(url: string, calls: Call[], tag: string): Promise<(H
   return decoded.map((r) => (r.success && r.returnData !== "0x" ? r.returnData : null));
 }
 
-async function oneByOne(url: string, calls: Call[], tag: string): Promise<(Hex | null)[]> {
-  const out = await Promise.allSettled(calls.map((c) => rpc(url, "eth_call", [c, tag])));
+async function oneByOne(url: string, calls: Call[]): Promise<(Hex | null)[]> {
+  // Non-multicall chains (Tron) only answer eth_call at "latest", so tag is not used.
+  const out = await Promise.allSettled(calls.map((c) => rpc(url, "eth_call", [c, "latest"])));
   return out.map((r) => (r.status === "fulfilled" && r.value !== "0x" ? (r.value as Hex) : null));
 }

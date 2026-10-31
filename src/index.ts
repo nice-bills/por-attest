@@ -6,6 +6,7 @@ import home from "./pages/home.html";
 import privacy from "./pages/privacy.html";
 import terms from "./pages/terms.html";
 import { readAssets } from "./reads";
+import { buildSupply } from "./supply";
 
 export interface Env {
   POR_KV: KVNamespace;
@@ -54,6 +55,14 @@ app.get("/reserve", async (c) => {
   if ("error" in resolved) return c.json({ error: resolved.error, asset: resolved.name, verdict: "unverified" }, resolved.status);
   const reads = await readAssets([resolved.asset]);
   return c.json(buildAnswer(resolved.asset, reads[resolved.asset.key], new Date(), question ?? null));
+});
+
+app.get("/supply", async (c) => {
+  const { asset, chain } = c.req.query();
+  const resolved = resolveAsset({ asset, chain });
+  if ("error" in resolved) return c.json({ error: resolved.error, asset: resolved.name, verdict: "unverified" }, resolved.status);
+  const reads = await readAssets([resolved.asset]);
+  return c.json(buildSupply(resolved.asset, reads[resolved.asset.key], new Date(), chain));
 });
 
 app.notFound((c) => c.json({ error: { code: "NOT_FOUND", message: "See GET /assets." } }, 404));
