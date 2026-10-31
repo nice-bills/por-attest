@@ -8,10 +8,11 @@ ratio, the report's age, the source of every figure, and a verdict.
 
 - Stack: TypeScript, Hono, viem, Cloudflare Workers, Cloudflare KV.
 - Live: https://por-attest.alnicewilliams3.workers.dev
-- Existing endpoints: GET /health, GET /assets, GET /reserve?question=..., /miner.yaml, /terms, /privacy, / (demo page).
+- Endpoints: GET /health, GET /assets, GET /reserve?question=..., GET /supply?asset=..., /miner.yaml, /terms, /privacy, / (demo page).
 - Data: 74 Chainlink Proof of Reserve feeds (source_type: chainlink_por) and issuer
   attestations for USDC, USDT, XAUT, PAXG, PYUSD, USDe (source_type: issuer_attestation).
-- Tests: 69 unit + 5 end-to-end, all passing. Keep them passing.
+- Tests: `npm test` (unit) and `npm run test:e2e` (needs E2E_BASE_URL). Keep them passing.
+- The deployed Worker still runs older code than this repo; see docs/pre-hackathon.md.
 
 ## Hard facts about the network (checked 31 Oct 2026; re-check before relying on them)
 - Telegraph moved to v2, run through Anjoman: https://anjoman.ai (docs: https://anjoman.ai/docs).
@@ -47,10 +48,12 @@ ratio, the report's age, the source of every figure, and a verdict.
   - Issuer assets: the report's own reserves, supply and ratio, with the report date.
 - Put our live on-chain comparison in a separate field. It must never change the headline number.
 - Every supply figure carries chain, block number and timestamp.
-- Use numbers, not formatted strings, and explicit units (USD, BTC, troy oz).
+- Use numbers, not formatted strings, and explicit units (USD, BTC, troy oz). Exception: raw
+  uint80/int256 values such as `round_id` stay strings, because they exceed the safe integer range.
 - `summary` is one self-contained sentence: verdict, ratio, as-of date, source.
 - Verdicts: `fully_backed`, `under_backed`, `unverified` (stale or not comparable). "unverified"
-  is a normal answer with a reason, not an error.
+  is a normal answer with a reason, not an error. USDe keeps these values and sets
+  `verdict_type: collateral_coverage`.
 
 ## Rules for working in this repo
 - Never commit secrets. RPC keys and any signing key live as Worker secrets (`wrangler secret put`).

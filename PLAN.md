@@ -5,23 +5,26 @@ Work top to bottom. Each task lists what "done" means.
 ## Phase 1 — Before registering (31 Oct to 2 Nov)
 
 - [ ] **1. Tag the pre-hackathon code**
+  Status 31 Oct: Tag made on the brief-only commit (no source existed). Not pushed: no remote yet.
   Done: git tag `pre-hackathon` on the current commit, pushed.
 
 - [ ] **2. Rewrite miner.yaml for v2**
+  Status 31 Oct: `miner.yaml` written. Open: the hosted validator returned 404, so it has not passed.
   Use `miner.v2.yaml` in this kit as the starting point. Fill in `id`, `slug`, `base_url`.
   Done: `POST https://integrate.telegraphprotocol.com/api/validate` returns no errors and no
   warnings about missing params.
 
 - [ ] **3. Add the `/supply` endpoint** (for `TOKEN_TOTAL_SUPPLY_VERIFY_GENERAL`)
+  Status 31 Oct: Built. Open: e2e has run on local wrangler dev, not the deployed Worker.
   Returns circulating supply per chain and total, each with chain, block number and timestamp.
   Reuses the existing supply code.
   Done: unit tests for the response shape; e2e test hitting the deployed Worker.
 
-- [ ] **4. Make answers lead with authoritative figures**
+- [x] **4. Make answers lead with authoritative figures**
   See "How answers should look" in CLAUDE.md.
   Done: tests show the headline equals the Chainlink round value or the issuer report figure exactly.
 
-- [ ] **5. Fix the comparison logic**
+- [x] **5. Fix the comparison logic**
   - Headline ratio uses reserves and supply from the same report (no mixing dates).
   - Live drift since the report goes in a separate field.
   - Bridged copies (e.g. USDC.e) are not counted twice.
@@ -30,6 +33,7 @@ Work top to bottom. Each task lists what "done" means.
   Done: a test proves the cross-chain total has no double count.
 
 - [ ] **6. Move heavy work out of the request path**
+  Status 31 Oct: Built. Open: load test on the deployed Worker.
   - A scheduled (cron) handler refreshes one combined snapshot of all assets every ~2 minutes into KV.
   - Requests read the snapshot and format it. Stale-while-revalidate with `ctx.waitUntil`.
   - Timeouts and a fallback RPC on every read.
@@ -37,6 +41,7 @@ Work top to bottom. Each task lists what "done" means.
   Done: median response under 500 ms, p95 under 2 s in a load test (k6 or autocannon). Save the results.
 
 - [ ] **7. Keyed Solana RPC** as a Worker secret, so Solana supply is read on-chain.
+  Status 31 Oct: Code done. Open: the secret must be installed.
 
 ## Phase 2 — Register (1 to 3 Nov)
 
@@ -48,8 +53,9 @@ Work top to bottom. Each task lists what "done" means.
 
 ## Phase 3 — Prove it works (by 20 Nov)
 
-- [ ] **11. Mission test fixtures** (see "Fixtures" below) for Stablecoin, Exchange, Asset Management.
+- [x] **11. Mission test fixtures** (see "Fixtures" below) for Stablecoin, Exchange, Asset Management.
 - [ ] **12. Small buyer app (ours, labelled as ours)**
+  Status 31 Oct: Built; dry run only. Open: paid runs on two UTC dates. Routing may pick another miner.
   A script-level "solvency check" agent: before accepting a token, it buys a reserve verdict through
   Telegraph's ranked routing and accepts or refuses. Run it with different assets on at least two UTC dates.
   Done: request and payment receipts saved, showing por-attest was the miner paid.
