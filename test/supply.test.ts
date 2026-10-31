@@ -4,7 +4,7 @@ import { app } from "../src/index";
 import { buildSupply } from "../src/supply";
 
 const now = new Date("2026-10-31T12:00:00Z");
-const row = (chain: string, n: number) => ({ chain, token: "0x1", decimals: 6, total_supply: n, block_number: 7, block_timestamp: now.toISOString() });
+const row = (chain: string, n: number) => ({ chain, token: "0x1", decimals: 6, total_supply: n, treasury_balance: 0, circulating: n, block_number: 7, block_timestamp: now.toISOString() });
 const usdc = findAsset("USDC")!;
 
 describe("buildSupply", () => {

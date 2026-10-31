@@ -1,12 +1,13 @@
-import { decodeFunctionResult, encodeFunctionData, formatUnits, parseAbi, type Hex } from "viem";
+import { decodeFunctionResult, encodeFunctionData, formatUnits, parseAbi, parseUnits, type Hex } from "viem";
 import { CHAINS } from "./chains";
-import type { Asset, TokenRef } from "./catalog";
+import { BRIDGED, type Asset, type TokenRef } from "./catalog";
 import { readCalls, type Call, type ChainRead } from "./rpc";
 
 const abi = parseAbi([
   "function latestRoundData() view returns (uint80 roundId, int256 answer, uint256 startedAt, uint256 updatedAt, uint80 answeredInRound)",
   "function decimals() view returns (uint8)",
   "function totalSupply() view returns (uint256)",
+  "function balanceOf(address) view returns (uint256)",
 ]);
 
 export interface SupplyRead {
@@ -14,6 +15,8 @@ export interface SupplyRead {
   token: string;
   decimals: number;
   total_supply: number;
+  treasury_balance: number;
+  circulating: number;
   block_number: number;
   block_timestamp: string;
 }
@@ -35,6 +38,23 @@ export interface AssetRead {
 }
 
 export type Reads = Record<string, AssetRead>;
+
+// Counts each chain+token once and leaves bridged copies out of the total.
+export function counted(rows: SupplyRead[]): SupplyRead[] {
+  const seen = new Set<string>();
+  return rows.filter((row) => {
+    const key = `${row.chain}:${row.token.toLowerCase()}`;
+    if (seen.has(key) || BRIDGED.has(row.token.toLowerCase())) return false;
+    seen.add(key);
+    return true;
+  });
+}
+
+// Summed at 18 decimals so a large cross-chain total keeps its low digits.
+export function sumCirculating(rows: SupplyRead[]): number {
+  const total = rows.reduce((sum, row) => sum + parseUnits(row.circulating.toFixed(6), 18), 0n);
+  return Number(formatUnits(total, 18));
+}
 
 const encode = (fn: "latestRoundData" | "decimals" | "totalSupply", to: string): Call => ({
   to,
@@ -95,17 +115,27 @@ function addFeed(address: string, chain: string, read: AssetRead, add: Add) {
 }
 
 function addToken(token: TokenRef, read: AssetRead, add: Add) {
+  let held = 0n;
+  for (const wallet of token.treasury ?? []) {
+    const data = encodeFunctionData({ abi, functionName: "balanceOf", args: [wallet as Hex] });
+    add(token.chain, { to: token.token, data }, (hex) => {
+      if (hex) held += decodeFunctionResult({ abi, functionName: "balanceOf", data: hex });
+    });
+  }
+  // Jobs apply in order, so the balances above are in by the time this runs.
   add(token.chain, encode("totalSupply", token.token), (hex, at) => {
     if (!hex) {
       read.unread.push({ chain: token.chain, reason: "totalSupply read failed" });
       return;
     }
-    const raw = decodeFunctionResult({ abi, functionName: "totalSupply", data: hex });
+    const total = decodeFunctionResult({ abi, functionName: "totalSupply", data: hex });
     read.supply.push({
       chain: token.chain,
       token: token.token,
       decimals: token.decimals,
-      total_supply: Number(formatUnits(raw, token.decimals)),
+      total_supply: Number(formatUnits(total, token.decimals)),
+      treasury_balance: Number(formatUnits(held, token.decimals)),
+      circulating: Number(formatUnits(total - held, token.decimals)),
       block_number: at.block_number,
       block_timestamp: at.block_timestamp,
     });

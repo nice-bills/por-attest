@@ -526,7 +526,7 @@
   "feed": "0x3F0543aA057BcAeA152Fe9462Cb3ffaB305a6F8D",
   "heartbeat_seconds": 86400,
   "comparable": false,
-  "unit": "ozt",
+  "unit": "troy oz",
   "tokens": [
    {
     "chain": "ethereum",
@@ -1278,7 +1278,7 @@
   "feed": "0x4e9fc7480c16F3FE5d956C0759eE6b4808d1F5D7",
   "heartbeat_seconds": 86400,
   "comparable": false,
-  "unit": "XAU",
+  "unit": "troy oz",
   "tokens": []
  },
  {

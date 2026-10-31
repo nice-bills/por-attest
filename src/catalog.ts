@@ -6,6 +6,8 @@ export interface TokenRef {
   chain: string;
   token: string;
   decimals: number;
+  // Issuer-held wallets whose balance is not circulating.
+  treasury?: string[];
 }
 
 export interface FeedAsset {
@@ -43,6 +45,7 @@ export interface IssuerAsset {
   cadence: string;
   transparency_page: string;
   tokens: TokenRef[];
+  verdict_type?: "collateral_coverage";
 }
 
 export type Asset = FeedAsset | IssuerAsset;
@@ -58,6 +61,17 @@ export const ISSUERS: IssuerAsset[] = (issuers as Omit<IssuerAsset, "kind" | "ke
   key: i.asset,
 }));
 export const REPORTS = attestations as unknown as Record<string, Report[]>;
+
+// Bridged copies of an asset we already count at its native issuance.
+export const BRIDGED = new Set(
+  [
+    "0xFF970A61A04b1cA14834A43f5dE4533eBDDB5CC8", // USDC.e arbitrum
+    "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174", // USDC.e polygon
+    "0x7F5c764cBc14f9669B88837ca1490cCa17c31607", // USDC.e optimism
+    "0xA7D7079b0FEaD91F3e65f86E8915Cb59c1a4C664", // USDC.e avalanche
+    "0xd9aAEc86B65D86f6A7B5B1b0c42FFA531710b6CA", // USDbC base
+  ].map((a) => a.toLowerCase()),
+);
 
 const ALIASES: Record<string, string> = {
   TETHER: "USDT",

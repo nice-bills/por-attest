@@ -55,7 +55,10 @@
    {
     "chain": "tron",
     "token": "0xa614f803b6fd780986a42c78ec9c7f77e6ded13c",
-    "decimals": 6
+    "decimals": 6,
+    "treasury": [
+     "0x66426c7ac3d98b29191063833345b6bc540d7278"
+    ]
    },
    {
     "chain": "avalanche",
@@ -65,7 +68,10 @@
    {
     "chain": "ethereum",
     "token": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
-    "decimals": 6
+    "decimals": 6,
+    "treasury": [
+     "0x5754284f345afc66a98fbB0a0Afe71e0F007B949"
+    ]
    },
    {
     "chain": "solana",
@@ -78,7 +84,7 @@
   "asset": "XAUT",
   "name": "Tether Gold",
   "issuer": "Tether (TG Commodities)",
-  "unit": "XAU_oz",
+  "unit": "troy oz",
   "cadence": "quarterly",
   "transparency_page": "https://gold.tether.to/",
   "tokens": [
@@ -93,7 +99,7 @@
   "asset": "PAXG",
   "name": "Pax Gold",
   "issuer": "Paxos",
-  "unit": "XAU_oz",
+  "unit": "troy oz",
   "cadence": "monthly",
   "transparency_page": "https://www.paxos.com/paxg-transparency",
   "tokens": [
@@ -142,6 +148,7 @@
     "token": "0x4c9EDD5852cd905f086C759E8383e09bff1E68B3",
     "decimals": 18
    }
-  ]
+  ],
+  "verdict_type": "collateral_coverage"
  }
 ]
