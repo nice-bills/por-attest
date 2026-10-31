@@ -12,7 +12,7 @@ ratio, the report's age, the source of every figure, and a verdict.
 - Data: 74 Chainlink Proof of Reserve feeds (source_type: chainlink_por) and issuer
   attestations for USDC, USDT, XAUT, PAXG, PYUSD, USDe (source_type: issuer_attestation).
 - Tests: `npm test` (unit) and `npm run test:e2e` (needs E2E_BASE_URL). Keep them passing.
-- The deployed Worker still runs older code than this repo; see docs/pre-hackathon.md.
+- Disclosure of the earlier Worker: docs/pre-hackathon.md.
 
 ## Hard facts about the network (checked 31 Oct 2026; re-check before relying on them)
 - Telegraph moved to v2, run through Anjoman: https://anjoman.ai (docs: https://anjoman.ai/docs).

@@ -5,6 +5,8 @@ import { wrapFetchWithPaymentFromConfig } from "@x402/fetch";
 import { privateKeyToAccount } from "viem/accounts";
 
 const SEPOLIA = "eip155:11155111";
+const TEST_USDC = "0xcc194e1a843B658526D0D5C431f670028582Ae17";
+const MAX_PAYMENT = "100000"; // $0.10 per call, in 6-decimal test USDC
 
 export const NODE = process.env.TELEGRAPH_NODE ?? "https://devnode.telegraphprotocol.com";
 export const MINER_ID = readFileSync("miner.yaml", "utf8").match(/^id: (\d+)/m)?.[1];
@@ -19,7 +21,10 @@ async function payingFetch(): Promise<typeof fetch> {
   const key = process.env.BUYER_PRIVATE_KEY;
   if (!key) throw new Error("BUYER_PRIVATE_KEY is not set");
   const account = privateKeyToAccount(key as `0x${string}`);
-  return wrapFetchWithPaymentFromConfig(fetch, { schemes: [{ network: SEPOLIA, client: new ExactEvmScheme(account) }] });
+  return wrapFetchWithPaymentFromConfig(fetch, {
+    schemes: [{ network: SEPOLIA, client: new ExactEvmScheme(account) }],
+    spendControls: { allowedAssets: [{ network: SEPOLIA, asset: TEST_USDC, maxAmountPerPayment: MAX_PAYMENT }] },
+  });
 }
 
 async function post(url: string, payload: unknown, pay: typeof fetch): Promise<Reply> {

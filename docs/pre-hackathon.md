@@ -1,7 +1,8 @@
 # Pre-hackathon code disclosure
 
 por-attest was already running at https://por-attest.alnicewilliams3.workers.dev before 1 Nov 2026.
-That deployed Worker's source was not in this repository.
+That Worker's source was not in this repository. Its bundled build was saved outside the repo
+before the rewrite replaced it on 31 Oct 2026.
 
 - The `pre-hackathon` tag marks the project brief only. It contains no pre-hackathon source code.
 - Everything under `src/` was rewritten after that tag. Its asset, feed and attestation data

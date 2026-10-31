@@ -1,8 +1,23 @@
 # Load test
 
-**Status: the PLAN task 6 target is not yet proven on the deployed Worker.** The Worker at
-por-attest.alnicewilliams3.workers.dev still runs the older code, and this rewrite could not be
-deployed from here. The numbers below are from a local run and show only the handler's own cost.
+## Deployed run, 31 Oct 2026
+
+Target met: median under 500 ms, p95 under 2 s, no 5xx.
+
+- Command: `npx autocannon -c 20 -d 30 'https://por-attest.alnicewilliams3.workers.dev/reserve?asset=USDC'`
+
+| Metric | Result |
+| --- | --- |
+| Requests | 2,571 |
+| 2xx | 2,571 |
+| Non-2xx / errors | 0 / 0 |
+| p50 | 218 ms |
+| p90 | 299 ms |
+| p97.5 | 441 ms |
+| p99 | 671 ms |
+| max | 1,121 ms |
+
+autocannon reports p97.5 rather than p95, so p95 is under 441 ms. Measured from one home connection.
 
 ## Local run, 31 Oct 2026
 
@@ -23,11 +38,3 @@ deployed from here. The numbers below are from a local run and show only the han
 
 autocannon reports p97.5 and p99 rather than p95, so p95 lies between 46 and 61 ms. Local KV has
 no network cost, so expect slower figures once deployed.
-
-## To finish the task
-
-After deploying, run this and paste the output here (target: median under 500 ms, p95 under 2 s):
-
-```bash
-npm run load -- 'https://por-attest.alnicewilliams3.workers.dev/reserve?asset=USDC'
-```

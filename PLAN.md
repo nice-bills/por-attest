@@ -14,8 +14,7 @@ Work top to bottom. Each task lists what "done" means.
   Done: `POST https://integrate.telegraphprotocol.com/api/validate` returns no errors and no
   warnings about missing params.
 
-- [ ] **3. Add the `/supply` endpoint** (for `TOKEN_TOTAL_SUPPLY_VERIFY_GENERAL`)
-  Status 31 Oct: Built. Open: e2e has run on local wrangler dev, not the deployed Worker.
+- [x] **3. Add the `/supply` endpoint** (for `TOKEN_TOTAL_SUPPLY_VERIFY_GENERAL`)
   Returns circulating supply per chain and total, each with chain, block number and timestamp.
   Reuses the existing supply code.
   Done: unit tests for the response shape; e2e test hitting the deployed Worker.
@@ -32,8 +31,7 @@ Work top to bottom. Each task lists what "done" means.
   - Gold tokens report in troy oz; USDe gets its own verdict type, not the stablecoin one.
   Done: a test proves the cross-chain total has no double count.
 
-- [ ] **6. Move heavy work out of the request path**
-  Status 31 Oct: Built. Open: load test on the deployed Worker.
+- [x] **6. Move heavy work out of the request path**
   - A scheduled (cron) handler refreshes one combined snapshot of all assets every ~2 minutes into KV.
   - Requests read the snapshot and format it. Stale-while-revalidate with `ctx.waitUntil`.
   - Timeouts and a fallback RPC on every read.
@@ -45,8 +43,10 @@ Work top to bottom. Each task lists what "done" means.
 
 ## Phase 2 — Register (1 to 3 Nov)
 
-- [ ] **8. Get test funds**: Sepolia ETH for gas; MACHINA (bond) and test USDC from the Anjoman faucet.
-- [ ] **9. Register** through integrate.telegraphprotocol.com with intents
+- [x] **8. Get test funds**: Sepolia ETH for gas; MACHINA (bond) and test USDC from the Anjoman faucet.
+- [ ] **9. Register**
+  Status 31 Oct: registrationId 4858 on-chain; the node has not activated it yet.
+  through integrate.telegraphprotocol.com with intents
   `ASSET_RESERVE_ATTESTATION_GENERAL` and `TOKEN_TOTAL_SUPPLY_VERIFY_GENERAL`.
   Done: record the registrationId; `/api/miners/<registrationId>` shows `activation_status: active`.
 - [ ] **10. Start an external uptime monitor** with a public history page.
