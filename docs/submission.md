@@ -7,11 +7,11 @@ Paste these answers into the form on the H2 website by 1 Dec 2026, 23:59 UTC. Ai
 - Track: Miners / Providers
 - Project: por-attest
 - Team and contact: to fill in
-- Intents: `ASSET_RESERVE_ATTESTATION_GENERAL`, `TOKEN_TOTAL_SUPPLY_VERIFY_GENERAL`
-- Missions supported: Stablecoin, Exchange, Asset Management
+- Intents: `ASSET_RESERVE_ATTESTATION_GENERAL`, `TOKEN_TOTAL_SUPPLY_VERIFY_GENERAL`, `CRYPTO_TRANSFER_VERIFY_GENERAL`
+- Missions supported, each with fixtures: Stablecoin, Exchange, Asset Management, Mining and Power, Consumer Automation, Model Economy, Web3 Native and DeFi (settlement check of the escrow only)
 - Working link: https://por-attest.alnicewilliams3.workers.dev
 - Repository: https://github.com/nice-bills/por-attest
-- Miner: id 27741, registrationId 4862, Ethereum Sepolia testnet
+- Miner: id 27741, registrationId 4865, Ethereum Sepolia testnet
 
 ## Short demo
 

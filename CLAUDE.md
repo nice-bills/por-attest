@@ -8,7 +8,7 @@ ratio, the report's age, the source of every figure, and a verdict.
 
 - Stack: TypeScript, Hono, viem, Cloudflare Workers, Cloudflare KV.
 - Live: https://por-attest.alnicewilliams3.workers.dev
-- Endpoints: GET /health, GET /assets, GET /reserve?question=..., GET /supply?asset=..., GET /register (demo page table), /miner.yaml, /terms, /privacy, / (demo page).
+- Endpoints: GET /health, GET /assets, GET /reserve?question=..., GET /supply?asset=..., GET /transfer?chain=...&tx_hash=..., GET /register (demo page table), /miner.yaml, /terms, /privacy, / (demo page).
 - Data: 74 Chainlink Proof of Reserve feeds (source_type: chainlink_por) and issuer
   attestations for USDC, USDT, XAUT, PAXG, PYUSD, USDe (source_type: issuer_attestation).
 - Tests: `npm test` (unit) and `npm run test:e2e` (needs E2E_BASE_URL). Keep them passing.
@@ -22,6 +22,7 @@ ratio, the report's age, the source of every figure, and a verdict.
 - Intent names must match exactly (case-sensitive). The names we use:
   - `ASSET_RESERVE_ATTESTATION_GENERAL` (main intent)
   - `TOKEN_TOTAL_SUPPLY_VERIFY_GENERAL` (second intent, reuses our supply code)
+  - `CRYPTO_TRANSFER_VERIFY_GENERAL` (third intent, served by /transfer)
   - Do NOT use `CROSS_CHAIN_STATE_VERIFY_GENERAL`: it is about bridge proofs and state roots, not supply.
 - Validate the YAML first: `POST https://integrate.telegraphprotocol.com/api/validate`
   with `{"yaml": "<raw YAML>", "miner_address": "0x..."}`. The site integrate.telegraphprotocol.com

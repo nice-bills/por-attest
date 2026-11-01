@@ -2,6 +2,7 @@
 import { readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { buildAnswer } from "../src/answer";
 import { findAsset } from "../src/catalog";
+import { buildTransfer } from "../src/transfer";
 import { askTelegraphDirect } from "../buyer/telegraph";
 
 interface Fixture {
@@ -56,6 +57,10 @@ const RULES: Record<string, (body: any, ms: number) => string | null> = {
 
 async function call(f: Fixture): Promise<{ status: number; body: any; ms: number }> {
   const started = Date.now();
+  if (f.mode === "simulated" && f.input.raw) {
+    const { chain, tx_hash, raw, now } = f.input;
+    return { status: 200, body: buildTransfer(chain, tx_hash, raw, [], new Date(now)), ms: 0 };
+  }
   if (f.mode === "simulated") {
     const { asset, read, now } = f.input;
     return { status: 200, body: buildAnswer(findAsset(asset)!, read, new Date(now), null), ms: 0 };
@@ -72,9 +77,11 @@ async function call(f: Fixture): Promise<{ status: number; body: any; ms: number
 }
 
 function check(f: Fixture, r: { status: number; body: any; ms: number }): string[] {
-  const { rules, status, ...exact } = f.expected;
+  // `status` is the HTTP code; status_field checks the body's own status.
+  const { rules, status, status_field, ...exact } = f.expected;
   const problems: string[] = [];
   if (r.status !== (status ?? 200)) problems.push(`status ${r.status}, wanted ${status ?? 200}`);
+  if (status_field && r.body.status !== status_field) problems.push(`status field: got ${r.body.status}, wanted ${status_field}`);
   for (const [path, want] of Object.entries(exact)) {
     const got = at(r.body, path);
     if (got !== want && !(typeof want === "number" && typeof got === "number" && close(got, want))) problems.push(`${path}: got ${JSON.stringify(got)}, wanted ${JSON.stringify(want)}`);

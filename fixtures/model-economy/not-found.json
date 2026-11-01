@@ -1,0 +1,16 @@
+{
+  "mission": "Model Economy",
+  "example_build": "Buying inference with a wallet and no account",
+  "intent": "CRYPTO_TRANSFER_VERIFY_GENERAL",
+  "mode": "live",
+  "input": {
+    "path": "/transfer",
+    "chain": "ethereum",
+    "tx_hash": "0xabababababababababababababababababababababababababababababababab"
+  },
+  "expected": {
+    "status": 200,
+    "verdict": "unverified",
+    "status_field": "not_found"
+  }
+}

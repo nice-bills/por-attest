@@ -1,0 +1,15 @@
+{
+  "mission": "Model Economy",
+  "example_build": "Buying inference with a wallet and no account",
+  "intent": "CRYPTO_TRANSFER_VERIFY_GENERAL",
+  "mode": "live",
+  "input": {
+    "path": "/transfer",
+    "chain": "ethereum",
+    "tx_hash": "0x123"
+  },
+  "expected": {
+    "status": 400,
+    "error.code": "BAD_TX_HASH"
+  }
+}

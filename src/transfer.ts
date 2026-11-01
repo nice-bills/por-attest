@@ -123,6 +123,8 @@ export async function verifyTransfer(chain: string, hash: string, now = new Date
     try {
       const raw = await readTx(url, hash);
       if (!raw) {
+        // Two RPCs agreeing it is absent is an answer; stop rather than work down the list.
+        if (missing) break;
         missing = true;
         continue;
       }

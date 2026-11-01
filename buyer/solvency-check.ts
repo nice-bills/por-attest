@@ -12,7 +12,7 @@ import { decide } from "./decide";
 import { MINER_ID, askRouted, askTelegraphDirect, type Reply } from "./telegraph";
 
 const LABEL = "por-attest solvency-check: our own app, labelled as ours; not independent adoption. Testnet (Ethereum Sepolia).";
-const REGISTRATION_IDS = ["4858", "4862"];
+const REGISTRATION_IDS = ["4858", "4862", "4865"];
 const MINER = process.env.POR_ATTEST_URL ?? "https://por-attest.alnicewilliams3.workers.dev";
 
 const args = process.argv.slice(2);

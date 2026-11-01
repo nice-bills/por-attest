@@ -12,13 +12,15 @@ The headline is always the source's own figure, with its date. If data is stale 
 
 Payment runs on Ethereum Sepolia testnet. Data comes from mainnet.
 
-Building for the Stablecoin, Exchange or Asset Management missions? Build on our reserve intents: here's the fixture.
+It also verifies token supply and single on-chain payments.
+
+Building for Stablecoin, Exchange, Asset Management, Mining and Power, Consumer Automation, Model Economy or Web3 DeFi? Build on our reserve intents: here's the fixture.
 
 https://github.com/nice-bills/por-attest
 
 ## Note to Apps teams
 
-We serve `ASSET_RESERVE_ATTESTATION_GENERAL` and `TOKEN_TOTAL_SUPPLY_VERIFY_GENERAL`. If your app needs a solvency or supply check, fixtures cover Treasury agents choosing on evidence, Solvency handshake, and daily holdings proof. Run one with:
+We serve `ASSET_RESERVE_ATTESTATION_GENERAL`, `TOKEN_TOTAL_SUPPLY_VERIFY_GENERAL` and `CRYPTO_TRANSFER_VERIFY_GENERAL`. If your app needs a solvency or supply check, fixtures cover seven missions. Run one with:
 
 `npm run fixtures -- --mission exchange`
 

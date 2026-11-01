@@ -1,0 +1,16 @@
+{
+  "mission": "Consumer Automation",
+  "example_build": "The peer-to-peer reality check",
+  "intent": "CRYPTO_TRANSFER_VERIFY_GENERAL",
+  "mode": "pinned",
+  "input": {
+    "path": "/transfer",
+    "chain": "ethereum",
+    "tx_hash": "0xb4cf091313cf53da3c0d648a1097893a5d97c05071d592a33f41f083894528e8"
+  },
+  "expected": {
+    "verdict": "failed",
+    "amount": null,
+    "status_field": "reverted"
+  }
+}

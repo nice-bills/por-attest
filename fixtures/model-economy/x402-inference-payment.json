@@ -1,0 +1,18 @@
+{
+  "mission": "Model Economy",
+  "example_build": "Buying inference with a wallet and no account",
+  "intent": "CRYPTO_TRANSFER_VERIFY_GENERAL",
+  "mode": "pinned",
+  "input": {
+    "path": "/transfer",
+    "chain": "sepolia",
+    "tx_hash": "0xa52fde5bed14a8d5496fd437dce91d44263801f22518dd933088808806c130eb"
+  },
+  "expected": {
+    "verdict": "verified",
+    "network": "testnet",
+    "token": "USDC",
+    "amount": 0.01,
+    "to": "0x3624eb012b5e998bb57b6be6c9cfc9c4bc5eb99b"
+  }
+}

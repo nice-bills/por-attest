@@ -1,0 +1,21 @@
+{
+  "mission": "Model Economy",
+  "example_build": "Buying inference with a wallet and no account",
+  "intent": "CRYPTO_TRANSFER_VERIFY_GENERAL",
+  "mode": "pinned",
+  "input": {
+    "path": "/transfer",
+    "chain": "ethereum",
+    "tx_hash": "0xe8eb5a23f69a8f39cc08659b3f70f1645375bc545f2254ac4964303266ca50a8"
+  },
+  "expected": {
+    "verdict": "verified",
+    "token": "USDC",
+    "amount": 241,
+    "amount_raw": "241000000",
+    "from": "0x6928f3e126dbac9923d52300fdef714b280b305c",
+    "to": "0x66d65c572141b5137be25c680f1c86af6e76e20b",
+    "block_number": 26316681,
+    "status_field": "success"
+  }
+}

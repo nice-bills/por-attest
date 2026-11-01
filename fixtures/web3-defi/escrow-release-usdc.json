@@ -1,0 +1,18 @@
+{
+  "mission": "Web3 Native and DeFi",
+  "example_build": "The self-settling conditional escrow",
+  "intent": "CRYPTO_TRANSFER_VERIFY_GENERAL",
+  "mode": "pinned",
+  "input": {
+    "path": "/transfer",
+    "chain": "base",
+    "tx_hash": "0xf8feab7e31110a1a702f5d43052a9f4b3bd4e7c3d68b377f4c9c0443032caf0d"
+  },
+  "expected": {
+    "verdict": "verified",
+    "token": "USDC",
+    "amount": 30.141,
+    "to": "0xd272e924e2604b7249901674bb59352db7ccbf02",
+    "block_number": 53363930
+  }
+}

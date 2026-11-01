@@ -1,0 +1,18 @@
+{
+  "mission": "Mining and Power",
+  "example_build": "Treasury moves with evidence attached",
+  "intent": "ASSET_RESERVE_ATTESTATION_GENERAL",
+  "mode": "pinned",
+  "input": {
+    "path": "/reserve",
+    "asset": "WBTC",
+    "round_id": "36893488147419104257"
+  },
+  "expected": {
+    "headline.reserves": 116144.64916289,
+    "chainlink.answer_raw": "11614464916289",
+    "chainlink.decimals": 8,
+    "chainlink.round_id": "36893488147419104257",
+    "chainlink.updated_at": "2026-10-21T04:33:11.000Z"
+  }
+}

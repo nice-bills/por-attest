@@ -10,8 +10,8 @@ source. Our live on-chain read sits in a separate field and never changes that h
 When the evidence is stale, unreadable or contradictory, the answer is `unverified` with a reason.
 It never guesses, and two RPCs that disagree mean the figures are withheld.
 
-Fixtures for the Stablecoin, Exchange and Asset Management missions cover normal cases and failures,
-and anyone can rerun them with one command. Payment runs on the Ethereum Sepolia testnet; the data
+It also verifies token supply across chains and single on-chain transfers from their receipts.
+Fixtures for seven missions cover normal cases and failures, and anyone can rerun them with one command. Payment runs on the Ethereum Sepolia testnet; the data
 comes from mainnet chains. Our demo buyer app is labelled as ours.
 
 **Build on our reserve intents: here's the fixture.**

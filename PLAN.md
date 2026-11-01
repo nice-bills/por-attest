@@ -44,7 +44,7 @@ Work top to bottom. Each task lists what "done" means.
 
 - [x] **8. Get test funds**: Sepolia ETH for gas; MACHINA (bond) and test USDC from the Anjoman faucet.
 - [x] **9. Register**
-  Current registrationId 4862 (was 4858, updated to add the repo link).
+  Current registrationId 4865, serving three intents..
   through integrate.telegraphprotocol.com with intents
   `ASSET_RESERVE_ATTESTATION_GENERAL` and `TOKEN_TOTAL_SUPPLY_VERIFY_GENERAL`.
   Done: record the registrationId; `/api/miners/<registrationId>` shows `activation_status: active`.
@@ -97,10 +97,14 @@ Cases for each mission: two or three normal ones, plus failures:
 One command: `npm run fixtures -- --mission exchange --target <url|telegraph>`
 prints pass/fail and writes `fixtures/report.md`. Also add `npm run try -- <asset>` for any asset.
 
-Missions to cover (claim only these):
-- Stablecoin: "Treasury agents choosing on evidence"
-- Exchange: "Solvency handshake"
-- Asset Management: daily holdings proof / supply checks
+Missions to cover (each is an example build on the mission's page):
+- Stablecoin: "Treasury agents choosing on evidence", "The agent expense ledger"
+- Exchange: "The solvency handshake"
+- Asset Management: "Daily proof of holdings", supply checks
+- Mining and Power: "Treasury moves with evidence attached"
+- Consumer Automation: "The peer-to-peer reality check"
+- Model Economy: "Buying inference with a wallet and no account"
+- Web3 Native and DeFi: "The self-settling conditional escrow" (settlement check only)
 
 ## Demo video outline (about 3.5 minutes)
 1. 0:00–0:20 The problem: an agent must know a token is backed before accepting it.

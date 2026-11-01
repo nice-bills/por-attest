@@ -12,7 +12,8 @@ description: >
   Proof-of-reserve checks for stablecoins and tokenized assets. Compares the latest
   attested reserves (Chainlink Proof of Reserve or the issuer's attestation report)
   with circulating supply read on-chain, and returns the ratio, report age, the source
-  of every figure, and a verdict.
+  of every figure, and a verdict. Also verifies token supply across chains, and verifies a
+  single on-chain transfer from its transaction receipt.
 base_url: https://por-attest.alnicewilliams3.workers.dev
 
 auth:
@@ -83,6 +84,27 @@ endpoints:
             intents: ["*"]
             description: "Optional single chain to read, e.g. ethereum, base, arbitrum. Omit for all chains."
 
+  - path: /transfer
+    external_path: /transfer
+    method: GET
+    description: >
+      Verifies that an on-chain payment really happened, from its transaction receipt. Takes a
+      chain and transaction hash. Returns status, sender, recipient, token, amount, block number
+      and confirmations. A reverted transaction returns failed; an unknown or unsettled one
+      returns unverified with a reason.
+    intents: [CRYPTO_TRANSFER_VERIFY_GENERAL]
+    params:
+      query:
+        required:
+          - name: chain
+            type: string
+            intents: ["*"]
+            description: "One of ethereum, base, arbitrum, optimism, polygon, bsc, avalanche, ink, plasma, mantle, or sepolia (testnet)."
+          - name: tx_hash
+            type: string
+            intents: ["*"]
+            description: "Transaction hash: 0x followed by 64 hex characters."
+
   - path: /assets
     external_path: /assets
     method: GET
@@ -112,6 +134,7 @@ semantics:
   supported_intents:
     - ASSET_RESERVE_ATTESTATION_GENERAL
     - TOKEN_TOTAL_SUPPLY_VERIFY_GENERAL
+    - CRYPTO_TRANSFER_VERIFY_GENERAL
 
 limitations:
   - code: STALE_REPORT

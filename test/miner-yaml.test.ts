@@ -27,7 +27,7 @@ describe("miner.yaml", () => {
 
   it("lists every endpoint intent in supported_intents", () => {
     const supported = miner.semantics.supported_intents;
-    expect(supported).toEqual(["ASSET_RESERVE_ATTESTATION_GENERAL", "TOKEN_TOTAL_SUPPLY_VERIFY_GENERAL"]);
+    expect(supported).toEqual(["ASSET_RESERVE_ATTESTATION_GENERAL", "TOKEN_TOTAL_SUPPLY_VERIFY_GENERAL", "CRYPTO_TRANSFER_VERIFY_GENERAL"]);
     for (const e of miner.endpoints) for (const i of e.intents ?? []) expect(supported).toContain(i);
   });
 

@@ -39,11 +39,19 @@ Supply on its own:
 curl 'https://por-attest.alnicewilliams3.workers.dev/supply?asset=USDC'
 ```
 
+Verify a single on-chain payment:
+
+```bash
+curl 'https://por-attest.alnicewilliams3.workers.dev/transfer?chain=base&tx_hash=0xf8feab7e31110a1a702f5d43052a9f4b3bd4e7c3d68b377f4c9c0443032caf0d'
+```
+
+`verdict` is `verified`, `failed` (the transaction reverted) or `unverified` (not found, or under 12 confirmations). The response gives `status`, `from`, `to`, `token`, `amount`, `block_number`, `confirmations` and a `transfers` list. Sepolia is supported and labelled `network: "testnet"`.
+
 `GET /assets` lists all 74 Chainlink feeds and 6 issuer-attested assets.
 
 ## Call it through Telegraph
 
-Our miner is registered as id 27741 (registrationId 4862). Telegraph picks a miner by leaderboard rank, so a routed
+Our miner is registered as id 27741 (registrationId 4865). Telegraph picks a miner by leaderboard rank, so a routed
 call may not reach por-attest. New miners get little routing during the 7-day grace period. The second form below names our miner directly.
 
 ```bash
@@ -172,7 +180,7 @@ Each mission has normal cases and failure cases.
 npm run fixtures -- --mission exchange --target https://por-attest.alnicewilliams3.workers.dev
 ```
 
-- Missions: `stablecoin`, `exchange`, `asset-management`. Leave `--mission` out to run all three.
+- Missions: `stablecoin`, `exchange`, `asset-management`, `mining-and-power`, `consumer-automation`, `model-economy`, `web3-defi`. Leave `--mission` out to run all three.
 - The command prints pass or fail per case and writes `fixtures/report.md`.
 - `--target telegraph` sends the same cases through Telegraph and pays for each one, so it needs
   `BUYER_PRIVATE_KEY` and a registered miner.
@@ -206,6 +214,8 @@ There are three fixture modes:
 - 44 of the 80 assets currently answer `unverified`, mostly because their feed can't be compared
   with an on-chain supply. Reserves are still shown.
 - If two RPCs disagree by more than 0.5%, that chain's figures are withheld.
+- `/transfer` reads on request, not from the snapshot, so it is slower than `/reserve`. It covers EVM chains only. A contract call moving several tokens lists them all, with the first as the headline.
+- The Web3 DeFi fixtures check the escrow's settlement payment only, not the event that triggers it.
 - Solana supply needs a keyed RPC. Public endpoints refuse Cloudflare's IPs.
 
 ## Credential handling

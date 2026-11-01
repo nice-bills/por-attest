@@ -1,3 +1,4 @@
+pass  asset-management/holdings-transfer
 pass  asset-management/paxg-live
 pass  asset-management/paxg-report
 pass  asset-management/rpcs-disagree
@@ -7,6 +8,13 @@ pass  asset-management/unclear-question
 pass  asset-management/unknown-asset
 pass  asset-management/usdt-supply
 pass  asset-management/xaut-question
+pass  consumer-automation/bad-hash
+pass  consumer-automation/native-payment
+pass  consumer-automation/not-found
+pass  consumer-automation/reverted
+pass  consumer-automation/unsettled
+pass  consumer-automation/unsupported-chain
+pass  consumer-automation/usdc-payment
 pass  exchange/cbbtc-live
 pass  exchange/rpcs-disagree
 pass  exchange/stale-report
@@ -16,6 +24,23 @@ pass  exchange/unknown-asset
 pass  exchange/usdc-supply
 pass  exchange/wbtc-live
 pass  exchange/wbtc-round
+pass  mining-and-power/cbbtc-live
+pass  mining-and-power/rpcs-disagree
+pass  mining-and-power/stale-report
+pass  mining-and-power/stale-round
+pass  mining-and-power/unclear-question
+pass  mining-and-power/unknown-asset
+pass  mining-and-power/wbtc-live
+pass  mining-and-power/wbtc-pledge-round
+pass  model-economy/bad-hash
+pass  model-economy/not-found
+pass  model-economy/reverted
+pass  model-economy/unsettled
+pass  model-economy/unsupported-chain
+pass  model-economy/usdc-payment
+pass  model-economy/x402-inference-payment
+pass  stablecoin/expense-reverted-payment
+pass  stablecoin/expense-usdc-payment
 pass  stablecoin/pyusd-question
 pass  stablecoin/rpcs-disagree
 pass  stablecoin/stale-report
@@ -25,3 +50,10 @@ pass  stablecoin/unknown-asset
 pass  stablecoin/usdc-live
 pass  stablecoin/usdc-report
 pass  stablecoin/usdt-report
+pass  web3-defi/bad-hash
+pass  web3-defi/escrow-release-eth
+FAIL  web3-defi/escrow-release-usdc  token: got "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913", wanted "USDC"; amount: got null, wanted 30.141
+pass  web3-defi/not-found
+pass  web3-defi/reverted
+pass  web3-defi/unsettled
+pass  web3-defi/unsupported-chain
