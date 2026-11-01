@@ -1,0 +1,31 @@
+{
+  "label": "por-attest solvency-check: our own app, labelled as ours; not independent adoption. Testnet (Ethereum Sepolia).",
+  "path": "direct",
+  "status": 200,
+  "routed_to_miner": "27741",
+  "receipt": {
+    "receipt_hash": "0x55d82133588fa31c37ade838c151543237e7b11f408081a49e1550b5b3ada631",
+    "rail": "x402",
+    "payer": "0xc3F13706116e628A6284b04AD3F9BB0bC955128f",
+    "miner": "4865",
+    "intent": "ASSET_RESERVE_ATTESTATION_GENERAL",
+    "amount_uusdc": "10000",
+    "epoch_id": 1970,
+    "settlement": "onchain",
+    "chain": "eip155:11155111",
+    "tx_hash": "0x337f5950081718805bca560cfee311a0f02d1dd3164179143275fbddfde2f9fd",
+    "timestamp": 1793560453
+  },
+  "result": {
+    "asset": "FAKECOIN",
+    "confidence": 0,
+    "error": {
+      "code": "NO_POR_FEED",
+      "message": "No Chainlink Proof of Reserve feed or issuer attestation source is listed for \"FAKECOIN\". See GET /assets."
+    },
+    "intent": "ASSET_RESERVE_ATTESTATION_GENERAL",
+    "reason": "No Chainlink Proof of Reserve feed or issuer attestation source is listed for \"FAKECOIN\". See GET /assets.",
+    "summary": "No answer: No Chainlink Proof of Reserve feed or issuer attestation source is listed for \"FAKECOIN\". See GET /assets.",
+    "verdict": "unverified"
+  }
+}

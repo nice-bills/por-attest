@@ -9,7 +9,7 @@ Work top to bottom. Each task lists what "done" means.
   Done: git tag `pre-hackathon` on the current commit, pushed.
 
 - [ ] **2. Rewrite miner.yaml for v2**
-  Status 31 Oct: `miner.yaml` is active on the node, which ran its own schema check. The hosted validator returned 404.
+  Status 31 Oct: `miner.yaml` is active on the node, which ran its own schema check. The hosted validator still returns 404.
   Use `miner.v2.yaml` in this kit as the starting point. Fill in `id`, `slug`, `base_url`.
   Done: `POST https://integrate.telegraphprotocol.com/api/validate` returns no errors and no
   warnings about missing params.

@@ -9,6 +9,7 @@ from mainnet chains. The buyer app is ours, and its calls are not independent ad
 | Fixture report | Ready: 59 of 59 passed against the deployed Worker on 1 Nov 2026, across 7 missions | [fixtures/report.md](../fixtures/report.md) |
 | Unit tests | Ready: run `npm test` | `test/` |
 | End-to-end tests | Passed against the deployed Worker | `e2e/`, run with `E2E_BASE_URL=<url> npm run test:e2e` |
+| Issuer report check | USDC, USDT, XAUT, PAXG and PYUSD stored figures matched against each source PDF on 1 Nov 2026 | Report links in `src/data/attestations.json` |
 | Transfer reliability | 28 fresh real transactions on Ethereum, Base, Arbitrum, Optimism and Polygon with a keyed RPC: 28 read, 0 `unread`, median 0.79 s, max 5.21 s | Repeat with `/transfer` on new hashes |
 | Load test | Ready: p50 56 ms, no 5xx, 1 Nov 2026 | [load-test.md](load-test.md) |
 | Unpaid 402 challenge | Ready: proves the request reaches the node. It is not a receipt | `evidence/dry-run-*.json` |
