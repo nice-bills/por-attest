@@ -4,8 +4,8 @@ Work top to bottom. Each task lists what "done" means.
 
 ## Phase 1 — Before registering (31 Oct to 2 Nov)
 
-- [ ] **1. Tag the pre-hackathon code**
-  Status 31 Oct: Tag made on the brief-only commit (no source existed). Not pushed: no remote yet.
+- [x] **1. Tag the pre-hackathon code**
+  Tag is on the brief-only commit, because no source existed in a repo.
   Done: git tag `pre-hackathon` on the current commit, pushed.
 
 - [ ] **2. Rewrite miner.yaml for v2**
@@ -44,7 +44,7 @@ Work top to bottom. Each task lists what "done" means.
 
 - [x] **8. Get test funds**: Sepolia ETH for gas; MACHINA (bond) and test USDC from the Anjoman faucet.
 - [x] **9. Register**
-  registrationId 4858, `activation_status: active`.
+  Current registrationId 4862 (was 4858, updated to add the repo link).
   through integrate.telegraphprotocol.com with intents
   `ASSET_RESERVE_ATTESTATION_GENERAL` and `TOKEN_TOTAL_SUPPLY_VERIFY_GENERAL`.
   Done: record the registrationId; `/api/miners/<registrationId>` shows `activation_status: active`.

@@ -13,7 +13,7 @@ Optimism, Polygon, BNB Chain, Avalanche, Ink, Plasma, Mantle, Tron and Solana.
 - To call through Telegraph: a wallet on Ethereum Sepolia holding test USDC.
 
 ```bash
-git clone <this repository>
+git clone https://github.com/nice-bills/por-attest.git
 cd por-attest
 npm install
 npm test
@@ -43,7 +43,7 @@ curl 'https://por-attest.alnicewilliams3.workers.dev/supply?asset=USDC'
 
 ## Call it through Telegraph
 
-Our miner is registered as id 27741 (registrationId 4858). Telegraph picks a miner by leaderboard rank, so a routed
+Our miner is registered as id 27741 (registrationId 4862). Telegraph picks a miner by leaderboard rank, so a routed
 call may not reach por-attest. New miners get little routing during the 7-day grace period. The second form below names our miner directly.
 
 ```bash

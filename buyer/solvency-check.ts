@@ -12,7 +12,7 @@ import { decide } from "./decide";
 import { MINER_ID, askRouted, askTelegraphDirect, type Reply } from "./telegraph";
 
 const LABEL = "por-attest solvency-check: our own app, labelled as ours; not independent adoption. Testnet (Ethereum Sepolia).";
-const REGISTRATION_ID = "4858";
+const REGISTRATION_IDS = ["4858", "4862"];
 const MINER = process.env.POR_ATTEST_URL ?? "https://por-attest.alnicewilliams3.workers.dev";
 
 const args = process.argv.slice(2);
@@ -50,7 +50,7 @@ async function paidCheck(asset: string) {
     date_utc: new Date().toISOString().slice(0, 10),
     path: direct ? "direct" : "ranked routing",
     routed_to_miner: reply.body.miner_id,
-    por_attest_was_paid: [String(reply.body.miner_id), String(receipt?.miner)].some((id) => id === MINER_ID || id === REGISTRATION_ID),
+    por_attest_was_paid: [String(reply.body.miner_id), String(receipt?.miner)].some((id) => id === MINER_ID || REGISTRATION_IDS.includes(id)),
     signal_hash: reply.body.signal_hash,
     cost_usd: reply.body.cost_usd,
     receipt,
