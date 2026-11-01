@@ -14,6 +14,7 @@ export interface Snapshot {
   generated_at: string;
   reads: Reads;
   reports: Record<string, Report>;
+  attestations_at?: string;
 }
 
 let cached: { at: number; snapshot: Snapshot } | undefined;
@@ -39,14 +40,14 @@ async function latestUsde(previous?: Report): Promise<Report | undefined> {
 }
 
 // Newer reports written to KV by the attestation job, laid over the bundled seed data.
-async function storedReports(env: Env): Promise<Record<string, Report>> {
-  const stored = await env.POR_KV.get<{ attestations: Record<string, Partial<Report>> }>("attestations", "json").catch(() => null);
+async function storedReports(env: Env): Promise<{ at?: string; reports: Record<string, Report> }> {
+  const stored = await env.POR_KV.get<{ generatedAt?: string; attestations: Record<string, Partial<Report>> }>("attestations", "json").catch(() => null);
   const reports: Record<string, Report> = {};
   for (const [asset, report] of Object.entries(stored?.attestations ?? {})) {
     const seed = latestReport(asset);
     if (seed && report.report_date && report.report_date >= seed.report_date) reports[asset] = { ...seed, ...report };
   }
-  return reports;
+  return { at: stored?.generatedAt, reports };
 }
 
 export function keepGoodReads(fresh: Reads, previous: Snapshot | null, now: Date): Reads {
@@ -61,13 +62,13 @@ export function keepGoodReads(fresh: Reads, previous: Snapshot | null, now: Date
 
 export async function refreshSnapshot(env: Env): Promise<Snapshot> {
   const previous = await loadSnapshot(env);
-  const [reads, usde, reports] = await Promise.all([
+  const [reads, usde, stored] = await Promise.all([
     readAssets([...FEEDS, ...ISSUERS], env.SOLANA_RPC_URL),
     latestUsde(previous?.reports.USDe),
     storedReports(env),
   ]);
   refreshing = false;
-  const snapshot: Snapshot = { generated_at: new Date().toISOString(), reads: keepGoodReads(reads, previous, new Date()), reports: usde ? { ...reports, USDe: usde } : reports };
+  const snapshot: Snapshot = { generated_at: new Date().toISOString(), reads: keepGoodReads(reads, previous, new Date()), attestations_at: stored.at, reports: usde ? { ...stored.reports, USDe: usde } : stored.reports };
   await env.POR_KV.put(KEY, JSON.stringify(snapshot));
   cached = { at: Date.now(), snapshot };
   return snapshot;

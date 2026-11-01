@@ -104,7 +104,7 @@ describe("GET /transfer", () => {
   const env = {} as Env;
   it("refuses a malformed hash", async () => {
     const res = await app.request("/transfer?chain=ethereum&tx_hash=abc", {}, env);
-    expect(res.status).toBe(400);
+    expect(res.status).toBe(200);
     expect(((await res.json()) as any).error.code).toBe("BAD_TX_HASH");
   });
   it("refuses an unsupported chain", async () => {

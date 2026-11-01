@@ -88,7 +88,16 @@ const ALIASES: Record<string, string> = {
 // Skipped by findInQuestion when it guesses at a symbol we don't list.
 const NOT_SYMBOLS = new Set(["IS", "ARE", "DOES", "DO", "THE", "WHAT", "HOW", "CAN", "PROOF", "RIGHT", "NOW", "RESERVE", "RESERVES"]);
 
+export const isAddress = (value: string) => /^0x[0-9a-fA-F]{40}$/.test(value);
+
+function byAddress(address: string): Asset | undefined {
+  const wanted = address.toLowerCase();
+  const holds = (a: Asset) => a.tokens.some((t) => t.token.toLowerCase() === wanted);
+  return ISSUERS.find(holds) ?? FEEDS.find((f) => holds(f) && f.comparable) ?? FEEDS.find(holds);
+}
+
 export function findAsset(symbol: string, chain?: string): Asset | undefined {
+  if (isAddress(symbol.trim())) return byAddress(symbol.trim());
   const wanted = symbol.trim().toUpperCase();
   const target = ALIASES[wanted] ?? wanted;
   const issuer = ISSUERS.find((i) => i.asset.toUpperCase() === target);

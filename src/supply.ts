@@ -1,7 +1,7 @@
 import type { Asset } from "./catalog";
 import { counted, sumCirculating, type AssetRead } from "./reads";
 
-export function buildSupply(asset: Asset, read: AssetRead, now: Date, chain?: string, snapshotAt: string | null = null) {
+export function buildSupply(asset: Pick<Asset, "asset">, read: AssetRead, now: Date, chain?: string, snapshotAt: string | null = null) {
   const wanted = chain?.toLowerCase();
   const chains = counted(read.supply).filter((s) => !wanted || s.chain === wanted);
   const unread = read.unread.filter((u) => !wanted || u.chain === wanted);

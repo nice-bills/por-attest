@@ -1,12 +1,12 @@
 import { Hono } from "hono";
 import { buildAnswer } from "./answer";
-import { useAlchemy } from "./chains";
-import { FEEDS, ISSUERS, REPORTS, findAsset, findInQuestion, type Asset } from "./catalog";
+import { CHAINS, useAlchemy } from "./chains";
+import { FEEDS, ISSUERS, REPORTS, findAsset, findInQuestion, isAddress, type Asset } from "./catalog";
 import miner from "../miner.yaml";
 import home from "./pages/home.html";
 import privacy from "./pages/privacy.html";
 import terms from "./pages/terms.html";
-import { readRound } from "./reads";
+import { readRound, readToken } from "./reads";
 import { loadSnapshot, needsRefresh, readFor, refreshSnapshot, type Snapshot } from "./snapshot";
 import { buildSupply } from "./supply";
 import { TRANSFER_CHAINS, verifyCached } from "./transfer";
@@ -39,7 +39,7 @@ app.get("/miner.yaml", (c) => c.text(miner, 200, { "content-type": "text/yaml; c
 
 app.get("/health", async (c) => {
   const snapshot = await loadSnapshot(c.env);
-  return c.json({ status: "ok", feeds: FEEDS.length, issuers: ISSUERS.length, snapshot_at: snapshot?.generated_at ?? null, time: new Date().toISOString() });
+  return c.json({ status: "ok", feeds: FEEDS.length, issuers: ISSUERS.length, snapshot_at: snapshot?.generated_at ?? null, attestations_at: snapshot?.attestations_at ?? null, time: new Date().toISOString() });
 });
 
 // One compact row per asset for the demo page, so it needs one request rather than 80.
@@ -73,30 +73,39 @@ app.get("/assets", (c) =>
   }),
 );
 
-export function resolveAsset(query: { asset?: string; chain?: string; question?: string }): { asset: Asset } | { error: { code: string; message: string }; status: 400 | 404; name?: string } {
+const RESERVE = "ASSET_RESERVE_ATTESTATION_GENERAL";
+const SUPPLY = "TOKEN_TOTAL_SUPPLY_VERIFY_GENERAL";
+const TRANSFER = "CRYPTO_TRANSFER_VERIFY_GENERAL";
+
+// The node turns a miner's 4xx into a 500 for the caller, so a refusal is a normal 200 answer.
+function refusal(intent: string, error: { code: string; message: string }, asset?: string) {
+  return { intent, asset: asset ?? null, verdict: "unverified", confidence: 0, summary: `No answer: ${error.message}`, reason: error.message, error };
+}
+
+export function resolveAsset(query: { asset?: string; chain?: string; question?: string }): { asset: Asset } | { error: { code: string; message: string }; name?: string } {
   if (query.asset) {
     const asset = findAsset(query.asset, query.chain);
     if (asset) return { asset };
-    return { status: 404, name: query.asset, error: { code: "NO_POR_FEED", message: `No Chainlink Proof of Reserve feed or issuer attestation source is listed for "${query.asset}". See GET /assets.` } };
+    return { name: query.asset, error: { code: "NO_POR_FEED", message: `No Chainlink Proof of Reserve feed or issuer attestation source is listed for "${query.asset}". See GET /assets.` } };
   }
   const found = query.question ? findInQuestion(query.question) : {};
   if (found.asset) return { asset: found.asset };
   if (found.unknown) return resolveAsset({ asset: found.unknown });
-  return { status: 400, error: { code: "ASSET_REQUIRED", message: "Name an asset (?asset=WBTC) or pass the full question (?question=...). See GET /assets for supported assets." } };
+  return { error: { code: "ASSET_REQUIRED", message: "Name an asset (?asset=WBTC) or pass the full question (?question=...). See GET /assets for supported assets." } };
 }
 
 app.get("/reserve", async (c) => {
   const { asset, chain, question, round_id, report_date } = c.req.query();
   const resolved = resolveAsset({ asset, chain, question });
-  if ("error" in resolved) return c.json({ error: resolved.error, asset: resolved.name, verdict: "unverified" }, resolved.status);
+  if ("error" in resolved) return c.json(refusal(RESERVE, resolved.error, resolved.name));
   if (round_id && resolved.asset.kind === "feed") {
-    if (!/^\d+$/.test(round_id)) return c.json({ error: { code: "BAD_ROUND_ID", message: "round_id must be a decimal integer." } }, 400);
+    if (!/^\d+$/.test(round_id)) return c.json(refusal(RESERVE, { code: "BAD_ROUND_ID", message: "round_id must be a decimal integer." }, resolved.asset.asset));
     const read = await readRound(resolved.asset, round_id);
     return c.json({ ...buildAnswer(resolved.asset, read, new Date(), question ?? null), pinned: true });
   }
   if (report_date) {
     const report = REPORTS[resolved.asset.key]?.find((r) => r.report_date === report_date);
-    if (!report) return c.json({ error: { code: "NO_REPORT", message: `No report dated ${report_date} is held for ${resolved.asset.asset}.` } }, 404);
+    if (!report) return c.json(refusal(RESERVE, { code: "NO_REPORT", message: `No report dated ${report_date} is held for ${resolved.asset.asset}.` }, resolved.asset.asset));
     // Judged as of its own date, so this answer never drifts.
     const answer = buildAnswer(resolved.asset, { supply: [], unread: [] }, new Date(report_date), question ?? null, { snapshot_at: null, report });
     return c.json({ ...answer, pinned: true });
@@ -109,15 +118,20 @@ app.get("/reserve", async (c) => {
 app.get("/supply", async (c) => {
   const { asset, chain } = c.req.query();
   const resolved = resolveAsset({ asset, chain });
-  if ("error" in resolved) return c.json({ error: resolved.error, asset: resolved.name, verdict: "unverified" }, resolved.status);
+  if ("error" in resolved) {
+    const network = (chain ?? "ethereum").toLowerCase();
+    if (!asset || !isAddress(asset) || !CHAINS[network]) return c.json(refusal(SUPPLY, resolved.error, resolved.name));
+    const { symbol, read } = await readToken(network, asset);
+    return c.json(buildSupply({ asset: symbol }, read, new Date(), network));
+  }
   const snapshot = await snapshotFor(c);
   return c.json(buildSupply(resolved.asset, readFor(snapshot, resolved.asset), new Date(), chain, snapshot?.generated_at ?? null));
 });
 
 app.get("/transfer", async (c) => {
   const { tx_hash: hash, chain } = c.req.query();
-  if (!hash || !/^0x[0-9a-fA-F]{64}$/.test(hash)) return c.json({ error: { code: "BAD_TX_HASH", message: "tx_hash must be 0x followed by 64 hex characters." }, verdict: "unverified" }, 400);
-  if (!chain || !TRANSFER_CHAINS.includes(chain.toLowerCase())) return c.json({ error: { code: "UNSUPPORTED_CHAIN", message: `chain must be one of: ${TRANSFER_CHAINS.join(", ")}.` }, verdict: "unverified" }, 400);
+  if (!hash || !/^0x[0-9a-fA-F]{64}$/.test(hash)) return c.json(refusal(TRANSFER, { code: "BAD_TX_HASH", message: "tx_hash must be 0x followed by 64 hex characters." }));
+  if (!chain || !TRANSFER_CHAINS.includes(chain.toLowerCase())) return c.json(refusal(TRANSFER, { code: "UNSUPPORTED_CHAIN", message: `chain must be one of: ${TRANSFER_CHAINS.join(", ")}.` }));
   return c.json((await verifyCached(c.env.POR_KV, chain.toLowerCase(), hash, (p) => c.executionCtx.waitUntil(p))) as object);
 });
 

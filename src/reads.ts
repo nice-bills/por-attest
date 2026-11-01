@@ -8,6 +8,7 @@ const abi = parseAbi([
   "function getRoundData(uint80) view returns (uint80 roundId, int256 answer, uint256 startedAt, uint256 updatedAt, uint80 answeredInRound)",
   "function latestRoundData() view returns (uint80 roundId, int256 answer, uint256 startedAt, uint256 updatedAt, uint80 answeredInRound)",
   "function decimals() view returns (uint8)",
+  "function symbol() view returns (string)",
   "function totalSupply() view returns (uint256)",
   "function balanceOf(address) view returns (uint256)",
 ]);
@@ -58,7 +59,7 @@ export function sumCirculating(rows: SupplyRead[]): number {
   return Number(formatUnits(total, 18));
 }
 
-const encode = (fn: "latestRoundData" | "decimals" | "totalSupply", to: string): Call => ({
+const encode = (fn: "latestRoundData" | "decimals" | "totalSupply" | "symbol", to: string): Call => ({
   to,
   data: encodeFunctionData({ abi, functionName: fn }),
 });
@@ -119,6 +120,20 @@ export async function readRound(asset: FeedAsset, roundId: string): Promise<Asse
     },
     supply: [],
     unread: [],
+  };
+}
+
+// For a contract outside our list. Reads on request, since no snapshot holds it.
+export async function readToken(chain: string, token: string): Promise<{ symbol: string; read: AssetRead }> {
+  const calls = [encode("totalSupply", token), encode("decimals", token), encode("symbol", token)];
+  const at = await readChain(CHAINS[chain].rpcs, calls, CHAINS[chain].multicall);
+  const [total, decimals, symbol] = at.results;
+  if (at.failure || !total || !decimals) return { symbol: token, read: { supply: [], unread: [{ chain, reason: at.failure ?? "not a token contract on this chain" }] } };
+  const places = Number(decodeFunctionResult({ abi, functionName: "decimals", data: decimals }));
+  const amount = Number(formatUnits(decodeFunctionResult({ abi, functionName: "totalSupply", data: total }), places));
+  return {
+    symbol: symbol ? decodeFunctionResult({ abi, functionName: "symbol", data: symbol }) : token,
+    read: { supply: [{ chain, token, decimals: places, total_supply: amount, treasury_balance: 0, circulating: amount, block_number: at.block_number, block_timestamp: at.block_timestamp }], unread: [] },
   };
 }
 

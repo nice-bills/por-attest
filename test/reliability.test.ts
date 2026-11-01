@@ -143,11 +143,11 @@ describe("pinned lookups", () => {
   });
   it("refuses a report date we do not hold", async () => {
     const res = await app.request("/reserve?asset=PAXG&report_date=2001-01-01", {}, env, ctx);
-    expect(res.status).toBe(404);
+    expect(((await res.json()) as any).error.code).toBe("NO_REPORT");
   });
   it("refuses a malformed round id before any read", async () => {
     const res = await app.request("/reserve?asset=WBTC&round_id=abc", {}, env, ctx);
-    expect(res.status).toBe(400);
+    expect(((await res.json()) as any).error.code).toBe("BAD_ROUND_ID");
   });
 });
 

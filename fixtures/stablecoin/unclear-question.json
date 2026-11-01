@@ -8,7 +8,7 @@
     "question": "is it safe?"
   },
   "expected": {
-    "status": 400,
-    "error.code": "ASSET_REQUIRED"
+    "error.code": "ASSET_REQUIRED",
+    "verdict": "unverified"
   }
 }

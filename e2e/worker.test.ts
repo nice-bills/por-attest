@@ -31,7 +31,7 @@ describe("worker", () => {
 
   it("refuses an unknown asset cleanly", async () => {
     const { status, body } = await get("/supply?asset=FAKECOIN");
-    expect(status).toBe(404);
+    expect(status).toBe(200);
     expect(body.error.code).toBe("NO_POR_FEED");
   });
 });

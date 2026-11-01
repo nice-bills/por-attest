@@ -33,10 +33,22 @@ describe("buildSupply", () => {
 describe("GET /supply", () => {
   it("needs an asset", async () => {
     const res = await app.request("/supply");
-    expect(res.status).toBe(400);
+    expect(res.status).toBe(200);
+    expect(((await res.json()) as any).error.code).toBe("ASSET_REQUIRED");
   });
   it("refuses an unknown asset", async () => {
     const res = await app.request("/supply?asset=FAKECOIN");
-    expect(res.status).toBe(404);
+    expect(res.status).toBe(200);
+    expect(((await res.json()) as any)).toMatchObject({ verdict: "unverified", error: { code: "NO_POR_FEED" } });
+  });
+});
+
+describe("contract addresses", () => {
+  it("resolves a listed token by address", () => {
+    expect(findAsset("0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48")?.asset).toBe("USDC");
+    expect(findAsset("0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48")?.asset).toBe("USDC");
+  });
+  it("does not resolve an unlisted address", () => {
+    expect(findAsset(`0x${"1".repeat(40)}`)).toBeUndefined();
   });
 });

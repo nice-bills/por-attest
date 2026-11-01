@@ -9,7 +9,7 @@
     "tx_hash": "0x123"
   },
   "expected": {
-    "status": 400,
-    "error.code": "BAD_TX_HASH"
+    "error.code": "BAD_TX_HASH",
+    "verdict": "unverified"
   }
 }

@@ -210,7 +210,8 @@ There are three fixture modes:
 - `live_comparison` may be partial. USDC and USDT live on many more chains than we read, so a
   `complete: true` answer means every chain *we list* was read, not every chain that exists.
 - Treasury wallets are configured only for USDT on Ethereum and Tron.
-- The asset list is fixed. Anything else gets `404 NO_POR_FEED`.
+- `/reserve` covers a fixed asset list. Anything else gets `200` with `verdict: "unverified"` and `error.code: "NO_POR_FEED"`.
+- `asset` also takes a contract address. `/supply` reads any ERC-20 by address on request, using `chain` (default `ethereum`).
 - 44 of the 80 assets currently answer `unverified`, mostly because their feed can't be compared
   with an on-chain supply. Reserves are still shown.
 - If two RPCs disagree by more than 0.5%, that chain's figures are withheld.

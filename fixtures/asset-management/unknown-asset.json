@@ -8,7 +8,6 @@
     "asset": "FAKECOIN"
   },
   "expected": {
-    "status": 404,
     "error.code": "NO_POR_FEED",
     "verdict": "unverified"
   }

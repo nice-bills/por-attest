@@ -9,7 +9,7 @@
     "tx_hash": "0xabababababababababababababababababababababababababababababababab"
   },
   "expected": {
-    "status": 400,
-    "error.code": "UNSUPPORTED_CHAIN"
+    "error.code": "UNSUPPORTED_CHAIN",
+    "verdict": "unverified"
   }
 }
