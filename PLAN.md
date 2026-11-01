@@ -55,7 +55,7 @@ Work top to bottom. Each task lists what "done" means.
 
 - [x] **11. Mission test fixtures** (see "Fixtures" below) for Stablecoin, Exchange, Asset Management.
 - [ ] **12. Small buyer app (ours, labelled as ours)**
-  Status 31 Oct: Paid on 31 Oct. Direct calls paid por-attest; routed calls went elsewhere. Open: second UTC date.
+  Status 1 Nov: Second UTC date done (31 Oct and 1 Nov). On 1 Nov, 3 of 4 calls paid por-attest: all 3 direct calls. The 1 routed call went to another miner, 81009. No routed call has paid por-attest yet.
   A script-level "solvency check" agent: before accepting a token, it buys a reserve verdict through
   Telegraph's ranked routing and accepts or refuses. Run it with different assets on at least two UTC dates.
   Done: request and payment receipts saved, showing por-attest was the miner paid.

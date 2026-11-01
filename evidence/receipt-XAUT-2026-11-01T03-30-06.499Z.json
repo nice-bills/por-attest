@@ -1,0 +1,87 @@
+{
+  "label": "por-attest solvency-check: our own app, labelled as ours; not independent adoption. Testnet (Ethereum Sepolia).",
+  "asset": "XAUT",
+  "date_utc": "2026-11-01",
+  "path": "direct",
+  "routed_to_miner": "27741",
+  "por_attest_was_paid": true,
+  "signal_hash": "0x9b9eabec550f8351ba05191b808ba736ad3f4bdc1dedf648fb6cde929efe4390",
+  "cost_usd": 0.01,
+  "receipt": {
+    "receipt_hash": "0x63ac4b75315eb3e3f940c5564221f9116efbf40875d86de94ff4ce4af08eb743",
+    "rail": "x402",
+    "payer": "0xc3F13706116e628A6284b04AD3F9BB0bC955128f",
+    "miner": "4858",
+    "intent": "ASSET_RESERVE_ATTESTATION_GENERAL",
+    "amount_uusdc": "10000",
+    "epoch_id": 1954,
+    "settlement": "onchain",
+    "chain": "eip155:11155111",
+    "tx_hash": "0x96cfaede36a5df91610689c4c55a59c6801ca9e7c558698f07c3ed0020dae63e",
+    "timestamp": 1793503805
+  },
+  "payment_response": "eyJzdWNjZXNzIjp0cnVlLCJwYXllciI6IjB4YzNGMTM3MDYxMTZlNjI4QTYyODRiMDRBRDNGOUJCMGJDOTU1MTI4ZiIsInRyYW5zYWN0aW9uIjoiMHg5NmNmYWVkZTM2YTVkZjkxNjEwNjg5YzRjNTVhNTljNjgwMWNhOWU3YzU1ODY5OGYwN2MzZWQwMDIwZGFlNjNlIiwibmV0d29yayI6ImVpcDE1NToxMTE1NTExMSJ9",
+  "result_shape": "raw",
+  "result": {
+    "as_of": "2026-11-01T03:30:05.535Z",
+    "asset": "XAUT",
+    "confidence": 0.8,
+    "fully_backed": true,
+    "headline": {
+      "as_of": "2026-06-30",
+      "block": "2026-06-30",
+      "ratio": 1.0000000692337712,
+      "reserves": 707747.139,
+      "source": "BDO (ISAE 3000R assurance opinion, quarterly) report for Tether (TG Commodities)",
+      "supply": 707747.09,
+      "unit": "troy oz"
+    },
+    "intent": "ASSET_RESERVE_ATTESTATION_GENERAL",
+    "live_comparison": {
+      "chains": [
+        {
+          "block_number": 26317229,
+          "block_timestamp": "2026-11-01T03:28:23.000Z",
+          "chain": "ethereum",
+          "circulating": 827417.63,
+          "decimals": 6,
+          "token": "0x68749665FF8D2d112Fa859AA293F07A622782F38",
+          "total_supply": 827417.63,
+          "treasury_balance": 0
+        }
+      ],
+      "complete": true,
+      "ratio": 0.8553686957334955,
+      "supply": 827417.63,
+      "unread": []
+    },
+    "question": null,
+    "reason": "Reserves and supply are both from the report dated 2026-06-30 (https://gold.tether.to/docs/reports/attestations/ISAE_3000R_-_Opinion_TGRR_30.06.2026_RC187322026DV0170.pdf). live_comparison is our own on-chain read and does not change the headline.",
+    "report": {
+      "age_days": 124,
+      "asset": "XAUT",
+      "attestor": "BDO (ISAE 3000R assurance opinion, quarterly)",
+      "cadence": "quarterly",
+      "kind": "independent_attestation",
+      "method": "pdf",
+      "page_url": "https://gold.tether.to/",
+      "report_date": "2026-06-30",
+      "report_url": "https://gold.tether.to/docs/reports/attestations/ISAE_3000R_-_Opinion_TGRR_30.06.2026_RC187322026DV0170.pdf",
+      "reserves": 707747.139,
+      "retrieved_at": "2026-10-31T09:02:57.685Z",
+      "stale_after_days": 167,
+      "supply_reported": 707747.09,
+      "unit": "XAU_oz"
+    },
+    "snapshot_at": "2026-11-01T03:28:37.325Z",
+    "source_type": "issuer_attestation",
+    "stale": false,
+    "summary": "XAUT is fully backed: ratio 1.0000 as of 2026-06-30, from the BDO (ISAE 3000R assurance opinion, quarterly) report for Tether (TG Commodities).",
+    "verdict": "fully_backed",
+    "verdict_type": "reserve_backing"
+  },
+  "decision": {
+    "accept": true,
+    "why": "XAUT is fully backed: ratio 1.0000 as of 2026-06-30, from the BDO (ISAE 3000R assurance opinion, quarterly) report for Tether (TG Commodities)."
+  }
+}

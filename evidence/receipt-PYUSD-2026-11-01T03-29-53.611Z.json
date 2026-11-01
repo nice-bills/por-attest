@@ -1,0 +1,102 @@
+{
+  "label": "por-attest solvency-check: our own app, labelled as ours; not independent adoption. Testnet (Ethereum Sepolia).",
+  "asset": "PYUSD",
+  "date_utc": "2026-11-01",
+  "path": "direct",
+  "routed_to_miner": "27741",
+  "por_attest_was_paid": true,
+  "signal_hash": "0x241b7a407b47223ba8db2e8de94c6f3525d34f1c0bd286c7fb91d964de1da05f",
+  "cost_usd": 0.01,
+  "receipt": {
+    "receipt_hash": "0x0882f493d5bebeb78f520381eb55f31807fdef7a5b21afde54ceb92bfae036e9",
+    "rail": "x402",
+    "payer": "0xc3F13706116e628A6284b04AD3F9BB0bC955128f",
+    "miner": "4858",
+    "intent": "ASSET_RESERVE_ATTESTATION_GENERAL",
+    "amount_uusdc": "10000",
+    "epoch_id": 1954,
+    "settlement": "onchain",
+    "chain": "eip155:11155111",
+    "tx_hash": "0xa371e55209e6630727eb0af01548ea190b1d2e653f9838ed84aef13603e0245f",
+    "timestamp": 1793503791
+  },
+  "payment_response": "eyJzdWNjZXNzIjp0cnVlLCJwYXllciI6IjB4YzNGMTM3MDYxMTZlNjI4QTYyODRiMDRBRDNGOUJCMGJDOTU1MTI4ZiIsInRyYW5zYWN0aW9uIjoiMHhhMzcxZTU1MjA5ZTY2MzA3MjdlYjBhZjAxNTQ4ZWExOTBiMWQyZTY1M2Y5ODM4ZWQ4NGFlZjEzNjAzZTAyNDVmIiwibmV0d29yayI6ImVpcDE1NToxMTE1NTExMSJ9",
+  "result_shape": "raw",
+  "result": {
+    "as_of": "2026-11-01T03:29:51.204Z",
+    "asset": "PYUSD",
+    "confidence": 0.8,
+    "fully_backed": true,
+    "headline": {
+      "as_of": "2026-09-30",
+      "block": "2026-09-30",
+      "ratio": 1.0025780409489142,
+      "reserves": 2754709360,
+      "source": "KPMG LLP (monthly examination, AICPA criteria) report for Paxos (for PayPal)",
+      "supply": 2747625868,
+      "unit": "USD"
+    },
+    "intent": "ASSET_RESERVE_ATTESTATION_GENERAL",
+    "live_comparison": {
+      "chains": [
+        {
+          "block_number": 26317229,
+          "block_timestamp": "2026-11-01T03:28:35.000Z",
+          "chain": "arbitrum",
+          "circulating": 311548683.670308,
+          "decimals": 6,
+          "token": "0x46850aD61C2B7d64d08c9C754F45254596696984",
+          "total_supply": 311548683.670308,
+          "treasury_balance": 0
+        },
+        {
+          "block_number": 26317229,
+          "block_timestamp": "2026-11-01T03:28:23.000Z",
+          "chain": "ethereum",
+          "circulating": 1803339060.114581,
+          "decimals": 6,
+          "token": "0x6c3ea9036406852006290770BEdFcAbA0e23A0e8",
+          "total_supply": 1803339060.114581,
+          "treasury_balance": 0
+        }
+      ],
+      "complete": false,
+      "ratio": 1.3025321878645248,
+      "supply": 2114887743.784889,
+      "unread": [
+        {
+          "chain": "solana",
+          "reason": "getTokenSupply failed"
+        }
+      ]
+    },
+    "question": null,
+    "reason": "Reserves and supply are both from the report dated 2026-09-30 (https://framerusercontent.com/assets/UZ8Eke3FvB5npXyceLEmiLRV6k.pdf). live_comparison is our own on-chain read and does not change the headline.",
+    "report": {
+      "age_days": 32,
+      "asset": "PYUSD",
+      "attestor": "KPMG LLP (monthly examination, AICPA criteria)",
+      "cadence": "monthly",
+      "kind": "independent_attestation",
+      "method": "pdf",
+      "page_url": "https://www.paxos.com/pyusd-transparency",
+      "report_date": "2026-09-30",
+      "report_url": "https://framerusercontent.com/assets/UZ8Eke3FvB5npXyceLEmiLRV6k.pdf",
+      "reserves": 2754709360,
+      "retrieved_at": "2026-10-31T09:02:56.291Z",
+      "stale_after_days": 76,
+      "supply_reported": 2747625868,
+      "unit": "USD"
+    },
+    "snapshot_at": "2026-11-01T03:28:37.325Z",
+    "source_type": "issuer_attestation",
+    "stale": false,
+    "summary": "PYUSD is fully backed: ratio 1.0026 as of 2026-09-30, from the KPMG LLP (monthly examination, AICPA criteria) report for Paxos (for PayPal).",
+    "verdict": "fully_backed",
+    "verdict_type": "reserve_backing"
+  },
+  "decision": {
+    "accept": true,
+    "why": "PYUSD is fully backed: ratio 1.0026 as of 2026-09-30, from the KPMG LLP (monthly examination, AICPA criteria) report for Paxos (for PayPal)."
+  }
+}

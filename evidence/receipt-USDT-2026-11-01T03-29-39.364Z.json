@@ -1,0 +1,113 @@
+{
+  "label": "por-attest solvency-check: our own app, labelled as ours; not independent adoption. Testnet (Ethereum Sepolia).",
+  "asset": "USDT",
+  "date_utc": "2026-11-01",
+  "path": "direct",
+  "routed_to_miner": "27741",
+  "por_attest_was_paid": true,
+  "signal_hash": "0xa4bf82e8103c9788ae1f826acbd2c54d8c7534d6b06595c1623456c4723f09e0",
+  "cost_usd": 0.01,
+  "receipt": {
+    "receipt_hash": "0xb3d2703ad83ac1672d85009989194c789eb8225eab0f66c3c80d0879840c6f5c",
+    "rail": "x402",
+    "payer": "0xc3F13706116e628A6284b04AD3F9BB0bC955128f",
+    "miner": "4858",
+    "intent": "ASSET_RESERVE_ATTESTATION_GENERAL",
+    "amount_uusdc": "10000",
+    "epoch_id": 1954,
+    "settlement": "onchain",
+    "chain": "eip155:11155111",
+    "tx_hash": "0x182ace85fed3d05ff557e7e2e0b83a78eb2eb91a20d3c80ced27c5605a7611db",
+    "timestamp": 1793503778
+  },
+  "payment_response": "eyJzdWNjZXNzIjp0cnVlLCJwYXllciI6IjB4YzNGMTM3MDYxMTZlNjI4QTYyODRiMDRBRDNGOUJCMGJDOTU1MTI4ZiIsInRyYW5zYWN0aW9uIjoiMHgxODJhY2U4NWZlZDNkMDVmZjU1N2U3ZTJlMGI4M2E3OGViMmViOTFhMjBkM2M4MGNlZDI3YzU2MDVhNzYxMWRiIiwibmV0d29yayI6ImVpcDE1NToxMTE1NTExMSJ9",
+  "result_shape": "raw",
+  "result": {
+    "as_of": "2026-11-01T03:29:38.456Z",
+    "asset": "USDT",
+    "confidence": 0.8,
+    "fully_backed": true,
+    "headline": {
+      "as_of": "2026-09-30",
+      "block": "2026-09-30",
+      "ratio": 1.0433503209315935,
+      "reserves": 191451091374,
+      "source": "BDO (ISAE 3000R assurance opinion, quarterly) report for Tether",
+      "supply": 183496460904,
+      "unit": "USD"
+    },
+    "intent": "ASSET_RESERVE_ATTESTATION_GENERAL",
+    "live_comparison": {
+      "chains": [
+        {
+          "block_number": 99095564,
+          "block_timestamp": "2026-11-01T03:28:34.000Z",
+          "chain": "avalanche",
+          "circulating": 1847205574.047338,
+          "decimals": 6,
+          "token": "0x9702230A8Ea53601f5cD2dc00fDBc13d4dF4A8c7",
+          "total_supply": 1847205574.047338,
+          "treasury_balance": 0
+        },
+        {
+          "block_number": 26317229,
+          "block_timestamp": "2026-11-01T03:28:23.000Z",
+          "chain": "ethereum",
+          "circulating": 83257601553.0547,
+          "decimals": 6,
+          "token": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+          "total_supply": 88301265725.97054,
+          "treasury_balance": 5043664172.915825
+        },
+        {
+          "block_number": 87610092,
+          "block_timestamp": "2026-11-01T03:28:33.000Z",
+          "chain": "tron",
+          "circulating": 92160824487.26047,
+          "decimals": 6,
+          "token": "0xa614f803b6fd780986a42c78ec9c7f77e6ded13c",
+          "total_supply": 94245475626.14592,
+          "treasury_balance": 2084651138.885452
+        }
+      ],
+      "complete": false,
+      "ratio": 1.0800237453275638,
+      "supply": 177265631614.36252,
+      "unread": [
+        {
+          "chain": "solana",
+          "reason": "getTokenSupply failed"
+        }
+      ]
+    },
+    "question": null,
+    "reason": "Reserves and supply are both from the report dated 2026-09-30 (https://assets.ctfassets.net/vyse88cgwfbl/7nQYtcoP9GxIUFSyro2dGK/8d0521470b9e99c8c0831019cabea4ee/ISAE_3000R_-_Opinion_Tether_International_Financial_Figure_30-09-2026.pdf). live_comparison is our own on-chain read and does not change the headline.",
+    "report": {
+      "age_days": 32,
+      "asset": "USDT",
+      "attestor": "BDO (ISAE 3000R assurance opinion, quarterly)",
+      "cadence": "quarterly",
+      "kind": "independent_attestation",
+      "method": "json",
+      "note": "Reserves = total assets of Tether International; supply = total liabilities (digital tokens issued), per the Financial Figures and Reserves Report.",
+      "page_url": "https://tether.to/en/transparency/",
+      "report_date": "2026-09-30",
+      "report_url": "https://assets.ctfassets.net/vyse88cgwfbl/7nQYtcoP9GxIUFSyro2dGK/8d0521470b9e99c8c0831019cabea4ee/ISAE_3000R_-_Opinion_Tether_International_Financial_Figure_30-09-2026.pdf",
+      "reserves": 191451091374,
+      "retrieved_at": "2026-10-31T09:02:31.218Z",
+      "stale_after_days": 167,
+      "supply_reported": 183496460904,
+      "unit": "USD"
+    },
+    "snapshot_at": "2026-11-01T03:28:37.325Z",
+    "source_type": "issuer_attestation",
+    "stale": false,
+    "summary": "USDT is fully backed: ratio 1.0434 as of 2026-09-30, from the BDO (ISAE 3000R assurance opinion, quarterly) report for Tether.",
+    "verdict": "fully_backed",
+    "verdict_type": "reserve_backing"
+  },
+  "decision": {
+    "accept": true,
+    "why": "USDT is fully backed: ratio 1.0434 as of 2026-09-30, from the BDO (ISAE 3000R assurance opinion, quarterly) report for Tether."
+  }
+}
