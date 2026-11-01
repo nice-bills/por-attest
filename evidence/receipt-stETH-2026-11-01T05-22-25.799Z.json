@@ -1,0 +1,82 @@
+{
+  "label": "por-attest solvency-check: our own app, labelled as ours; not independent adoption. Testnet (Ethereum Sepolia).",
+  "asset": "stETH",
+  "date_utc": "2026-11-01",
+  "path": "direct",
+  "routed_to_miner": "27741",
+  "por_attest_was_paid": true,
+  "signal_hash": "0x7612518c551c2475ecdae0e4b925971f22a9be8992bda6135948586007e1b704",
+  "cost_usd": 0.01,
+  "receipt": {
+    "receipt_hash": "0xf2603dc006cc30313f3e035f22fa9d07735deae311361816fd3f9cbf034015d4",
+    "rail": "x402",
+    "payer": "0xc3F13706116e628A6284b04AD3F9BB0bC955128f",
+    "miner": "4862",
+    "intent": "ASSET_RESERVE_ATTESTATION_GENERAL",
+    "amount_uusdc": "10000",
+    "epoch_id": 1956,
+    "settlement": "onchain",
+    "chain": "eip155:11155111",
+    "tx_hash": "0x466d7ca5c1443c3deda79c1428f89e02b874e9788ae1335637984d331ecc21f2",
+    "timestamp": 1793510545
+  },
+  "payment_response": "eyJzdWNjZXNzIjp0cnVlLCJwYXllciI6IjB4YzNGMTM3MDYxMTZlNjI4QTYyODRiMDRBRDNGOUJCMGJDOTU1MTI4ZiIsInRyYW5zYWN0aW9uIjoiMHg0NjZkN2NhNWMxNDQzYzNkZWRhNzljMTQyOGY4OWUwMmI4NzRlOTc4OGFlMTMzNTYzNzk4NGQzMzFlY2MyMWYyIiwibmV0d29yayI6ImVpcDE1NToxMTE1NTExMSJ9",
+  "result_shape": "raw",
+  "result": {
+    "as_of": "2026-11-01T05:22:25.462Z",
+    "asset": "stETH",
+    "chainlink": {
+      "age_seconds": 2078,
+      "answer_raw": "9688682567092375407327843",
+      "chain": "ethereum",
+      "decimals": 18,
+      "feed": "0xAd410E655C0fE4741F573152592eeb766e686CE7",
+      "heartbeat_seconds": 21600,
+      "round_id": "18446744073709554701",
+      "updated_at": "2026-11-01T04:47:47.000Z",
+      "updated_at_unix": 1793508467
+    },
+    "confidence": 0.97,
+    "fully_backed": true,
+    "headline": {
+      "as_of": "2026-11-01T04:47:47.000Z",
+      "block": "18446744073709554701",
+      "ratio": null,
+      "reserves": 9688682.567092376,
+      "source": "Chainlink Proof of Reserve feed 0xAd410E655C0fE4741F573152592eeb766e686CE7 on ethereum",
+      "supply": null,
+      "unit": "ETH"
+    },
+    "intent": "ASSET_RESERVE_ATTESTATION_GENERAL",
+    "live_comparison": {
+      "chains": [
+        {
+          "block_number": 26317787,
+          "block_timestamp": "2026-11-01T05:20:23.000Z",
+          "chain": "ethereum",
+          "circulating": 9693871.584833696,
+          "decimals": 18,
+          "token": "0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84",
+          "total_supply": 9693871.584833696,
+          "treasury_balance": 0
+        }
+      ],
+      "complete": true,
+      "ratio": 0.9994647115245737,
+      "supply": 9693871.584834,
+      "unread": []
+    },
+    "question": null,
+    "reason": "Reserves: latestRoundData answer 9688682567092375407327843 with 18 decimals, round 18446744073709554701, updated 2026-11-01T04:47:47.000Z. Supply: token totalSupply read on-chain.",
+    "snapshot_at": "2026-11-01T05:20:36.734Z",
+    "source_type": "chainlink_por",
+    "stale": false,
+    "summary": "stETH is fully backed: ratio 0.9995 as of 2026-11-01T04:47:47.000Z, from the Chainlink Proof of Reserve feed 0xAd410E655C0fE4741F573152592eeb766e686CE7 on ethereum.",
+    "verdict": "fully_backed",
+    "verdict_type": "reserve_backing"
+  },
+  "decision": {
+    "accept": true,
+    "why": "stETH is fully backed: ratio 0.9995 as of 2026-11-01T04:47:47.000Z, from the Chainlink Proof of Reserve feed 0xAd410E655C0fE4741F573152592eeb766e686CE7 on ethereum."
+  }
+}

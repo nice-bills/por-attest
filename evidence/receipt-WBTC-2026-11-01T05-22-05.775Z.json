@@ -1,0 +1,82 @@
+{
+  "label": "por-attest solvency-check: our own app, labelled as ours; not independent adoption. Testnet (Ethereum Sepolia).",
+  "asset": "WBTC",
+  "date_utc": "2026-11-01",
+  "path": "direct",
+  "routed_to_miner": "27741",
+  "por_attest_was_paid": true,
+  "signal_hash": "0xa3cdb77297d3c5bb583d1732f2b384bf33b0a73eb5728e7d13169d20138f32fd",
+  "cost_usd": 0.01,
+  "receipt": {
+    "receipt_hash": "0x333f91f64b650dada9e9a45c2f119fd63111aa928b71bcbdea0cd8e574b9efe0",
+    "rail": "x402",
+    "payer": "0xc3F13706116e628A6284b04AD3F9BB0bC955128f",
+    "miner": "4862",
+    "intent": "ASSET_RESERVE_ATTESTATION_GENERAL",
+    "amount_uusdc": "10000",
+    "epoch_id": 1956,
+    "settlement": "onchain",
+    "chain": "eip155:11155111",
+    "tx_hash": "0x400d1721c9dc9a472d43fe2c675d6214d7149f8a03e3ec6486140ace1f5e47a7",
+    "timestamp": 1793510525
+  },
+  "payment_response": "eyJzdWNjZXNzIjp0cnVlLCJwYXllciI6IjB4YzNGMTM3MDYxMTZlNjI4QTYyODRiMDRBRDNGOUJCMGJDOTU1MTI4ZiIsInRyYW5zYWN0aW9uIjoiMHg0MDBkMTcyMWM5ZGM5YTQ3MmQ0M2ZlMmM2NzVkNjIxNGQ3MTQ5ZjhhMDNlM2VjNjQ4NjE0MGFjZTFmNWU0N2E3IiwibmV0d29yayI6ImVpcDE1NToxMTE1NTExMSJ9",
+  "result_shape": "raw",
+  "result": {
+    "as_of": "2026-11-01T05:22:05.276Z",
+    "asset": "WBTC",
+    "chainlink": {
+      "age_seconds": 2742,
+      "answer_raw": "11614464916289",
+      "chain": "ethereum",
+      "decimals": 8,
+      "feed": "0xa81FE04086865e63E12dD3776978E49DEEa2ea4e",
+      "heartbeat_seconds": 86400,
+      "round_id": "36893488147419104268",
+      "updated_at": "2026-11-01T04:36:23.000Z",
+      "updated_at_unix": 1793507783
+    },
+    "confidence": 0.97,
+    "fully_backed": true,
+    "headline": {
+      "as_of": "2026-11-01T04:36:23.000Z",
+      "block": "36893488147419104268",
+      "ratio": null,
+      "reserves": 116144.64916289,
+      "source": "Chainlink Proof of Reserve feed 0xa81FE04086865e63E12dD3776978E49DEEa2ea4e on ethereum",
+      "supply": null,
+      "unit": "BTC"
+    },
+    "intent": "ASSET_RESERVE_ATTESTATION_GENERAL",
+    "live_comparison": {
+      "chains": [
+        {
+          "block_number": 26317787,
+          "block_timestamp": "2026-11-01T05:20:23.000Z",
+          "chain": "ethereum",
+          "circulating": 116132.18273262,
+          "decimals": 8,
+          "token": "0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599",
+          "total_supply": 116132.18273262,
+          "treasury_balance": 0
+        }
+      ],
+      "complete": true,
+      "ratio": 1.000107346900718,
+      "supply": 116132.182733,
+      "unread": []
+    },
+    "question": null,
+    "reason": "Reserves: latestRoundData answer 11614464916289 with 8 decimals, round 36893488147419104268, updated 2026-11-01T04:36:23.000Z. Supply: token totalSupply read on-chain.",
+    "snapshot_at": "2026-11-01T05:20:36.734Z",
+    "source_type": "chainlink_por",
+    "stale": false,
+    "summary": "WBTC is fully backed: ratio 1.0001 as of 2026-11-01T04:36:23.000Z, from the Chainlink Proof of Reserve feed 0xa81FE04086865e63E12dD3776978E49DEEa2ea4e on ethereum.",
+    "verdict": "fully_backed",
+    "verdict_type": "reserve_backing"
+  },
+  "decision": {
+    "accept": true,
+    "why": "WBTC is fully backed: ratio 1.0001 as of 2026-11-01T04:36:23.000Z, from the Chainlink Proof of Reserve feed 0xa81FE04086865e63E12dD3776978E49DEEa2ea4e on ethereum."
+  }
+}

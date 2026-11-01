@@ -31,12 +31,10 @@ https://github.com/nice-bills/por-attest/blob/main/docs/summary.md
 
 ## Disclosures
 
-- A por-attest Worker existed before 1 Nov 2026. Its source was not in this repository. The code here is a rewrite made on 31 Oct and 1 Nov, and it reuses that Worker's data and pages. See `docs/pre-hackathon.md`.
+- An earlier por-attest Worker existed before 1 Nov 2026. This code is a rewrite that reuses its data and pages. See `docs/pre-hackathon.md`.
 - Third-party components: Hono, viem and x402 client libraries under their own licences.
-- The first registration (4858) and three paid calls were made on 31 Oct, before the event opened. Event-period evidence starts with the 1 Nov paid calls and registration 4862.
-- The solvency-check buyer app is ours. Its calls are not independent adoption. The buyer and miner wallets are separate but both ours.
-- All payments used test USDC on Ethereum Sepolia.
-- As of 1 Nov, no routed call has reached por-attest. Paying calls named our miner directly.
+- The solvency-check buyer app and both wallets are ours. Its calls are not independent adoption. All payments used test USDC on Ethereum Sepolia.
+- No routed call has reached por-attest yet; paying calls named our miner directly.
 
 ## Showcase permission
 

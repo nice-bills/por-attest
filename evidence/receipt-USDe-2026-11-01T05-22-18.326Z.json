@@ -1,0 +1,83 @@
+{
+  "label": "por-attest solvency-check: our own app, labelled as ours; not independent adoption. Testnet (Ethereum Sepolia).",
+  "asset": "USDe",
+  "date_utc": "2026-11-01",
+  "path": "direct",
+  "routed_to_miner": "27741",
+  "por_attest_was_paid": true,
+  "signal_hash": "0x9a5721a1debca1183bd257a290ea84316af7e7994f1bf06c1cd7cc9534374656",
+  "cost_usd": 0.01,
+  "receipt": {
+    "receipt_hash": "0x8e7f786ef9dfa230acf89e17065fc0ee657cd1ee00b4166e00037d559968a9de",
+    "rail": "x402",
+    "payer": "0xc3F13706116e628A6284b04AD3F9BB0bC955128f",
+    "miner": "4862",
+    "intent": "ASSET_RESERVE_ATTESTATION_GENERAL",
+    "amount_uusdc": "10000",
+    "epoch_id": 1956,
+    "settlement": "onchain",
+    "chain": "eip155:11155111",
+    "tx_hash": "0x8c1e643bed6a176eca1a9e8a7906938380329d0d7ba90067b2447ca1bec6f858",
+    "timestamp": 1793510537
+  },
+  "payment_response": "eyJzdWNjZXNzIjp0cnVlLCJwYXllciI6IjB4YzNGMTM3MDYxMTZlNjI4QTYyODRiMDRBRDNGOUJCMGJDOTU1MTI4ZiIsInRyYW5zYWN0aW9uIjoiMHg4YzFlNjQzYmVkNmExNzZlY2ExYTllOGE3OTA2OTM4MzgwMzI5ZDBkN2JhOTAwNjdiMjQ0N2NhMWJlYzZmODU4IiwibmV0d29yayI6ImVpcDE1NToxMTE1NTExMSJ9",
+  "result_shape": "raw",
+  "result": {
+    "as_of": "2026-11-01T05:22:17.845Z",
+    "asset": "USDe",
+    "confidence": 0.6,
+    "fully_backed": true,
+    "headline": {
+      "as_of": "2026-11-01",
+      "block": "2026-11-01",
+      "ratio": null,
+      "reserves": 5251729790.75,
+      "source": "Ethena disclosure for Ethena",
+      "supply": null,
+      "unit": "USD"
+    },
+    "intent": "ASSET_RESERVE_ATTESTATION_GENERAL",
+    "live_comparison": {
+      "chains": [
+        {
+          "block_number": 26317787,
+          "block_timestamp": "2026-11-01T05:20:23.000Z",
+          "chain": "ethereum",
+          "circulating": 4508958196.105937,
+          "decimals": 18,
+          "token": "0x4c9EDD5852cd905f086C759E8383e09bff1E68B3",
+          "total_supply": 4508958196.105937,
+          "treasury_balance": 0
+        }
+      ],
+      "complete": true,
+      "ratio": 1.1647324198493438,
+      "supply": 4508958196.105937,
+      "unread": []
+    },
+    "question": null,
+    "reason": "Collateral from the issuer's disclosure dated 2026-11-01 (https://ethena.fi/api/positions/current/collateral?latest=true), compared with supply read on-chain. This is not a stablecoin reserve attestation.",
+    "report": {
+      "age_days": 0,
+      "attestor": null,
+      "cadence": "daily",
+      "kind": "issuer_disclosure",
+      "page_url": "https://app.ethena.fi/dashboards/transparency",
+      "report_date": "2026-11-01",
+      "report_url": "https://ethena.fi/api/positions/current/collateral?latest=true",
+      "reserves": 5251729790.75,
+      "stale_after_days": 3,
+      "supply_reported": null
+    },
+    "snapshot_at": "2026-11-01T05:20:36.734Z",
+    "source_type": "issuer_attestation",
+    "stale": false,
+    "summary": "USDe is fully collateralised: ratio 1.1647 as of 2026-11-01, from the Ethena disclosure for Ethena.",
+    "verdict": "fully_backed",
+    "verdict_type": "collateral_coverage"
+  },
+  "decision": {
+    "accept": true,
+    "why": "USDe is fully collateralised: ratio 1.1647 as of 2026-11-01, from the Ethena disclosure for Ethena."
+  }
+}
