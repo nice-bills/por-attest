@@ -1,6 +1,6 @@
 import { decodeFunctionResult, encodeFunctionData, formatUnits, parseAbi, type Hex } from "viem";
 import { CHAINS } from "./chains";
-import { rpc } from "./rpc";
+import { rpcBatch } from "./rpc";
 
 const INTENT = "CRYPTO_TRANSFER_VERIFY_GENERAL";
 const TRANSFER_TOPIC = "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef";
@@ -32,29 +32,37 @@ interface Raw {
 const address = (topic: string) => `0x${topic.slice(-40)}`;
 
 async function readTx(url: string, hash: string): Promise<Raw | null> {
-  const [tx, receipt, latest] = await Promise.all([
-    rpc(url, "eth_getTransactionByHash", [hash]),
-    rpc(url, "eth_getTransactionReceipt", [hash]),
-    rpc(url, "eth_blockNumber", []),
+  const [tx, receipt, latest] = await rpcBatch(url, [
+    ["eth_getTransactionByHash", [hash]],
+    ["eth_getTransactionReceipt", [hash]],
+    ["eth_blockNumber", []],
   ]);
   if (!tx) return null;
-  const block = tx.blockNumber ? await rpc(url, "eth_getBlockByNumber", [tx.blockNumber, false]) : null;
+  const [block] = tx.blockNumber ? await rpcBatch(url, [["eth_getBlockByNumber", [tx.blockNumber, false]]]) : [null];
   return { tx, receipt, latest: Number(latest), block };
 }
 
-async function tokenInfo(url: string, token: string) {
-  const call = async (functionName: "symbol" | "decimals") => {
-    const data = await rpc(url, "eth_call", [{ to: token, data: encodeFunctionData({ abi, functionName }) }, "latest"]);
-    return decodeFunctionResult({ abi, functionName, data: data as Hex });
-  };
-  const [symbol, decimals] = await Promise.allSettled([call("symbol"), call("decimals")]);
-  return { symbol: symbol.status === "fulfilled" ? String(symbol.value) : null, decimals: decimals.status === "fulfilled" ? Number(decimals.value) : null };
+// Works down the RPC list, because one rate-limited read would otherwise lose the token and amount.
+async function tokenInfo(urls: string[], token: string) {
+  const call = (functionName: "symbol" | "decimals") => ["eth_call", [{ to: token, data: encodeFunctionData({ abi, functionName }) }, "latest"]] as [string, unknown[]];
+  for (const url of urls) {
+    try {
+      const [symbol, decimals] = await rpcBatch(url, [call("symbol"), call("decimals")]);
+      return {
+        symbol: String(decodeFunctionResult({ abi, functionName: "symbol", data: symbol as Hex })),
+        decimals: Number(decodeFunctionResult({ abi, functionName: "decimals", data: decimals as Hex })),
+      };
+    } catch (err) {
+      console.error("token read failed", url.slice(0, 32), String(err).slice(0, 100));
+    }
+  }
+  return { symbol: null, decimals: null };
 }
 
-export async function erc20Transfers(url: string, logs: any[]): Promise<TokenTransfer[]> {
+export async function erc20Transfers(urls: string[], logs: any[]): Promise<TokenTransfer[]> {
   const rows = logs.filter((l) => l.topics?.[0] === TRANSFER_TOPIC && l.topics.length === 3);
   const tokens = [...new Set(rows.map((l) => l.address.toLowerCase()))].slice(0, MAX_TOKENS);
-  const info = new Map(await Promise.all(tokens.map(async (t) => [t, await tokenInfo(url, t)] as const)));
+  const info = new Map(await Promise.all(tokens.map(async (t) => [t, await tokenInfo(urls, t)] as const)));
   return rows.flatMap((l) => {
     const known = info.get(l.address.toLowerCase());
     if (!known) return [];
@@ -115,9 +123,20 @@ export function buildTransfer(chain: string, hash: string, raw: Raw | null, tran
   };
 }
 
+// Settled results never change, so each is read from the chain once.
+export async function verifyCached(kv: KVNamespace, chain: string, hash: string, wait: (p: Promise<unknown>) => void) {
+  const key = `transfer:${chain}:${hash.toLowerCase()}`;
+  const stored = await kv.get(key, "json").catch(() => null);
+  if (stored) return stored;
+  const answer = await verifyTransfer(chain, hash);
+  const complete = answer.transfers.every((t) => t.amount !== null);
+  if ((answer.verdict === "verified" || answer.verdict === "failed") && complete) wait(kv.put(key, JSON.stringify(answer)).catch(console.error));
+  return answer;
+}
+
 // Per-transaction by nature, so unlike /reserve this reads on request, with RPC timeouts and fallback.
 export async function verifyTransfer(chain: string, hash: string, now = new Date()) {
-  let failure = "every RPC failed";
+  const failure = "every RPC failed";
   let missing = false;
   for (const url of CHAINS[chain].rpcs) {
     try {
@@ -128,7 +147,7 @@ export async function verifyTransfer(chain: string, hash: string, now = new Date
         missing = true;
         continue;
       }
-      return buildTransfer(chain, hash, raw, raw.receipt?.status === "0x1" ? await erc20Transfers(url, raw.receipt.logs) : [], now);
+      return buildTransfer(chain, hash, raw, raw.receipt?.status === "0x1" ? await erc20Transfers(CHAINS[chain].rpcs, raw.receipt.logs) : [], now);
     } catch (err) {
       console.error("transfer read failed", url.slice(0, 32), String(err).slice(0, 100));
     }

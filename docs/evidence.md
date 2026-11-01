@@ -9,11 +9,12 @@ from mainnet chains. The buyer app is ours, and its calls are not independent ad
 | Fixture report | Ready: 59 of 59 passed against the deployed Worker on 1 Nov 2026, across 7 missions | [fixtures/report.md](../fixtures/report.md) |
 | Unit tests | Ready: run `npm test` | `test/` |
 | End-to-end tests | Passed against the deployed Worker | `e2e/`, run with `E2E_BASE_URL=<url> npm run test:e2e` |
+| Transfer reliability | 11 fresh real transactions on Ethereum, Base and Arbitrum: 10 read, 1 `unread` from RPC rate limits, none errored, all under 2.3 s | Repeat with a keyed EVM RPC |
 | Load test | Ready: p50 56 ms, no 5xx, 1 Nov 2026 | [load-test.md](load-test.md) |
 | Unpaid 402 challenge | Ready: proves the request reaches the node. It is not a receipt | `evidence/dry-run-*.json` |
 | registrationId | 4865, Ethereum Sepolia tx `0x1663173eac29f38b4089f59642d2b85f8cfbfce119b1e81357c57c801e91b5e4`, serving three intents | https://devnode.telegraphprotocol.com/api/miners/4865 |
 | Validation result | Pending: `POST /api/validate` returned 404 on 1 Nov 2026 | Add here |
-| Paid request and receipts | 10 paid calls on 1 Nov 2026 | `evidence/receipt-*2026-11-01*.json` |
-| por-attest paid as miner | 7 direct calls on 1 Nov 2026 (USDT, PYUSD, XAUT twice, WBTC, USDe, stETH). The 3 routed calls went to miner 81009 | `evidence/receipt-*2026-11-01*.json` |
+| Paid request and receipts | 11 paid calls on 1 Nov 2026, one on each of the reserve and transfer intents at minimum | `evidence/receipt-*2026-11-01*.json` |
+| por-attest paid as miner | 8 direct calls on 1 Nov 2026: 7 reserve (USDT, PYUSD, XAUT twice, WBTC, USDe, stETH) and 1 transfer. The 3 routed calls went to miner 81009 | `evidence/receipt-*2026-11-01*.json` |
 | Uptime history | Running from GitHub Actions since 1 Nov 2026, checks about every 10 minutes | https://github.com/nice-bills/por-attest/tree/uptime |
 | Ranking reference | Pending activation and the 7-day grace period | Add link here |

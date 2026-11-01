@@ -52,7 +52,7 @@ pass  stablecoin/usdc-report
 pass  stablecoin/usdt-report
 pass  web3-defi/bad-hash
 pass  web3-defi/escrow-release-eth
-FAIL  web3-defi/escrow-release-usdc  token: got "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913", wanted "USDC"; amount: got null, wanted 30.141
+pass  web3-defi/escrow-release-usdc
 pass  web3-defi/not-found
 pass  web3-defi/reverted
 pass  web3-defi/unsettled

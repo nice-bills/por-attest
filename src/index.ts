@@ -8,7 +8,7 @@ import terms from "./pages/terms.html";
 import { readRound } from "./reads";
 import { loadSnapshot, needsRefresh, readFor, refreshSnapshot, type Snapshot } from "./snapshot";
 import { buildSupply } from "./supply";
-import { TRANSFER_CHAINS, verifyTransfer } from "./transfer";
+import { TRANSFER_CHAINS, verifyCached } from "./transfer";
 
 export interface Env {
   POR_KV: KVNamespace;
@@ -111,7 +111,7 @@ app.get("/transfer", async (c) => {
   const { tx_hash: hash, chain } = c.req.query();
   if (!hash || !/^0x[0-9a-fA-F]{64}$/.test(hash)) return c.json({ error: { code: "BAD_TX_HASH", message: "tx_hash must be 0x followed by 64 hex characters." }, verdict: "unverified" }, 400);
   if (!chain || !TRANSFER_CHAINS.includes(chain.toLowerCase())) return c.json({ error: { code: "UNSUPPORTED_CHAIN", message: `chain must be one of: ${TRANSFER_CHAINS.join(", ")}.` }, verdict: "unverified" }, 400);
-  return c.json(await verifyTransfer(chain.toLowerCase(), hash));
+  return c.json((await verifyCached(c.env.POR_KV, chain.toLowerCase(), hash, (p) => c.executionCtx.waitUntil(p))) as object);
 });
 
 app.notFound((c) => c.json({ error: { code: "NOT_FOUND", message: "See GET /assets." } }, 404));

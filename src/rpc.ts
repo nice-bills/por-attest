@@ -73,6 +73,24 @@ export async function rpc(url: string, method: string, params: unknown[]): Promi
   return body.result;
 }
 
+// One HTTP request for several reads, so a rate-limited RPC sees less traffic.
+export async function rpcBatch(url: string, requests: [string, unknown[]][]): Promise<any[]> {
+  const res = await fetch(url, {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    signal: AbortSignal.timeout(TIMEOUT_MS),
+    body: JSON.stringify(requests.map(([method, params], id) => ({ jsonrpc: "2.0", id, method, params }))),
+  });
+  if (!res.ok) throw new Error(`batch HTTP ${res.status}`);
+  const body = (await res.json()) as { id: number; result?: any; error?: { message?: string } }[];
+  if (!Array.isArray(body)) throw new Error("batch not supported");
+  return requests.map((_, id) => {
+    const reply = body.find((r) => r.id === id);
+    if (!reply || reply.error) throw new Error(reply?.error?.message ?? "missing batch reply");
+    return reply.result;
+  });
+}
+
 export async function readCalls(url: string, calls: Call[], multicall: boolean): Promise<ChainRead> {
   return multicall ? viaMulticall(url, calls) : oneByOne(url, calls);
 }

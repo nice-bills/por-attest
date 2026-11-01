@@ -188,7 +188,7 @@ npm run fixtures -- --mission exchange --target https://por-attest.alnicewilliam
 
 There are three fixture modes:
 
-- `pinned`: exact numbers from a past round or report. These never drift.
+- `pinned`: exact numbers from a past round, report or transaction. These never drift.
 - `live`: rules that always hold, such as "ratio equals reserves / supply".
 - `simulated`: stale reports and RPC disagreement can't be forced on a live server, so these feed
   the case straight into the real answer code. They don't touch `--target`.
@@ -214,7 +214,7 @@ There are three fixture modes:
 - 44 of the 80 assets currently answer `unverified`, mostly because their feed can't be compared
   with an on-chain supply. Reserves are still shown.
 - If two RPCs disagree by more than 0.5%, that chain's figures are withheld.
-- `/transfer` reads on request, not from the snapshot, so it is slower than `/reserve`. It covers EVM chains only. A contract call moving several tokens lists them all, with the first as the headline.
+- `/transfer` reads on request over public RPCs, so it is slower than `/reserve`, and a first read of a hash can come back `unread` under rate limits. Retry it. Settled results are cached, so repeat lookups are served from KV. It covers EVM chains only. A contract call moving several tokens lists them all, with the first as the headline.
 - The Web3 DeFi fixtures check the escrow's settlement payment only, not the event that triggers it.
 - Solana supply needs a keyed RPC. Public endpoints refuse Cloudflare's IPs.
 

@@ -1,7 +1,7 @@
 # Fixture report
 
 Target: https://por-attest.alnicewilliams3.workers.dev
-Run: 2026-11-01T08:25:34.185Z
+Run: 2026-11-01T08:37:56.249Z
 
 | Mission | Case | Mode | Result | Detail |
 | --- | --- | --- | --- | --- |
@@ -59,10 +59,10 @@ Run: 2026-11-01T08:25:34.185Z
 | stablecoin | usdt-report | pinned | pass |  |
 | web3-defi | bad-hash | live | pass |  |
 | web3-defi | escrow-release-eth | pinned | pass |  |
-| web3-defi | escrow-release-usdc | pinned | FAIL | token: got "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913", wanted "USDC"; amount: got null, wanted 30.141 |
+| web3-defi | escrow-release-usdc | pinned | pass |  |
 | web3-defi | not-found | live | pass |  |
 | web3-defi | reverted | pinned | pass |  |
 | web3-defi | unsettled | simulated | pass |  |
 | web3-defi | unsupported-chain | live | pass |  |
 
-1 failed.
+0 failed.

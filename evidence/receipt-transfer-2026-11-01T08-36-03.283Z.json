@@ -1,0 +1,53 @@
+{
+  "label": "por-attest solvency-check: our own app, labelled as ours; not independent adoption. Testnet (Ethereum Sepolia).",
+  "path": "direct",
+  "status": 200,
+  "routed_to_miner": "27741",
+  "signal_hash": "0x34ddbefa671fe0655ca1df17de5fef61ac58b7155f1da31077738693e61496db",
+  "cost_usd": 0.01,
+  "receipt": {
+    "receipt_hash": "0x8e90792275b0ac8033d05d4e0eb8759d484546388cbdd9dbd455db4913f392fe",
+    "rail": "x402",
+    "payer": "0xc3F13706116e628A6284b04AD3F9BB0bC955128f",
+    "miner": "4865",
+    "intent": "CRYPTO_TRANSFER_VERIFY_GENERAL",
+    "amount_uusdc": "10000",
+    "epoch_id": 1959,
+    "settlement": "onchain",
+    "chain": "eip155:11155111",
+    "tx_hash": "0xb01fd0782ba93ace6a42a67be809b98a4606381586e6672e9519adeece5393af",
+    "timestamp": 1793522162
+  },
+  "result": {
+    "amount": 30.141,
+    "amount_raw": "30141000",
+    "as_of": "2026-11-01T08:36:02.187Z",
+    "block_number": 53363930,
+    "block_timestamp": "2026-11-01T07:13:27.000Z",
+    "chain": "base",
+    "confidence": 0.95,
+    "confirmations": 2478,
+    "from": "0x1b52482b3036589051dc74836a213dc3b445395f",
+    "intent": "CRYPTO_TRANSFER_VERIFY_GENERAL",
+    "network": "mainnet",
+    "reason": "Read from the transaction receipt on base. 1 transfer(s) found.",
+    "status": "success",
+    "summary": "Transfer on base is verified: 30.141 USDC from 0x1b52482b3036589051dc74836a213dc3b445395f to 0xd272e924e2604b7249901674bb59352db7ccbf02, block 53363930, 2478 confirmations.",
+    "to": "0xd272e924e2604b7249901674bb59352db7ccbf02",
+    "token": "USDC",
+    "token_contract": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+    "transfers": [
+      {
+        "amount": 30.141,
+        "amount_raw": "30141000",
+        "decimals": 6,
+        "from": "0x1b52482b3036589051dc74836a213dc3b445395f",
+        "to": "0xd272e924e2604b7249901674bb59352db7ccbf02",
+        "token": "USDC",
+        "token_contract": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913"
+      }
+    ],
+    "tx_hash": "0xf8feab7e31110a1a702f5d43052a9f4b3bd4e7c3d68b377f4c9c0443032caf0d",
+    "verdict": "verified"
+  }
+}
