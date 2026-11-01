@@ -6,9 +6,35 @@
 <title>por-attest: reserve assay for stablecoins and tokenised assets</title>
 <meta name="description" content="Ask whether a stablecoin, wrapped asset or tokenised gold is fully backed. Reads Chainlink Proof of Reserve feeds and issuer attestations against live on-chain supply.">
 <meta name="theme-color" content="#f1ebdd">
-<link rel="preload" href="/fonts/Newsreader-normal-400_600.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts/fonts.css">
-<link rel="stylesheet" href="/style.css">
+<style>
+:root{--paper:#f1ebdd;--card:#fbf7ee;--ink:#23201a;--muted:#6b6455;--line:#cfc6b2;--seal:#7a2e1f;--ok:#2d5f3f;--bad:#9a2a1c;--warn:#7a5a12;--serif:Newsreader,Georgia,"Times New Roman",serif;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}body{margin:0;background:var(--paper);color:var(--ink);font:18px/1.55 var(--serif)}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}a{color:inherit}.mono{font-family:var(--mono);font-size:.82em}
+.label{font:600 12px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.masthead{border-bottom:2px solid var(--ink);padding:18px 0}.masthead .wrap{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap}
+.mark{font-size:26px;font-weight:600;text-decoration:none}.mark small{font:400 12px var(--mono);color:var(--muted);margin-left:10px}nav a{margin-left:18px;font-family:var(--mono);font-size:14px}nav a:first-child{margin-left:0}
+.subhead{border-bottom:1px solid var(--line);padding:8px 0;font:13px var(--mono);color:var(--muted)}.subhead .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.enquiry{padding:56px 0}.enquiry-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+h1{font-size:clamp(38px,6vw,60px);line-height:1.08;font-weight:500;margin:10px 0 16px}h1 em{color:var(--seal)}.lede{margin:0 0 24px;color:var(--muted)}
+.ask-row{display:flex;gap:8px;margin-top:6px}input{flex:1;min-width:0;font:inherit;padding:12px 14px;background:var(--card);color:var(--ink);border:1px solid var(--ink);border-radius:2px}
+button{font:inherit;cursor:pointer}#ask-btn{padding:12px 22px;background:var(--ink);color:var(--paper);border:1px solid var(--ink);border-radius:2px}#ask-btn:disabled{opacity:.6;cursor:wait}
+:focus-visible{outline:2px solid var(--seal);outline-offset:2px}
+.examples{margin-top:22px}.examples ul{list-style:none;margin:6px 0 0;padding:0}.examples button{background:none;border:0;padding:5px 0;text-align:left;color:var(--ink);text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:3px}
+.certificate{background:var(--card);border:1px solid var(--ink);box-shadow:6px 6px 0 var(--line);padding:24px;min-height:300px;overflow-wrap:anywhere}.cert-head{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:14px}
+.beam{display:none}.cert-blank p{color:var(--muted);margin:.6em 0}
+.stamp{display:inline-block;font:700 15px var(--mono);letter-spacing:.06em;text-transform:uppercase;border:2px solid currentColor;padding:4px 10px;margin:2px 0 12px}.fully_backed{color:var(--ok)}.under_backed{color:var(--bad)}.unverified{color:var(--warn)}
+.cert-summary{margin:0 0 14px}.figures{display:grid;grid-template-columns:auto 1fr;gap:4px 16px;margin:0 0 14px;font-size:16px}.figures dt{color:var(--muted)}.figures dd{margin:0;font-family:var(--mono);font-size:14px}
+.cert-reason{font-size:15px;color:var(--muted);margin:0}
+.block{border-top:2px solid var(--ink);padding:48px 0}.block-head{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-bottom:24px}h2{font-size:34px;font-weight:500;margin:6px 0}.block-head p{margin:0;color:var(--muted)}
+.register-group{margin-bottom:32px}.register-group h3{display:flex;justify-content:space-between;font-size:20px;font-weight:600;margin:0 0 8px}.table-scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:16px}th{font:600 12px var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted);text-align:left;padding:8px 10px;border-bottom:1px solid var(--ink)}td{padding:9px 10px;border-bottom:1px solid var(--line)}.r{text-align:right;font-family:var(--mono);font-size:14px}th.r{font-size:12px}td.verdict{font:600 13px var(--mono);white-space:nowrap}
+td button{background:none;border:0;padding:0;font-weight:600;text-decoration:underline;text-underline-offset:3px;color:var(--ink)}
+.more summary{cursor:pointer}.more p{color:var(--muted);font-size:15px}
+.method{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:32px;counter-reset:s}.method li{counter-increment:s}.method li::before{content:counter(s);font:600 14px var(--mono);color:var(--seal)}.method h3{font-size:20px;margin:6px 0}.method p{margin:0;color:var(--muted);font-size:16px}
+footer{border-top:2px solid var(--ink);padding:24px 0;font-size:15px}footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+@media (max-width:820px){.enquiry{padding:32px 0}.enquiry-grid,.block-head,.method{grid-template-columns:1fr;gap:24px}.wrap{padding:0 16px}body{font-size:17px}nav a{margin-left:12px}}
+@media (prefers-reduced-motion:no-preference){.certificate{transition:box-shadow .15s}}
+</style>
 </head>
 <body>
 <header class="masthead">
@@ -22,7 +48,7 @@
   </div>
 </header>
 <div class="subhead">
-  <div class="wrap"><span>A Telegraph miner for ASSET_RESERVE_ATTESTATION</span><span id="clock">Readings are live, nothing is cached for more than five minutes</span></div>
+  <div class="wrap"><span>A Telegraph miner for ASSET_RESERVE_ATTESTATION_GENERAL</span><span id="clock">On-chain readings refresh about every two minutes</span></div>
 </div>
 
 <main>
@@ -31,7 +57,7 @@
       <div>
         <span class="label">Enquiry desk</span>
         <h1>Is it fully backed, <em>right now?</em></h1>
-        <p class="lede">Name a stablecoin, wrapped coin or tokenised gold. The office reads its latest reserve report and the supply on-chain at this moment, weighs one against the other and issues a certificate.</p>
+        <p class="lede">Name a stablecoin, wrapped coin or tokenised gold. The office reads its latest reserve report or feed, sets it beside recent on-chain supply and issues a certificate.</p>
         <form class="ask" id="ask" autocomplete="off">
           <label class="label" for="q">Your question</label>
           <div class="ask-row">
@@ -53,7 +79,7 @@
         <div class="cert-head"><span class="label">Certificate of assay</span><span class="label" id="cert-no">Not yet issued</span></div>
         <div class="cert-blank">
           <div class="beam beam-rest" id="beam-rest" aria-hidden="true"></div>
-          <p>Ask a question and the scales are loaded: the reserve figure on one pan, today's circulating supply on the other. The certificate records the ratio, the report's age and every source read.</p>
+          <p>Ask a question and the certificate records the authoritative figure, its date, the ratio and every source read.</p>
           <p>A report too old, or a supply that cannot be compared, is certified <em>unverified</em> rather than guessed.</p>
         </div>
       </div>
@@ -64,21 +90,21 @@
     <div class="wrap">
       <div class="block-head">
         <div><span class="label">The register</span><h2>Every asset on file</h2></div>
-        <p>Each entry is weighed live when this page opens: the reserve figure against today's circulating supply. Select an asset to issue its full certificate.</p>
+        <p>Every entry comes from the latest snapshot, refreshed about every two minutes. Select an asset to issue its full certificate.</p>
       </div>
       <div class="register-group">
         <h3><span>Issuer attestations</span><span id="count-issuer"></span></h3>
-        <table class="register" id="reg-issuer">
+        <div class="table-scroll"><table class="register" id="reg-issuer">
           <thead><tr><th>Asset</th><th>Reserve report</th><th class="r">Ratio</th><th class="r">Report age</th><th class="verdict">Verdict</th></tr></thead>
           <tbody></tbody>
-        </table>
+        </table></div>
       </div>
       <div class="register-group">
         <h3><span>Chainlink Proof of Reserve</span><span id="count-chainlink"></span></h3>
-        <table class="register" id="reg-chainlink">
+        <div class="table-scroll"><table class="register" id="reg-chainlink">
           <thead><tr><th>Asset</th><th>Feed</th><th class="r">Ratio</th><th class="r">Report age</th><th class="verdict">Verdict</th></tr></thead>
           <tbody></tbody>
-        </table>
+        </table></div>
       </div>
       <details class="more" id="more">
         <summary>Feeds read without a supply comparison</summary>
@@ -95,8 +121,8 @@
       </div>
       <ol class="method">
         <li><h3>Read the reserve figure</h3><p>For wrapped and bridged assets, the Chainlink Proof of Reserve feed on-chain (its latest round and timestamp). For USDC, USDT, PAXG, PYUSD, XAUT and USDe, the issuer's latest accountant's report or reserve dashboard.</p></li>
-        <li><h3>Read the supply, live</h3><p>The token's total supply on every chain where it is issued, read at the moment you ask, net of balances the issuer discloses as unissued treasury stock.</p></li>
-        <li><h3>Weigh and date-stamp</h3><p>Reserves divided by supply gives the ratio. A feed past its heartbeat or a report past its publishing cycle is marked unverified, and growth in supply since the report date is called out.</p></li>
+        <li><h3>Read the supply, live</h3><p>The token's total supply on the chains we list, read about every two minutes, less known issuer treasury wallets. Each figure carries its chain, block and time.</p></li>
+        <li><h3>Weigh and date-stamp</h3><p>An issuer's verdict uses its report's own reserves and supply. A feed's verdict uses reserves over live supply. A feed past its heartbeat or a report past its limit is marked unverified.</p></li>
       </ol>
     </div>
   </section>
@@ -113,6 +139,78 @@
     </nav>
   </div>
 </footer>
-<script src="/app.js" defer></script>
+<script>
+const $ = (id) => document.getElementById(id);
+const cert = $("certificate");
+const el = (tag, cls, text) => { const n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = text; return n; };
+const num = (n) => (n == null ? "not stated" : n.toLocaleString("en-US", { maximumFractionDigits: 4 }));
+const words = { fully_backed: "Fully backed", under_backed: "Under-backed", unverified: "Unverified" };
+
+function issue(head, nodes) {
+  $("cert-no").textContent = head;
+  cert.querySelector(".cert-blank")?.remove();
+  cert.querySelector(".cert-body")?.remove();
+  const body = el("div", "cert-body");
+  body.append(...nodes);
+  cert.append(body);
+  cert.scrollIntoView({ block: "nearest" });
+}
+
+function render(a) {
+  const h = a.headline;
+  const live = a.live_comparison;
+  const rows = [
+    ["Reserves", `${num(h.reserves)} ${h.unit ?? ""}`],
+    ["Report supply", h.supply == null ? "not in this source" : `${num(h.supply)} ${h.unit ?? ""}`],
+    ["Report ratio", h.ratio == null ? "not in this source" : h.ratio.toFixed(4)],
+    ["As of", h.as_of ?? "unknown"],
+    ["Live supply", live?.supply == null ? "unread" : `${num(live.supply)}${live.complete ? "" : " (partial)"}`],
+    ["Live ratio", live?.ratio == null ? "unread" : live.ratio.toFixed(4)],
+    ["Read at", a.snapshot_at ?? a.as_of],
+  ];
+  const dl = el("dl", "figures");
+  for (const [k, v] of rows) dl.append(el("dt", "", k), el("dd", "", v));
+  issue(a.asset, [el("div", `stamp ${a.verdict}`, words[a.verdict]), el("p", "cert-summary", a.summary), dl, el("p", "cert-reason", a.reason)]);
+}
+
+async function ask(params) {
+  const button = $("ask-btn");
+  button.disabled = true;
+  cert.setAttribute("aria-busy", "true");
+  try {
+    const res = await fetch(`/reserve?${new URLSearchParams(params)}`);
+    const body = await res.json();
+    if (body.headline) render(body);
+    else issue("Refused", [el("div", "stamp unverified", "No certificate"), el("p", "cert-summary", body.error?.message ?? body.summary ?? "No answer.")]);
+  } catch {
+    issue("Refused", [el("div", "stamp unverified", "No certificate"), el("p", "cert-summary", "The request failed. Try again.")]);
+  } finally {
+    button.disabled = false;
+    cert.setAttribute("aria-busy", "false");
+  }
+}
+
+$("ask").addEventListener("submit", (e) => { e.preventDefault(); ask({ question: $("q").value }); });
+document.querySelectorAll("[data-q]").forEach((b) => b.addEventListener("click", () => { $("q").value = b.dataset.q; ask({ question: b.dataset.q }); }));
+
+function row(r) {
+  const tr = el("tr");
+  const name = el("td");
+  const b = el("button", "", r.asset);
+  b.type = "button";
+  b.addEventListener("click", () => { ask(r.chain ? { asset: r.asset, chain: r.chain } : { asset: r.asset }); });
+  name.append(b);
+  tr.append(name, el("td", "", r.source), el("td", "r", r.ratio == null ? "—" : r.ratio.toFixed(4)), el("td", "r", r.age), el("td", `verdict ${r.verdict}`, words[r.verdict]));
+  return tr;
+}
+
+fetch("/register").then((r) => r.json()).then(({ issuers, feeds, uncompared }) => {
+  document.querySelector("#reg-issuer tbody").append(...issuers.map(row));
+  document.querySelector("#reg-chainlink tbody").append(...feeds.map(row));
+  $("count-issuer").textContent = `${issuers.length} assets`;
+  $("count-chainlink").textContent = `${feeds.length} feeds`;
+  $("more-list").textContent = uncompared.join(", ");
+}).catch(() => { $("count-issuer").textContent = "Register unavailable"; });
+</script>
 </body>
 </html>

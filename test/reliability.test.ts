@@ -167,3 +167,20 @@ describe("stored reports", () => {
     expect(out.reports.USDC).toBeUndefined();
   });
 });
+
+describe("demo page", () => {
+  it("loads no assets that the Worker does not serve", async () => {
+    for (const path of ["/", "/terms", "/privacy"]) {
+      const page = await (await app.request(path, {}, { POR_KV: kv(null) } as Env, ctx)).text();
+      expect(page).not.toMatch(/(href|src)="\/(fonts|style\.css|app\.js)/);
+    }
+  });
+  it("lists every asset group from /register, unverified with no snapshot", async () => {
+    const res = await app.request("/register", {}, { POR_KV: kv(null) } as Env, ctx);
+    const body = (await res.json()) as any;
+    expect(res.status).toBe(200);
+    expect(body.issuers).toHaveLength(6);
+    expect(body.feeds.length + body.uncompared.length).toBe(74);
+    expect(body.feeds[0].verdict).toBe("unverified");
+  });
+});

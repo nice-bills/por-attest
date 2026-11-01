@@ -34,6 +34,24 @@ app.get("/health", async (c) => {
   return c.json({ status: "ok", feeds: FEEDS.length, issuers: ISSUERS.length, snapshot_at: snapshot?.generated_at ?? null, time: new Date().toISOString() });
 });
 
+// One compact row per asset for the demo page, so it needs one request rather than 80.
+app.get("/register", async (c) => {
+  const snapshot = await snapshotFor(c);
+  const now = new Date();
+  const summarise = (asset: Asset) => buildAnswer(asset, readFor(snapshot, asset), now, null, { snapshot_at: snapshot?.generated_at ?? null, report: snapshot?.reports[asset.key] });
+  return c.json({
+    issuers: ISSUERS.map((asset) => {
+      const a = summarise(asset) as ReturnType<typeof summarise> & { report: { age_days: number; report_date: string } };
+      return { asset: asset.asset, source: a.report.report_date, ratio: a.headline.ratio ?? a.live_comparison.ratio, age: `${a.report.age_days} d`, verdict: a.verdict };
+    }),
+    feeds: FEEDS.filter((f) => f.comparable).map((asset) => {
+      const a = summarise(asset) as ReturnType<typeof summarise> & { chainlink?: { age_seconds: number } | null };
+      return { asset: asset.asset, chain: asset.chain, source: asset.chain, ratio: a.live_comparison.ratio, age: a.chainlink ? `${Math.round(a.chainlink.age_seconds / 3600)} h` : "—", verdict: a.verdict };
+    }),
+    uncompared: FEEDS.filter((f) => !f.comparable).map((f) => f.asset),
+  });
+});
+
 app.get("/assets", (c) =>
   c.json({
     count: FEEDS.length,
