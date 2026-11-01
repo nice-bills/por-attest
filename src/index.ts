@@ -1,5 +1,6 @@
 import { Hono } from "hono";
 import { buildAnswer } from "./answer";
+import { useAlchemy } from "./chains";
 import { FEEDS, ISSUERS, REPORTS, findAsset, findInQuestion, type Asset } from "./catalog";
 import miner from "../miner.yaml";
 import home from "./pages/home.html";
@@ -13,9 +14,15 @@ import { TRANSFER_CHAINS, verifyCached } from "./transfer";
 export interface Env {
   POR_KV: KVNamespace;
   SOLANA_RPC_URL?: string;
+  ALCHEMY_API_KEY?: string;
 }
 
 export const app = new Hono<{ Bindings: Env }>();
+
+app.use(async (c, next) => {
+  useAlchemy(c.env?.ALCHEMY_API_KEY);
+  await next();
+});
 
 // Stale-while-revalidate: answer from what we have, refresh behind the response.
 async function snapshotFor(c: { env: Env; executionCtx: { waitUntil(p: Promise<unknown>): void } }): Promise<Snapshot | null> {
@@ -125,6 +132,7 @@ app.onError((err, c) => {
 export default {
   fetch: app.fetch,
   async scheduled(_event: ScheduledController, env: Env, ctx: ExecutionContext) {
+    useAlchemy(env.ALCHEMY_API_KEY);
     ctx.waitUntil(refreshSnapshot(env));
   },
 };
