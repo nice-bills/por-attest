@@ -9,7 +9,7 @@ from mainnet chains. The buyer app is ours, and its calls are not independent ad
 | Fixture report | Ready: 59 of 59 passed against the deployed Worker on 1 Nov 2026, across 7 missions | [fixtures/report.md](../fixtures/report.md) |
 | Unit tests | Ready: run `npm test` | `test/` |
 | End-to-end tests | Passed against the deployed Worker | `e2e/`, run with `E2E_BASE_URL=<url> npm run test:e2e` |
-| Transfer reliability | 11 fresh real transactions on Ethereum, Base and Arbitrum: 10 read, 1 `unread` from RPC rate limits, none errored, all under 2.3 s | Repeat with a keyed EVM RPC |
+| Transfer reliability | 28 fresh real transactions on Ethereum, Base, Arbitrum, Optimism and Polygon with a keyed RPC: 28 read, 0 `unread`, median 0.79 s, max 5.21 s | Repeat with `/transfer` on new hashes |
 | Load test | Ready: p50 56 ms, no 5xx, 1 Nov 2026 | [load-test.md](load-test.md) |
 | Unpaid 402 challenge | Ready: proves the request reaches the node. It is not a receipt | `evidence/dry-run-*.json` |
 | registrationId | 4865, Ethereum Sepolia tx `0x1663173eac29f38b4089f59642d2b85f8cfbfce119b1e81357c57c801e91b5e4`, serving three intents | https://devnode.telegraphprotocol.com/api/miners/4865 |

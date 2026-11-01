@@ -214,14 +214,14 @@ There are three fixture modes:
 - 44 of the 80 assets currently answer `unverified`, mostly because their feed can't be compared
   with an on-chain supply. Reserves are still shown.
 - If two RPCs disagree by more than 0.5%, that chain's figures are withheld.
-- `/transfer` reads on request over public RPCs, so it is slower than `/reserve`, and a first read of a hash can come back `unread` under rate limits. Retry it. Settled results are cached, so repeat lookups are served from KV. It covers EVM chains only. A contract call moving several tokens lists them all, with the first as the headline.
+- `/transfer` reads on request, so it is slower than `/reserve`. If RPCs are unavailable it returns `unread`; retry it. Settled results are cached, so repeat lookups are served from KV. It covers EVM chains only. A contract call moving several tokens lists them all, with the first as the headline.
 - The Web3 DeFi fixtures check the escrow's settlement payment only, not the event that triggers it.
 - Solana supply needs a keyed RPC. Public endpoints refuse Cloudflare's IPs.
 
 ## Credential handling
 
-The miner holds no user credentials and asks callers for none. The only secret is the optional
-`SOLANA_RPC_URL`, kept as a Worker secret and never returned in an answer. It is set with:
+The miner holds no user credentials and asks callers for none. The optional secrets are
+`SOLANA_RPC_URL` and `ALCHEMY_API_KEY`, kept as Worker secrets and never returned in an answer. Set one with:
 
 ```bash
 npx wrangler secret put SOLANA_RPC_URL
