@@ -1,7 +1,7 @@
 # Fixture report
 
 Target: https://por-attest.alnicewilliams3.workers.dev
-Run: 2026-10-31T21:27:01.246Z
+Run: 2026-11-01T04:47:22.478Z
 
 | Mission | Case | Mode | Result | Detail |
 | --- | --- | --- | --- | --- |

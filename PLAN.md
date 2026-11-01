@@ -38,8 +38,7 @@ Work top to bottom. Each task lists what "done" means.
   - No 5xx: degrade to `unverified` with a reason.
   Done: median response under 500 ms, p95 under 2 s in a load test (k6 or autocannon). Save the results.
 
-- [ ] **7. Keyed Solana RPC** as a Worker secret, so Solana supply is read on-chain.
-  Status 31 Oct: Code done. Open: the secret must be installed.
+- [x] **7. Keyed Solana RPC** as a Worker secret, so Solana supply is read on-chain.
 
 ## Phase 2 — Register (1 to 3 Nov)
 
