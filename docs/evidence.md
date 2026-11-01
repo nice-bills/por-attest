@@ -15,5 +15,5 @@ from mainnet chains. The buyer app is ours, and its calls are not independent ad
 | Validation result | Pending: `POST /api/validate` returned 404 on 31 Oct 2026 | Add here |
 | Paid request and receipts | Second UTC date done: 31 Oct and 1 Nov 2026. On 1 Nov, 3 of 4 calls paid por-attest: all 3 direct calls (USDT, PYUSD, XAUT). The 1 routed call (USDC) went to another miner, 81009, and the buyer refused its answer | `evidence/receipt-*.json` |
 | por-attest paid as miner | 6 paid direct calls: USDC, WBTC, PAXG on 31 Oct; USDT, PYUSD, XAUT on 1 Nov. No routed call reached us: they went to miner 81009 or timed out, while our miner is in its grace period | `evidence/receipt-*.json` |
-| Uptime history | Pending monitor | Add public link here |
+| Uptime history | Running from GitHub Actions since 1 Nov 2026, checks about every 10 minutes | https://github.com/nice-bills/por-attest/tree/uptime |
 | Ranking reference | Pending activation and the 7-day grace period | Add link here |

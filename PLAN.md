@@ -48,7 +48,8 @@ Work top to bottom. Each task lists what "done" means.
   through integrate.telegraphprotocol.com with intents
   `ASSET_RESERVE_ATTESTATION_GENERAL` and `TOKEN_TOTAL_SUPPLY_VERIFY_GENERAL`.
   Done: record the registrationId; `/api/miners/<registrationId>` shows `activation_status: active`.
-- [ ] **10. Start an external uptime monitor** with a public history page.
+- [x] **10. Start an external uptime monitor** with a public history page.
+  GitHub Actions; history on the `uptime` branch.
 
 ## Phase 3 — Prove it works (by 20 Nov)
 

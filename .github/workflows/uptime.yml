@@ -1,0 +1,49 @@
+name: uptime
+# External check: runs on GitHub, not Cloudflare. History is public on the uptime branch.
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: [.github/workflows/uptime.yml]
+
+permissions:
+  contents: write
+
+concurrency: uptime
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: uptime
+      - name: Record a check
+        run: |
+          base=https://por-attest.alnicewilliams3.workers.dev
+          now=$(date -u +%FT%TZ)
+          read -r health_code health_time < <(curl -s -m 20 -o /dev/null -w '%{http_code} %{time_total}\n' "$base/health" || echo "000 0")
+          read -r reserve_code reserve_time < <(curl -s -m 20 -o /dev/null -w '%{http_code} %{time_total}\n' "$base/reserve?asset=USDC" || echo "000 0")
+          echo "$now,$health_code,$health_time,$reserve_code,$reserve_time" >> history.csv
+          total=$(($(wc -l < history.csv) - 1))
+          up=$(awk -F, 'NR>1 && $2==200 && $4==200' history.csv | wc -l)
+          {
+            echo "# por-attest uptime"
+            echo
+            echo "Checked every 10 minutes or so from GitHub Actions. GitHub may delay scheduled runs."
+            echo
+            echo "- Checks: $total"
+            echo "- Both endpoints returned 200: $up"
+            echo "- Uptime: $(awk "BEGIN{printf \"%.2f\", $up*100/$total}")%"
+            echo "- First check: $(sed -n 2p history.csv | cut -d, -f1)"
+            echo "- Last check: $now"
+            echo
+            echo "Raw data: [history.csv](history.csv)"
+          } > README.md
+          git config user.name "uptime-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add history.csv README.md
+          git commit -m "check $now"
+          git push
