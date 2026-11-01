@@ -59,18 +59,19 @@ Work top to bottom. Each task lists what "done" means.
   A script-level "solvency check" agent: before accepting a token, it buys a reserve verdict through
   Telegraph's ranked routing and accepts or refuses. Run it with different assets on at least two UTC dates.
   Done: request and payment receipts saved, showing por-attest was the miner paid.
-- [ ] **13. 20 Nov showcase**: post the miner and the fixtures; offer them to Apps teams on those missions.
+- [ ] **13. 20 Nov showcase** (draft in `docs/showcase-post.md`): post the miner and the fixtures; offer them to Apps teams on those missions.
 
 ## Phase 4 — Submission (by 29 Nov)
 
-- [ ] **14. Demo video, 3 to 4 minutes** (outline below).
+- [x] **14. Demo video, 3 to 4 minutes** (outline below).
+  `docs/video/por-attest-demo.mp4`: captioned, no voice.
 - [ ] **15. Tutorial**: prerequisites; calling through Telegraph and directly; example request and full
   expected response with every field explained; running the fixtures; network used (Ethereum Sepolia
   settlement, mainnet chains for data); cost per call and floor price; limitations; credential handling.
 - [ ] **16. Evidence pack**: registrationId, request/receipt references, fixture report, load-test
   results, uptime history, ranking reference.
 - [ ] **17. Public summary** with one call to action: "Build on our reserve intents: here's the fixture."
-- [ ] **18. Submit** on the H2 website. Disclose the pre-hackathon code and the buyer app as ours.
+- [ ] **18. Submit** (answers in `docs/submission.md`) on the H2 website. Disclose the pre-hackathon code and the buyer app as ours.
 
 ---
 

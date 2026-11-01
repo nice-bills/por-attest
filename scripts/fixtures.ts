@@ -65,7 +65,9 @@ async function call(f: Fixture): Promise<{ status: number; body: any; ms: number
     const reply = await askTelegraphDirect(path, params);
     return { status: reply.status, body: reply.body?.result ?? reply.body, ms: Date.now() - started };
   }
-  const res = await fetch(`${target}${path}?${new URLSearchParams(params)}`);
+  const url = `${target}${path}?${new URLSearchParams(params)}`;
+  // One retry: a dropped connection here says nothing about the Worker.
+  const res = await fetch(url).catch(() => fetch(url));
   return { status: res.status, body: await res.json(), ms: Date.now() - started };
 }
 
