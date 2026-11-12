@@ -2,10 +2,10 @@
 
 Checked every 5 minutes from GitHub Actions. GitHub can leave gaps between runs.
 
-- Checks: 499
-- Both endpoints returned 200: 499
+- Checks: 500
+- Both endpoints returned 200: 500
 - Uptime: 100.00%
 - First check: 2026-11-01T05:08:14Z
-- Last check: 2026-11-12T04:08:03Z
+- Last check: 2026-11-12T04:13:05Z
 
 Raw data: [history.csv](history.csv)
